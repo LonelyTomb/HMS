@@ -3,8 +3,8 @@
         <nav class="navbar-extended">
             <div class="nav-wrapper row">
 
-                <a href="" class="valign-wrapper col m12 l5 flow-text">
-                    <h1 class="brand-logo valign left-align">Hospital Self-Service Portal</h1>
+                <a href="" class="valign col m12 l5 flow-text">
+                    <h1 class="brand-logo left-align">Hospital Self-Service Portal</h1>
                 </a>
                 <p class="valign right-align col m12 l4">
                         You are logged in as

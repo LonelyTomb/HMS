@@ -1,0 +1,57 @@
+@import "materialize";
+body {
+    font: {
+        size: 100%;
+    }
+}
+
+.clearfix {
+    clear: both;
+}
+
+.logstatus {
+    margin: {
+        right: 3%;
+    }
+}
+
+nav {
+    height: auto !important;
+}
+
+@media #{$medium-and-down} {
+    .nav-wrapper p {
+        margin-top: 47px;
+    }
+}
+
+.form_div {
+    h3 {
+        color: color("pink", "lighten-2");
+        font: {
+            weight: 500;
+            size: 2rem;
+        }
+        padding: {
+            left: 0.75rem;
+        }
+    }
+    &>div {
+        float: none !important;
+        margin: {
+            right: auto;
+        }
+    }
+}
+
+footer {
+    margin: {
+        bottom: 0 !important;
+    }
+    &>div p {
+        display: inline-block;
+        font: {
+            size: 1.1em;
+        }
+    }
+}
