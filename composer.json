@@ -1,0 +1,16 @@
+{
+    "autoload": {
+        "classmap": [
+            "Processor",
+            "Database"
+        ],
+        "psr-4": {
+            "HMS\\Database\\": "Database",
+            "HMS\\Processor\\": "Processor"
+        }
+    },
+    "require": {},
+    "config": {
+        "optimize-autoloader": true
+    }
+}

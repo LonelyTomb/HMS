@@ -1,36 +1,47 @@
-@import "materialize";
+@import 'materialize';
 body {
-    font: {
-        size: 100%;
-    }
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-size: 100%;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 .clearfix {
     clear: both;
 }
 
-.logstatus {
-    margin: {
-        right: 3%;
-    }
-}
-
+// .logstatus {
+//     margin: {
+//         right: 3%;
+//     }
+// }
 nav {
     height: auto !important;
-}
-
-@media #{$medium-and-down} {
-    .nav-wrapper p {
-        margin-top: 47px;
+    // position: absolute;
+    .nav-content {
+        &>div {
+            margin: {
+                bottom: 0;
+            }
+        }
     }
 }
 
+// @media #{$medium-and-down} {
+//     .nav-wrapper p {
+//         margin-top: 47px;
+//     }
+// }
 .form_div {
     h3 {
-        color: color("pink", "lighten-2");
+        color: color('pink', 'lighten-2');
         font: {
-            weight: 500;
             size: 2rem;
+            weight: 500;
         }
         padding: {
             left: 0.75rem;
@@ -42,16 +53,7 @@ nav {
             right: auto;
         }
     }
-}
-
-footer {
-    margin: {
-        bottom: 0 !important;
-    }
-    &>div p {
-        display: inline-block;
-        font: {
-            size: 1.1em;
-        }
+    input {
+        padding-left: 5px;
     }
 }
