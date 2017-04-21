@@ -1,9 +1,9 @@
 <?php
 
-require __DIR__."/vendor/autoload.php";
+require "vendor/autoload.php";
 
 use HMS\Database\Database;
-use HMS\Modules\Jasonify;
+use HMS\Processor\Jasonify;
 
 $a = new Database();
 try{

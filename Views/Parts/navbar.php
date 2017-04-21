@@ -1,9 +1,13 @@
+<?php
+use HMS\Processor\Site;
+?>
+
 <nav class="navbar-extended">
         <div class="nav-wrapper">
             <div class="row valign-wrapper">
                 <div class="col m9">
 
-                    <p class="brand-logo"><a href="">Hospital Self-Service Portal </a></p>
+                    <p class="brand-logo"><a href="<?php echo Site::getRoot();?>index.php">Hospital Self-Service Portal </a></p>
                     <small class="">
                         You are logged in as Victory
                     </small>

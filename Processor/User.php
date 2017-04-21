@@ -1,6 +1,9 @@
 <?php
 
-namespace HMS\Modules;
+namespace HMS\Processor;
+
+use HMS\Processor\Sessions;
+use HMS\Database\Database;
 
 class User extends Database
 {
@@ -11,7 +14,6 @@ class User extends Database
      * @return void
      */
 public static function  signOut(){
-    unset($_SESSION);
-    session_destroy();
+    Sessions::destroy();
 }
 }

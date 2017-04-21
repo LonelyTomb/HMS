@@ -1,6 +1,6 @@
 <?php
 
-namespace HMS\Modules;
+namespace HMS\Processor;
 
 /**
  * Am easy to use Html Email Class.

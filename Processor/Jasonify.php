@@ -1,6 +1,6 @@
 <?php
 
-namespace HMS\Modules;
+namespace HMS\Processor;
 
 Class Jasonify
 {
