@@ -4,6 +4,7 @@ namespace HMS;
 require "vendor/autoload.php";
 
 use HMS\Processor\Site;
+
 ?>
 
 <!DOCTYPE html>

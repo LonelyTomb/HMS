@@ -13,7 +13,10 @@ class Site
      * @return void
      */
     public static function setRoot(){
-        self::$root = "http://".$_SERVER['SERVER_NAME']."/labs/HMS/";
+        self::$root = "http://".$_SERVER['SERVER_NAME'];
+        if($_SERVER['SERVER_PORT'] != "80")
+            self::$root .= $_SERVER['SERVER_PORT'];
+        self::$root.="/labs/HMS/";
     }
     /**
      * Gets absolute http address

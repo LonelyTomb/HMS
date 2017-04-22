@@ -23,7 +23,11 @@ Class Sessions
         session_start();
         session_regenerate_id(true);
     }
-
+    /**
+     * Destroy Session
+     *
+     * @return void
+     */
     public static function destroy()
     {
         unset($_SESSION);

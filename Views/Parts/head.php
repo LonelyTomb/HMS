@@ -7,3 +7,5 @@ use \HMS\Processor\Site;
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="<?php echo Site::getRoot();?>fonts/iconfont/material-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo Site::getRoot();?>css/app.css">
+    <script src="<?php echo Site::getRoot();?>js/jquery.min.js "></script>
+    <script src="<?php echo Site::getRoot();?>js/materialize.min.js "></script>

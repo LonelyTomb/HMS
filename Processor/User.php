@@ -7,7 +7,12 @@ use HMS\Database\Database;
 
 class User extends Database
 {
-
+    public function __construct(){
+        parent::__construct();
+    }
+    public function getA(){
+        return $this->db->get("patients","*",["id"=>1]);
+    }
     /**
      * Logs Out User
      *

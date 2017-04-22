@@ -4,7 +4,6 @@ namespace HMS\Database;
 
 use HMS\Database\Config;
 use HMS\Database\Medoo;
-use PDO;
 
 class Database extends Config
 {
@@ -12,7 +11,7 @@ class Database extends Config
     public function __construct()
     {
         try{
-            $this->database = new Medoo(
+            $this->db = new Medoo(
                 [
                     'database_type' => 'mysql',
                     'database_name' => $this->db_params['DB_NAME'],
@@ -25,5 +24,6 @@ class Database extends Config
         }catch(PDOException $e){
             echo $e->getMessage();
         }
+        return $this;
     }
 }
