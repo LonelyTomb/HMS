@@ -29,12 +29,16 @@ class Input
      * @param string $item
      * @return void
      */
-    public static function get($item){
-        if(isset($_POST[$item]))
-            return $_POST[$item];
-        else if(isset($_GET[$item]))
-            return $_GET[$item];
-        else
-            return '';
+    public static function catch(string $item){
+        return $_POST['$item'] ?? $_GET['$item'] ?? '';
+    }
+    /**
+     * Checks if a variable exists in $_GET array
+     *
+     * @param string $item
+     * @return bool
+     */
+    public static function getExists(string $item):bool{
+        return isset($_GET[$item]) ? TRUE : FALSE;
     }
 }

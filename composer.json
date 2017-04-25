@@ -1,13 +1,35 @@
 {
+    "name":"HMS",
+    "description":"Hospital Management System",
+    "authors": [{
+            "name": "Victory Garuba",
+            "email": "garubav@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Odey Merrygold",
+            "email": "merrymcx@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "classmap": [
+            "Database",
             "Processor",
-            "Database"
+            "Modules",
+            "Modules/Admin",
+            "Modules/Doctor",
+            "Modules/Patient"
         ],
         "psr-4": {
+            "HMS\\Processor\\": "Processor",
             "HMS\\Database\\": "Database",
-            "HMS\\Processor\\": "Processor"
-        }
+            "HMS\\Modules\\": "Modules",
+            "HMS\\Modules\\Admin\\": "Modules/Admin",
+            "HMS\\Modules\\Doctor\\": "Modules/Doctor",
+            "HMS\\Modules\\Patient\\": "Modules/Patient"
+        },
+        "files": ["Processor/Processor.php"]
     },
     "require": {},
     "config": {

@@ -3,86 +3,180 @@
 namespace HMS\Processor;
 
 use HMS\Database\Database;
+use HMS\Processor\Functions;
 
 class Validator extends Database
 {
-    private $passed = false,
-            $errors = array();
+	private $valid = TRUE,$status=TRUE,
+	            $errors = array();
 
-    public function __construct(){
-        parent::__construct();
-    }
-    /**
-     * Validate Given Post or Get Array
-     *
-     * @param array $source
-     * @param array $items
-     * @return void
-     */
-    public function validate(array $source, array $items=array()){
-        foreach($items as $item => $rules){
-            foreach($rules as $rule => $rule_value){
-                 $value = trim($source[$item]);
+	public function __construct(){
+		parent::__construct();
+	}
 
-                if($rule === 'required' && empty($value)){
-                    $this->setErrors($item,"{$item} is required.");
-                } else if(!empty($value)){
-                    switch($rule){
-                        case 'min':
-                            if(strlen($value) < $rule_value){
-                                $this->setErrors($item,"{$item} must be a minimum of {$rule_value} characters");
-                            }
-                        break;
+	/**
+	* Validate Given Post or Get Array
+	     *
+	     * @param array $source
+	     * @param array $rules
+	     * @return void
+	     */
+	    public function validate(array $source, array $rules=array()){
 
-                        case 'max':
-                            if(strlen($value) > $rule_value){
-                                $this->setErrors($item,"{$item} must be a maximum of {$rule_value} characters");
-                            }
-                        break;
+		foreach($rules as $fieldname => $rule){
+			$callbacks = explode('|',$rule);
 
-                        case 'matches':
-                            if($value != $source["$rule_value"]){
-                                $this->setErrors($item,"{$rule_value} must match {$item}");
-                            }
-                        break;
+			foreach($callbacks as $callback){
+				$value = Functions::escape($source[$fieldname]);
+				$param = '';
+				if(strpos($callback,":")){
+					$temp = explode(":",$callback);
+					$callback =  current($temp);
+					$param =  next($temp);
+				}
+				if($this->$callback($value,$fieldname,$param) === FALSE) $this->setStatus(FALSE);
+			}
+		}
+		return $this->getStatus();
+	}
 
-                        case 'password':
-                        break;
+	/**
+	* Set valid variable to true/false
+	     *
+	     * @param bool $valid
+	     * @return void
+	     */
+	    private function setStatus(bool $status){
+		$this->status = $status;
+	}
 
-                        case 'unique':
-                            if($this->db->has("$rule_value",["$item"=>"$value"])){
-                                $this->setErrors($item,"{$item} already exists.");
-                            }
-                        break;
+	/**
+	* Get valid variable
+	     *
+	     * @return void
+	     */
+	    public function getStatus(){
+		return $this->status;
+	}
 
-                        case 'min':
-                        break;
-                    }
-                }
-            }
-        }
+	/**
+	* Add Form variable error to error array;
+	*
+	     * @param string $item
+	     * @param string $error
+	     * @return void
+	     */
+	    private function setErrors(string $item,string $error){
+		$this->errors[] = array($item=>$error);
+	}
 
-        if(empty($this->getErrors())){
-            $this->setPassed(true);
-        }
-        return $this;
-    }
-    /**
-     * Set passed variable to true/false
-     *
-     * @param bool $passed
-     * @return void
-     */
-    private function setPassed(bool $passed){
-        $this->passed = $passed;
-    }
-    /**
-     * Get passed variable
-     *
-     * @return void
-     */
-    public function getPassed(){
-        return $this->passed;
-    }
+	/**
+	* Get errors array
+	     *
+	     * @return void
+	     */
+	    public function getErrors(){
+		return $this->errors;
+	}
+
+	/**
+	* Get Rule Value
+	     *
+	     * @param string $delimiter
+	     * @param string $fieldname
+	     * @return string
+	     */
+	    private function getRuleValue(string $delimiter,string $fieldname){
+		$param = explode($delimiter,$fieldname);
+		return end($param);
+	}
+
+	/**
+	* Validate Username
+	     *
+	     * @param string $value
+	     * @param string $fieldname
+	     * @param string $param
+	     * @return bool
+	     */
+	    private function required(string $value,string $fieldname,string $param):bool{
+		$this->valid = !empty($value);
+		if($this->valid == FALSE) $this->setErrors($fieldname,"The {$fieldname} is required");
+		return $this->valid;
+	}
+
+	/**
+	* Validate Email
+	     *
+	     * @param string $value
+	     * @param string $fieldname
+	     * @param string $param
+	     * @return bool
+	     */
+	    private function email(string $value,string $fieldname,string $param):bool{
+		$this->valid = filter_var($value,FILTER_VALIDATE_EMAIL);
+		if($this->valid == FALSE) $this->setErrors($fieldname,"The {$fieldname} has to be valid");
+		return $this->valid;
+	}
+
+	/**
+	* Check if input is greater than minimum
+	     *
+	     * @param string $value
+	     * @param string $fieldname
+	     * @param string $param
+	     * @return bool
+	     */
+	    private function min(string $value,string $fieldname,string $param):bool{
+		$this->valid = (strlen($value) >= $param);
+		if($this->valid == FALSE) $this->setErrors($fieldname,"The {$fieldname} has to a minimum of {$param}");
+		return $this->valid;
+	}
+
+	/**
+	* Check if input is less than maximum
+	     *
+	     * @param string $value
+	     * @param string $fieldname
+	     * @param string $param
+	     * @return bool
+	     */
+	    private function max(string $value,string $fieldname,string $param):bool{
+		$this->valid = (strlen($value) > $param);
+		if($this->valid == FALSE) $this->setErrors($fieldname,"The {$fieldname} has to a maximum of {$param}");
+		return $this->valid;
+	}
+
+	/**
+	* Check if input matches
+	     *
+	     * @param string $value
+	     * @param string $fieldname
+	     * @param string $param
+	     * @return bool
+	     */
+	    private function match(string $value,string $fieldname,string $param):bool{
+		$this->valid = ($value === $param);
+		if($this->valid == FALSE) $this->setErrors($fieldname,"The {$fieldname} does not match {$param}");
+		return $this->valid;
+	}
+
+	/**
+	* Check if input unique
+	     *
+	     * @param string $value
+	     * @param string $fieldname
+	     * @param string $param
+	     * @return bool
+	     */
+	    private function unique(string $value,string $fieldname, string $param):bool{
+		$dbParams = explode(".",$param);
+		$table = $dbParams[0];
+		$column = $dbParams[1];
+		$this->valid = !($this->db->get("$table","*",["$column"=>"$value"])) ? TRUE : FALSE;
+		// var_dump($this->valid);
+		if($this->valid === FALSE) $this->setErrors($fieldname,"The {$fieldname} already exists");
+		return $this->valid;
+	}
 
 }

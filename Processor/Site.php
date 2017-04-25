@@ -7,16 +7,14 @@ class Site
     public static $title;
     public static $absPath;
     public static $root;
+    public static $customPath = CONFIG['customPath'];
     /**
      * Set absolute http address
      *
      * @return void
      */
     public static function setRoot(){
-        self::$root = "http://".$_SERVER['SERVER_NAME'];
-        if($_SERVER['SERVER_PORT'] != "80")
-            self::$root .= $_SERVER['SERVER_PORT'];
-        self::$root.="/labs/HMS/";
+        self::$root = "http://".$_SERVER['HTTP_HOST'].self::$customPath;
     }
     /**
      * Gets absolute http address
@@ -33,7 +31,7 @@ class Site
      * @return void
      */
     public static function setAbsPath(){
-        self::$absPath = $_SERVER['DOCUMENT_ROOT']."/labs/HMS/";
+        self::$absPath = $_SERVER['DOCUMENT_ROOT'].self::$customPath;
     }
     /**
      * Gets Absolute Server path
@@ -51,7 +49,7 @@ class Site
      * @return void
      */
     public static function reqAbs(string $path){
-        require self::getAbsPath().$path;
+        require self::getAbsPath()."/".$path;
     }
     /**
      * Sets Page Title

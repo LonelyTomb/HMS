@@ -14,20 +14,23 @@ main {
     clear: both;
 }
 
-// .logstatus {
-//     margin: {
-//         right: 3%;
-//     }
-// }
 nav {
     height: auto !important;
-    // position: absolute;
     .nav-content {
         &>div {
             margin: {
                 bottom: 0;
             }
         }
+    }
+}
+
+main .sideBar {
+    position: relative !important;
+    transform: translateX(0) !important;
+    @media only screen and (max-width: 450px) {
+        width: 100%;
+        text-align: center;
     }
 }
 
