@@ -10,24 +10,20 @@ use HMS\Modules\Patient\Patient;
 if(Input::exists()){
 	$validator = new Validator();
     $rules = array(
-        'username'=>'required|min:4|unique:Users.username',
-        'password'=>'required|min:4',
         'surname'=>'required',
         'otherNames'=>'required|min:4',
-        'email'=>'required|min:4',
-        'phoneNumber'=>'required|min:4',
-        'Address'=>'required|min:4'
+        'email'=>'required|min:4|unique:patients.email',
+        'phoneNumber'=>'required',
+        'address'=>'required|min:4'
     );
     if($validator->validate($_POST,$rules)){
-        $username = Functions::escape($_POST['username']);
-        $password = Functions::escape($_POST['password']);
         $surname = Functions::escape($_POST['surname']);
         $otherNames = Functions::escape($_POST['otherNames']);
         $email = Functions::escape($_POST['email']);
         $phoneNumber = Functions::escape($_POST['phoneNumber']);
         $address = Functions::escape($_POST['address']);
-        $doctor = new Doctor($username,$password,$surname,$otherNames,$email,$phoneNumber,$address);
-        $doctor->createPatient();
+        $patient = new Patient($surname,$otherNames,$address,$phoneNumber,$email);
+        $patient->createPatient();
     }else{
         $error = $validator->getErrors();
         var_dump($error);
@@ -41,20 +37,7 @@ if(Input::exists()){
         <div class="card z-depth-3">
             <div class="card-content">
                 <form action="" class="" method="POST">
-                    <h3 class="flow-text left-align ">CREATE PATIENT</h3>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" id="username" class="validate" name="username" value="<?php echo Input::catch('username');
-?>" required>
-                            <label for="username">Username</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col s12 input-field">
-                            <input type="password" id="password" class="validate" name="password" required>
-                            <label for="Password">Password</label>
-                        </div>
-                    </div>
+                    <h3 class="flow-text left-align">CREATE PATIENT</h3>
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" id="surname" class="validate" name="surname" value="<?php echo Input::catch('surname');
@@ -85,8 +68,8 @@ if(Input::exists()){
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" id="address" class="validate" name="specialization" value="<?php echo Input::catch('address');
-?>" required>
+                            <textarea rows="" cols="" id="address" class="validate materialize-textarea" name="address" value="<?php echo Input::catch('address');
+?>" required></textarea>
                             <label for="address">Address</label>
                         </div>
                     </div>

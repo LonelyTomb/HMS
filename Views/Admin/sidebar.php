@@ -11,8 +11,9 @@ use HMS\Processor\Site;
                     <div class="collapsible-body">
                         <ul>
                             <li><a href="?createAdmin">Admin</a></li>
-                            <li><a href="<?php echo Site::getRoot();?>">Patient</a></li>
-                            <li><a href="<?php echo Site::getRoot();?>">Doctor</a></li>
+                            <li><a href="?createPatient">Patient</a></li>
+                            <li><a href="?createDoctor">Doctor</a></li>
+                            <li><a href="?createSpecialist">Specialist</a></li>
                         </ul>
                     </div>
                 </li>

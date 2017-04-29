@@ -7,23 +7,24 @@ use HMS\Processor\{
 }
 ;
 
-class Doctor extends User{
-	protected $doctorId;
+class Specialist extends User{
+	protected $specialistId;
 	protected $daysAvailable;
 	/**
 	 * Doctor Constructor
 	 *
 	 * @param string $surname
 	 * @param string $otherNames
+	 * @param string $address
 	 * @param string $phoneNumber
 	 * @param string $email
 	 * @param string $daysAvailable
 	 */
     public function __construct(string $surname,string $otherNames,string $phoneNumber,string $email,string $daysAvailable){
-		parent::setType('Doctor');
+		parent::setType('Specialist');
 		parent::__construct('',$surname,parent::getType());
-		parent::setUserId('doctors','DOC');
-		parent::setPassword($surname);
+        parent::setUserId('specialists','SPE');
+        parent::setPassword($surname);
 		parent::setSurname($surname);
 		parent::setOtherNames($otherNames);
 		parent::setPhoneNumber($phoneNumber);
@@ -31,19 +32,19 @@ class Doctor extends User{
 		$this->daysAvailable = $daysAvailable;
 	}
 	/**
-	 * Creates Doctor
+	 * Creates Specialist
 	 *
 	 * @return void
 	 */
-	public function createDoctor(){
+	public function createSpecialist(){
 		$this->db->insert("users",[
 				            "username"=>parent::getUserId(),
 				            "password"=>parent::getPassword(),
 				            "type"=>$this->getType()
 				            ]
 				            );
-		$this->db->insert('doctors',[
-							"DoctorId"=>parent::getUserId(),
+		$this->db->insert('specialists',[
+							"SpecialistId"=>parent::getUserId(),
 							"Surname"=>parent::getSurname(),
 							"OtherNames"=>parent::getOtherNames(),
 							"PhoneNumber"=>parent::getPhoneNumber(),

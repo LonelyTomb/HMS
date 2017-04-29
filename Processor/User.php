@@ -7,6 +7,7 @@ use HMS\Database\Database;
 class User extends Database
 {
 	protected $username;
+	protected $userId;
 	protected $type;
 	protected $password;
 	protected $surname;
@@ -21,13 +22,32 @@ class User extends Database
 	     * @param string $type
 	     * @param string $password
 	     */
-	    public function __construct(string $username,string $password, string $type){
+	    public function __construct(string $username='',string $password, string $type){
 		parent::__construct();
         $this->setUsername($username);
         $this->setPassword($password);
         $this->setType($type);
 	}
-
+	/**
+	 * generate User id
+	 *
+	 * @param string $table
+	 * @param string $prefix
+	 * @return void
+	 */
+	public function setUserId(string $table, string $prefix){
+		$id = sprintf('%03d',$this->db->max("$table", "id") + 1);
+		$year = Time::setDateTime(null,'y');;
+		$this->userId = "$prefix/".$year.'-'.$id;
+	}
+	/**
+	 * Get User Id
+	 *
+	 * @return string
+	 */
+	public function getUserId():string{
+		return $this->userId;
+	}
 	/**
 	* Sets username
 	     *
@@ -119,7 +139,7 @@ class User extends Database
 	     * @return string
 	     */
 	    public function getOtherNames():string{
-		return $this->type;
+		return $this->otherNames;
 	}
 
 /**
@@ -157,6 +177,11 @@ class User extends Database
 	     */
 	    public function getEmail():string{
 		return $this->email;
+	}
+	public function test(){
+		// $max = $this->db->max("patients", "id") + 1;
+		$max = sprintf('%03d',$this->db->max("patients", "id") + 1);
+		echo($max);
 	}
 
 }

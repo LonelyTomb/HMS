@@ -7,7 +7,8 @@ use HMS\Processor\{
 }
 ;
 
-class Admin extends User{
+class Patient extends User{
+	protected $patientId;
 	protected $address;
 	/**
 	 * Patient Constructor
@@ -20,9 +21,11 @@ class Admin extends User{
 	 * @param string $phoneNumber
 	 * @param string $email
 	 */
-	public function __construct(string $username,string $password,string $surname,string $otherNames,string $address,string $phoneNumber,string $email){
+	public function __construct(string $surname,string $otherNames,string $address,string $phoneNumber,string $email){
 		parent::setType('Patient');
-		parent::__construct($username,$password,parent::getType());
+		parent::__construct('',$surname,parent::getType());
+		parent::setUserId('patients','PAT');
+		parent::setPassword($surname);
 		parent::setSurname($surname);
 		parent::setOtherNames($otherNames);
 		$this->setAddress($address);
@@ -35,17 +38,20 @@ class Admin extends User{
 	 * @return void
 	 */
 	public function createPatient(){
-		$this->db->insert("Users",[
-				            "username"=>$this->getUsername(),
-				            "password"=>$this->getPassword(),
-				            "type"=>$this->getType(),
+		$this->db->insert("users",[
+				            "username"=>parent::getUserId(),
+				            "password"=>parent::getPassword(),
+				            "type"=>$this->getType()
+				            ]
+				            );
+		$this->db->insert("patients",[
+							"PatientId"=>parent::getUserId(),
 							"Surname"=>parent::getSurname(),
 							"OtherNames"=>parent::getOtherNames(),
 							"Address"=>$this->getAddress(),
 							"PhoneNumber"=>parent::getPhoneNumber(),
 							"Email"=>parent::getEmail()
-				            ]
-				            );
+		]);
         return $this;
 	}
 	/**

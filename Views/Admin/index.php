@@ -30,6 +30,9 @@ Sessions::init();
             elseif(Input::getExists('createDoctor')){
                 Site::reqAbs('Forms/doctor/createDoctor.php');
             }
+            elseif(Input::getExists('createSpecialist')){
+                Site::reqAbs('Forms/doctor/createSpecialist.php');
+            }
             elseif(Input::getExists('createPatient')){
                 Site::reqAbs('Forms/patient/createPatient.php');
             }

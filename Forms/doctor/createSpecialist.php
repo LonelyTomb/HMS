@@ -4,7 +4,7 @@ namespace HMS\Forms\doctor;
 use HMS\Processor\{
 	Input,Validator,Functions,Jasonify
 };
-use HMS\Modules\Doctor\Doctor;
+use HMS\Modules\Doctor\Specialist;
 ;
 
 if(Input::exists()){
@@ -12,7 +12,7 @@ if(Input::exists()){
     $rules = array(
         'surname'=>'required|min:4',
         'otherNames'=>'required|min:4',
-        'email'=>'required|min:4|unique:doctors.email',
+        'email'=>'required|min:4|unique:specialists.email',
         'phoneNumber'=>'required|min:4'
     );
     if($validator->validate($_POST,$rules)){
@@ -21,8 +21,8 @@ if(Input::exists()){
         $email = Functions::escape($_POST['email']);
         $phoneNumber = Functions::escape($_POST['phoneNumber']);
         $daysAvailable = Jasonify::toJson($_POST['daysAvailable']);
-        $doctor = new Doctor($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
-        $doctor->createDoctor();
+        $specialist = new Specialist($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
+        $specialist->createSpecialist();
     }else{
         $error = $validator->getErrors();
         var_dump($error);
@@ -36,7 +36,7 @@ if(Input::exists()){
         <div class="card z-depth-3">
             <div class="card-content">
                 <form action="" class="" method="POST">
-                    <h3 class="flow-text left-align ">CREATE DOCTOR</h3>
+                    <h3 class="flow-text left-align ">CREATE SPECIALIST</h3>
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" id="surname" class="validate" name="surname" value="<?php echo Input::catch('surname');
