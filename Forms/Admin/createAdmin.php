@@ -10,7 +10,7 @@ use HMS\Modules\Admin\Admin;
 if(Input::exists()){
 	$validator = new Validator();
     $rules = array(
-        'username'=>'required|min:4|unique:Users.username',
+        'username'=>'required|min:4|unique:users.username',
         'password'=>'required|min:4'
     );
     if($validator->validate($_POST,$rules)){

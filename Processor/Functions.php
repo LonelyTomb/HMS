@@ -1,6 +1,7 @@
 <?php
 
 namespace HMS\Processor;
+use HMS\Processor\Site;
 
 class Functions {
     /**
@@ -22,6 +23,7 @@ class Functions {
      * @return void
      */
     public static function redirect(string $path){
+        $path = Site::getRoot().$path;
         header("location: $path");
         exit;
     }

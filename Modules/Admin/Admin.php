@@ -13,7 +13,7 @@ class Admin extends User{
 		parent::__construct( $username,$password,parent::getType());
 	}
 	public function createAdmin(){
-		$this->db->insert("Users",[
+		$this->db->insert("users",[
 				            "username"=>$this->getUsername(),
 				            "password"=>$this->getPassword(),
 				            "type"=>$this->getType()

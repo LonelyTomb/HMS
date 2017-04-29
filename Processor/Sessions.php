@@ -37,5 +37,18 @@ Class Sessions
         session_unset();
         session_destroy();
     }
+    /**
+     * Checks if $_SESSION variable exists
+     *
+     * @param string $item
+     * @return bool
+     */
+    public static function exists(string $item):bool{
+        if(isset($_SESSION[$item])){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
