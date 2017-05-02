@@ -2,6 +2,7 @@
 
 namespace HMS\Processor;
 
+use HMS\Processor\Functions;
 Class Sessions
 {
     /**
@@ -48,6 +49,23 @@ Class Sessions
             return true;
         }else{
             return false;
+        }
+    }
+    /**
+     * Get item from sessions
+     *
+     * @param string $items
+     * @return void
+     */
+    public static function get(string $items){
+        $items = explode('/',$items);
+        if(count($items) == 1){
+            if(isset($_SESSION[end($items)])) return false;
+        }else{
+            foreach($items as $item){
+                $result = Functions::get($_SESSION,$item);
+            }
+            return $result;
         }
     }
 

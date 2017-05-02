@@ -1,5 +1,5 @@
 <?php
-use HMS\Processor\Site;
+use HMS\Processor\{Site,Sessions};
 ?>
 
     <div class="nav-wrapper">
@@ -8,12 +8,15 @@ use HMS\Processor\Site;
 
                 <p class="brand-logo"><a href="<?php echo Site::getRoot();?>index.php">Hospital Self-Service Portal </a></p>
                 <small class="">
-                        You are logged in as Victory
+                <?php
+                if(Sessions::exists('loggedIn'))    echo "You are logged in as ".Sessions::get('user/username');
+                else echo 'Please log in.';
+                ?>
                     </small>
 
             </div>
             <div class="col m3 valign hide-on-med-and-down">
-                <a href="" class="waves-effect waves-light btn  right logstatus">Log in</a>
+            <?php if(Sessions::exists('loggedIn')) echo '<a href="?logOut" class="waves-effect materialize-red waves-light btn  right logstatus">Log out</a>';?>
             </div>
         </div>
     </div>

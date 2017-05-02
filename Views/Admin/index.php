@@ -4,9 +4,11 @@ namespace HMS\Views\Admin;
 require '../../vendor/autoload.php';
 
 
-use HMS\Processor\{Site,Sessions,Input,Functions};
+use HMS\Processor\{Auth,Site,Sessions,Input,Functions};
 
-Sessions::init();
+// Sessions::init();
+Auth::confirmLogin();
+Auth::confirmType('Admin');
 ?>
     <!DOCTYPE html>
     <html lang="en">

@@ -3,10 +3,11 @@ namespace HMS\Views;
 
 require "../../vendor/autoload.php";
 
-use HMS\Processor\Site;
-use HMS\Processor\Sessions;
+use HMS\Processor\{Site,Sessions,Auth};
 
-Sessions::init();
+// Sessions::init();
+Auth::confirmLogin();
+Auth::confirmType('Doctor');
 ?>
 
 <!DOCTYPE html>

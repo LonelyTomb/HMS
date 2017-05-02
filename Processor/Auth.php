@@ -37,15 +37,9 @@ class Auth extends Database{
 				$_SESSION['loggedIn'] = true;
 				$_SESSION['user']['username'] = $user['username'];
 				$_SESSION['user']['type'] = $user['type'];
-				if($user['type'] == 'Admin'){
-					Functions::redirect('Views/Admin/');
-				}elseif($user['type'] == 'Patient'){
-					Functions::redirect('Views/Patient/');
-				}elseif($user['type'] == 'Doctor' || $user['type'] == 'Specialist'){
-					Functions::redirect('Views/Doctor/');
-				}
+				self::redirectUser(Sessions::get('user/type'));
 			}else{
-			echo "Incorrect Password";
+			Functions::toast("Incorrect Login Details");
 			}
 		}
 		return $this;
@@ -59,11 +53,11 @@ class Auth extends Database{
 				 * @param string $path
 				 * @return void
 				 */
-			    public static function  logOut(string $key,string $path='index.php'){
-		if(Input::catch($key) !== ""){
-			Sessions::destroy();
-		}
-		Functions::redirect($path);
+			    public static function  logOut(string $key='logOut',string $path='index.php'){
+					if(Input::getExists('logOut')){
+						Sessions::destroy();
+						Functions::redirect($path);
+						}
 	}
 
 	/**
@@ -85,6 +79,21 @@ class Auth extends Database{
 	public static function confirmType(string $type){
 		if($_SESSION['user']['type'] !== $type){
 			Functions::redirect('index.php');
+		}
+	}
+	/**
+	 * Redirect user to given path
+	 *
+	 * @param string $user
+	 * @return void
+	 */
+	public static function redirectUser(string $user){
+		if($user == 'Admin'){
+			Functions::redirect('Views/Admin/');
+		}elseif($user == 'Patient'){
+			Functions::redirect('Views/Patient/');
+		}elseif($user == 'Doctor' || $user['type'] == 'Specialist'){
+			Functions::redirect('Views/Doctor/');
 		}
 	}
 }

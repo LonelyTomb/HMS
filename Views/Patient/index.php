@@ -1,23 +1,30 @@
 <?php
-require "vendor/autoload.php";
-?>
+namespace HMS\Views;
 
-<?php require "vendor/autoload.php";?>
+require "../../vendor/autoload.php";
+
+use HMS\Processor\{Site,Sessions,Auth};
+
+// Sessions::init();
+Auth::confirmLogin();
+Auth::confirmType('Patient');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php $title = "Doctor";require 'Views/Parts/head.php';?>
+<?php Site::pageTitle("Patient");Site::reqAbs('Views/Parts/head.php');?>
 </head>
-<?php require 'Views/Parts/header.php' ;?>
+<body>
+    <header>
+<?php Site::reqAbs('Views/Parts/publicNav.php');?>
+    </header>
 <main>
 
 </main>
 
-<?php require 'Views/Parts/footer.php' ;?>
-
-<body>
+<?php Site::reqAbs('Views/Parts/footer.php');?>
 
 </body>
 

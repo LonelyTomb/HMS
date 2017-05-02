@@ -8,7 +8,7 @@ use HMS\Processor\{
 }
 ;
 
-Sessions::init();
+// Sessions::init();
 ?>
 
 <!DOCTYPE html>
