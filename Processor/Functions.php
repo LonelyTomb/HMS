@@ -42,6 +42,13 @@ class Functions {
         }
         return false;
     }
+    /**
+     *  PHP Materialize error toast function
+     *
+     * @param string $item
+     * @param int $time
+     * @return void
+     */
     public static function toast(string $item,int $time=4000){
         echo "<script>Materialize.toast('{$item}',{$time})</script>";
     }

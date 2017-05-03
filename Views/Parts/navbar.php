@@ -1,7 +1,7 @@
 <?php
 use HMS\Processor\{Site,Sessions};
 ?>
-
+<nav class="navbar-extended">
     <div class="nav-wrapper">
         <div class="row valign-wrapper">
             <div class="col m9">
@@ -20,3 +20,9 @@ use HMS\Processor\{Site,Sessions};
             </div>
         </div>
     </div>
+    <?php
+        if(Sessions::exists('loggedIn') && Sessions::get('user/type') !== 'Admin'){
+            require 'nav-content.php';
+        }
+    ?>
+    </nav>

@@ -1,19 +1,17 @@
-<nav class="navbar-extended">
-    <?php require 'navbar.php';?>
-    <div class="nav-content">
+<div class="nav-content brown">
         <div class="row">
             <a href="#" data-activates="mobile-nav" class="button-collapse ">
                 <i class="material-icons">menu</i>
             </a>
             <ul class="hide-on-med-and-down left">
                 <li>
-                    <a href="#"><i class="material-icons left">home</i>Home</a>
+                    <a href=""><i class="material-icons left">home</i>Home</a>
                 </li>
                 <!--<li>
                         <a href="#"><i class="material-icons left">thumb_up</i>Authorization</a>
                     </li>-->
                 <li>
-                    <a href="#"><i class="material-icons left">today</i>Appointment</a>
+                    <a href="?appointment"><i class="material-icons left">today</i>Appointment</a>
                 </li>
                 <li>
                     <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>
@@ -49,5 +47,3 @@
         </li>
 
     </ul>
-
-</nav>

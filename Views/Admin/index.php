@@ -19,7 +19,7 @@ Auth::confirmType('Admin');
 
     <body>
         <header>
-            <?php Site::reqAbs('Views/Parts/adminNav.php');?>
+            <?php Site::reqAbs('Views/Parts/navbar.php');?>
         </header>
         <main>
             <div class="row">

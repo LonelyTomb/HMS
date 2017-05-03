@@ -2,7 +2,7 @@
 namespace HMS\Forms\patient;
 
 use HMS\Processor\{
-	Input,Validator,Functions
+	Input,Validator,Functions,Errors
 };
 use HMS\Modules\Patient\Patient;
 ;
@@ -17,16 +17,16 @@ if(Input::exists()){
         'address'=>'required|min:4'
     );
     if($validator->validate($_POST,$rules)){
-        $surname = Functions::escape($_POST['surname']);
-        $otherNames = Functions::escape($_POST['otherNames']);
-        $email = Functions::escape($_POST['email']);
-        $phoneNumber = Functions::escape($_POST['phoneNumber']);
-        $address = Functions::escape($_POST['address']);
+        $surname = Functions::escape(Input::catch('surname'));
+        $otherNames = Functions::escape(Input::catch('otherNames'));
+        $email = Functions::escape(Input::catch('email'));
+        $phoneNumber = Functions::escape(Input::catch('phoneNumber'));
+        $address = Functions::escape(Input::catch('address'));
         $patient = new Patient($surname,$otherNames,$address,$phoneNumber,$email);
         $patient->createPatient();
     }else{
-        $error = $validator->getErrors();
-        var_dump($error);
+                Errors::allErrors($validator->getErrors());
+
 
     }
 }

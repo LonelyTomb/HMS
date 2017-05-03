@@ -156,7 +156,7 @@ class Validator extends Database
 	     * @return bool
 	     */
 	    private function match(string $value,string $fieldname,string $param):bool{
-		$this->valid = ($value === $param);
+		$this->valid = ($value === Input::catch($param));
 		if($this->valid == FALSE) $this->setErrors($fieldname,"The {$fieldname} does not match {$param}");
 		return $this->valid;
 	}

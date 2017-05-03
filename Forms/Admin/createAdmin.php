@@ -2,7 +2,7 @@
 namespace HMS\Forms\Admin;
 
 use HMS\Processor\{
-	Input,Validator,Functions
+	Input,Validator,Functions,Errors
 };
 use HMS\Modules\Admin\Admin;
 ;
@@ -14,13 +14,12 @@ if(Input::exists()){
         'password'=>'required|min:4'
     );
     if($validator->validate($_POST,$rules)){
-        $username = Functions::escape($_POST['username']);
-        $password = Functions::escape($_POST['password']);
+        $username = Functions::escape(Input::catch('username'));
+        $password = Functions::escape(Input::catch('password'));
         $admin = new Admin($username,$password);
         $admin->createAdmin();
     }else{
-        $error = $validator->getErrors();
-        var_dump($error);
+        Errors::allErrors($validator->getErrors());
 
     }
 }

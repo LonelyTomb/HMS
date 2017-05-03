@@ -18,7 +18,7 @@ Auth::confirmType('Doctor');
 </head>
 <body>
     <header>
-<?php Site::reqAbs('Views/Parts/publicNav.php');?>
+<?php Site::reqAbs('Views/Parts/navbar.php');?>
     </header>
 <main>
 

@@ -2,7 +2,7 @@
 namespace HMS\Forms\doctor;
 
 use HMS\Processor\{
-	Input,Validator,Functions,Jasonify
+	Input,Validator,Functions,Jasonify,Errors
 };
 use HMS\Modules\Doctor\Specialist;
 ;
@@ -16,16 +16,15 @@ if(Input::exists()){
         'phoneNumber'=>'required|min:4'
     );
     if($validator->validate($_POST,$rules)){
-        $surname = Functions::escape($_POST['surname']);
-        $otherNames = Functions::escape($_POST['otherNames']);
-        $email = Functions::escape($_POST['email']);
-        $phoneNumber = Functions::escape($_POST['phoneNumber']);
-        $daysAvailable = Jasonify::toJson($_POST['daysAvailable']);
+        $surname = Functions::escape(Input::catch('surname'));
+        $otherNames = Functions::escape(Input::catch('otherNames'));
+        $email = Functions::escape(Input::catch('email'));
+        $phoneNumber = Functions::escape(Input::catch('phoneNumber'));
+        $daysAvailable = Jasonify::toJson(Input::catch('daysAvailable'));
         $specialist = new Specialist($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
         $specialist->createSpecialist();
     }else{
-        $error = $validator->getErrors();
-        var_dump($error);
+        Errors::allErrors($validator->getErrors());
 
     }
 }

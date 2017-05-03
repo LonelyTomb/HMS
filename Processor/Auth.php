@@ -33,10 +33,10 @@ class Auth extends Database{
 		if($user){
 			$this->valid = password_verify($password,$user['password']);
 			if($this->valid){
-			var_dump($user);
 				$_SESSION['loggedIn'] = true;
 				$_SESSION['user']['username'] = $user['username'];
 				$_SESSION['user']['type'] = $user['type'];
+				Functions::toast('Login successful');
 				self::redirectUser(Sessions::get('user/type'));
 			}else{
 			Functions::toast("Incorrect Login Details");

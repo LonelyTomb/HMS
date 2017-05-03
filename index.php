@@ -8,7 +8,6 @@ use HMS\Processor\{
 }
 ;
 
-// Sessions::init();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +20,7 @@ Site::reqAbs('Views/Parts/head.php');
 </head>
 <body>
     <header>
-<?php require 'Views/Parts/publicNav.php' ;
+<?php require 'Views/Parts/navbar.php' ;
 ?>
     </header>
 <main>

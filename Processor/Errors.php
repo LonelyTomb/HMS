@@ -2,25 +2,50 @@
 
 namespace HMS\Processor;
 
+use HMS\Processor\Functions;
 class Errors{
-    public static $errors = array();
+    /**
+     * Display all errors
+     *
+     * @param array $errors
+     * @return void
+     */
+    public static function allErrors(array $errors){
+        foreach($errors as $key => $error){
+            Functions::toast(end($error));
+        }
+    }
+    /**
+     * Displays particular error
+     *
+     * @param array $errors
+     * @param string $errorName
+     * @return void
+     */
+    public static function display(array $errors,string $errorName){
+        foreach($errors as $key => $error){
+           if($key == $errorName){
+                Functions::toast(end($error));
+           }
+        }
+    }
+    /**
+     * Displays First error
+     *
+     * @param array $errors
+     * @return void
+     */
+    public static function firstError(array $errors){
+        Functions::toast(end($errors));
+    }
+    /**
+     * Displays Last Error
+     *
+     * @param array $errors
+     * @return void
+     */
+    public static function lastError(array $errors){
+        Functions::toast(end($errors));
+    }
 
-    /**
-     * Add Form variable error to error array;
-     *
-     * @param string $item
-     * @param string $error
-     * @return void
-     */
-    private function setErrors(string $item,string $error){
-        $this->errors[$item] = $error;
-    }
-    /**
-     * Get errors array
-     *
-     * @return void
-     */
-    public function getErrors(){
-        return $this->errors;
-    }
 }
