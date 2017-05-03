@@ -21,8 +21,9 @@ if(Input::exists()){
         $email = Functions::escape(Input::catch('email'));
         $phoneNumber = Functions::escape(Input::catch('phoneNumber'));
         $daysAvailable = Jasonify::toJson(Input::catch('daysAvailable'));
-        $specialist = new Specialist($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
-        $specialist->createSpecialist();
+        $specialist = new Specialist();
+        $specialist->createSpecialist($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
+        Functions::toast('Success');
     }else{
         Errors::allErrors($validator->getErrors());
 

@@ -20,9 +20,16 @@ class Specialist extends User{
 	 * @param string $email
 	 * @param string $daysAvailable
 	 */
-    public function __construct(string $surname,string $otherNames,string $phoneNumber,string $email,string $daysAvailable){
+    public function __construct(){
+		parent::__construct();
+	}
+	/**
+	 * Creates Specialist
+	 *
+	 * @return void
+	 */
+	public function createSpecialist(string $surname,string $otherNames,string $phoneNumber,string $email,string $daysAvailable){
 		parent::setType('Specialist');
-		parent::__construct('',$surname,parent::getType());
         parent::setUserId('specialists','SPE');
         parent::setPassword($surname);
 		parent::setSurname($surname);
@@ -30,13 +37,7 @@ class Specialist extends User{
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->daysAvailable = $daysAvailable;
-	}
-	/**
-	 * Creates Specialist
-	 *
-	 * @return void
-	 */
-	public function createSpecialist(){
+
 		$this->db->insert("users",[
 				            "username"=>parent::getUserId(),
 				            "password"=>parent::getPassword(),

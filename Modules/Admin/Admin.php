@@ -8,15 +8,17 @@ use HMS\Processor\{
 ;
 
 class Admin extends User{
-	public function __construct(string $username,string $password){
-		parent::setType('Admin');
-		parent::__construct( $username,$password,parent::getType());
+	public function __construct(){
+		parent::__construct();
 	}
-	public function createAdmin(){
+	public function createAdmin(string $username,string $password){
+		parent::setUsername($username);
+        parent::setPassword($password);
+        parent::setType('Admin');
 		$this->db->insert("users",[
-				            "username"=>$this->getUsername(),
-				            "password"=>$this->getPassword(),
-				            "type"=>$this->getType()
+				            "username"=>parent::getUsername(),
+				            "password"=>parent::getPassword(),
+				            "type"=>parent::getType()
 				            ]
 				            );
         return $this;

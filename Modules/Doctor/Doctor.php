@@ -19,9 +19,16 @@ class Doctor extends User{
 	 * @param string $email
 	 * @param string $daysAvailable
 	 */
-    public function __construct(string $surname,string $otherNames,string $phoneNumber,string $email,string $daysAvailable){
+    public function __construct(){
+		parent::__construct();
+	}
+	/**
+	 * Creates Doctor
+	 *
+	 * @return void
+	 */
+	public function createDoctor(string $surname,string $otherNames,string $phoneNumber,string $email,string $daysAvailable){
 		parent::setType('Doctor');
-		parent::__construct('',$surname,parent::getType());
 		parent::setUserId('doctors','DOC');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
@@ -29,13 +36,7 @@ class Doctor extends User{
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->daysAvailable = $daysAvailable;
-	}
-	/**
-	 * Creates Doctor
-	 *
-	 * @return void
-	 */
-	public function createDoctor(){
+
 		$this->db->insert("users",[
 				            "username"=>parent::getUserId(),
 				            "password"=>parent::getPassword(),
@@ -51,5 +52,10 @@ class Doctor extends User{
 							"DaysAvailable"=>$this->daysAvailable
 		]);
         return $this;
+	}
+
+	public function getDoctors(){
+		$doctors = $this->db->select('doctors','*');
+		return $doctors;
 	}
 }

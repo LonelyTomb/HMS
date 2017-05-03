@@ -16,8 +16,8 @@ if(Input::exists()){
     if($validator->validate($_POST,$rules)){
         $username = Functions::escape(Input::catch('username'));
         $password = Functions::escape(Input::catch('password'));
-        $admin = new Admin($username,$password);
-        $admin->createAdmin();
+        $admin = new Admin();
+        $admin->createAdmin($username,$password);
     }else{
         Errors::allErrors($validator->getErrors());
 

@@ -21,9 +21,16 @@ class Patient extends User{
 	 * @param string $phoneNumber
 	 * @param string $email
 	 */
-	public function __construct(string $surname,string $otherNames,string $address,string $phoneNumber,string $email){
+	public function __construct(){
+		parent::__construct();
+	}
+	/**
+	 * Creates Patient
+	 *
+	 * @return void
+	 */
+	public function createPatient(string $surname,string $otherNames,string $address,string $phoneNumber,string $email){
 		parent::setType('Patient');
-		parent::__construct('',$surname,parent::getType());
 		parent::setUserId('patients','PAT');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
@@ -31,13 +38,7 @@ class Patient extends User{
 		$this->setAddress($address);
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
-	}
-	/**
-	 * Creates Patient
-	 *
-	 * @return void
-	 */
-	public function createPatient(){
+
 		$this->db->insert("users",[
 				            "username"=>parent::getUserId(),
 				            "password"=>parent::getPassword(),

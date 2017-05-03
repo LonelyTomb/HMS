@@ -22,11 +22,8 @@ class User extends Database
 	     * @param string $type
 	     * @param string $password
 	     */
-	    public function __construct(string $username='',string $password, string $type){
+	    public function __construct(){
 		parent::__construct();
-        $this->setUsername($username);
-        $this->setPassword($password);
-        $this->setType($type);
 	}
 	/**
 	 * generate User id

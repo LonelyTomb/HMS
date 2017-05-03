@@ -21,8 +21,9 @@ if(Input::exists()){
         $email = Functions::escape(Input::catch('email'));
         $phoneNumber = Functions::escape(Input::catch('phoneNumber'));
         $daysAvailable = Jasonify::toJson(Input::catch('daysAvailable'));
-        $doctor = new Doctor($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
-        $doctor->createDoctor();
+        $doctor = new Doctor();
+        $doctor->createDoctor($surname,$otherNames,$phoneNumber,$email,$daysAvailable);
+        Functions::toast('Success');
     }else{
         Errors::allErrors($validator->getErrors());
 

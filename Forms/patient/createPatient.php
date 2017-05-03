@@ -22,8 +22,9 @@ if(Input::exists()){
         $email = Functions::escape(Input::catch('email'));
         $phoneNumber = Functions::escape(Input::catch('phoneNumber'));
         $address = Functions::escape(Input::catch('address'));
-        $patient = new Patient($surname,$otherNames,$address,$phoneNumber,$email);
-        $patient->createPatient();
+        $patient = new Patient();
+        $patient->createPatient($surname,$otherNames,$address,$phoneNumber,$email);
+        Functions::toast('Success');
     }else{
                 Errors::allErrors($validator->getErrors());
 

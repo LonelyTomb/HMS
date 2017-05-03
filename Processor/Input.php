@@ -30,7 +30,7 @@ class Input
      * @return void
      */
     public static function catch(string $item){
-        return $_POST['$item'] ?? $_GET['$item'] ?? '';
+        return $_POST[$item] ?? $_GET[$item] ?? '';
     }
     /**
      * Checks if a variable exists in $_GET array
