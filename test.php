@@ -25,7 +25,6 @@ if(Input::exists()){
 
 ?>
 <form method="post">
-    
 <div class="input-field col s12">
                             <p>Days Available</p>
                             <p>
@@ -59,4 +58,4 @@ if(Input::exists()){
                         </div>
                         <input type="submit" value="Send">
 </form>
-                        
+  

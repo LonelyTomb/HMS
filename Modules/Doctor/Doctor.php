@@ -36,6 +36,7 @@ class Doctor extends User{
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->daysAvailable = $daysAvailable;
+		parent::setStatus($daysAvailable);
 
 		$this->db->insert("users",[
 				            "username"=>parent::getUserId(),
@@ -49,7 +50,8 @@ class Doctor extends User{
 							"OtherNames"=>parent::getOtherNames(),
 							"PhoneNumber"=>parent::getPhoneNumber(),
 							"Email"=>parent::getEmail(),
-							"DaysAvailable"=>$this->daysAvailable
+							"DaysAvailable"=>$this->daysAvailable,
+							"Status"=>parent::getStatus()
 		]);
         return $this;
 	}

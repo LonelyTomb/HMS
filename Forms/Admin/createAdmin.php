@@ -5,7 +5,7 @@ use HMS\Processor\{
 	Input,Validator,Functions,Errors
 };
 use HMS\Modules\Admin\Admin;
-;
+
 
 if(Input::exists()){
 	$validator = new Validator();

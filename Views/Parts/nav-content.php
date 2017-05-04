@@ -1,3 +1,6 @@
+<?php
+use HMS\Processor\Sessions;
+?>
 <div class="nav-content brown">
         <div class="row">
             <a href="#" data-activates="mobile-nav" class="button-collapse ">
@@ -5,7 +8,7 @@
             </a>
             <ul class="hide-on-med-and-down left">
                 <li>
-                    <a href=""><i class="material-icons left">home</i>Home</a>
+                    <a href="index.php"><i class="material-icons left">home</i>Home</a>
                 </li>
                 <!--<li>
                         <a href="#"><i class="material-icons left">thumb_up</i>Authorization</a>
@@ -23,7 +26,10 @@
                     <a href="#"><i class="material-icons left">sms_failed</i>Feedback</a>
                 </li>
             </ul>
-            <a href="" class="waves-effect waves-light btn  right hide-on-large-only show-on-small">Log in</a>
+            <?php
+                if(Sessions::exists('loggedIn'))
+                    echo '<a href="?logOut" class="waves-effect materialize-red waves-light btn  right hide-on-large-only show-on-small">Log out</a>';
+                        ?>
         </div>
     </div>
     <ul class="side-nav" id="mobile-nav">

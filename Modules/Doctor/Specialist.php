@@ -37,6 +37,8 @@ class Specialist extends User{
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->daysAvailable = $daysAvailable;
+		parent::setStatus($daysAvailable);
+
 
 		$this->db->insert("users",[
 				            "username"=>parent::getUserId(),
@@ -50,8 +52,13 @@ class Specialist extends User{
 							"OtherNames"=>parent::getOtherNames(),
 							"PhoneNumber"=>parent::getPhoneNumber(),
 							"Email"=>parent::getEmail(),
-							"DaysAvailable"=>$this->daysAvailable
+							"DaysAvailable"=>$this->daysAvailable,
+							"Status"=>parent::getStatus()
 		]);
         return $this;
+	}
+	public function getSpecialists(){
+		$doctors = $this->db->select('specialists','*');
+		return $doctors;
 	}
 }

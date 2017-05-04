@@ -14,6 +14,7 @@ class User extends Database
 	protected $otherNames;
 	protected $phoneNumber;
 	protected $email;
+	protected $status;
 
 	/**
 	* Creates User Object
@@ -175,10 +176,26 @@ class User extends Database
 	    public function getEmail():string{
 		return $this->email;
 	}
-	public function test(){
-		// $max = $this->db->max("patients", "id") + 1;
-		$max = sprintf('%03d',$this->db->max("patients", "id") + 1);
-		echo($max);
+	/**
+	 * Sets Doctor's availability
+	 *
+	 * @param string $daysAvailable
+	 * @return void
+	 */
+	public function setStatus(string $daysAvailable){
+		if($daysAvailable == ''){
+			$this->status = 'Unavailable';
+		}else{
+			$this->status = 'Available';
+		}
+	}
+	/**
+	 * Get Status
+	 *
+	 * @return string
+	 */
+	public function getStatus():string{
+		return $this->status;
 	}
 
 }
