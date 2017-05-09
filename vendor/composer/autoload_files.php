@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '1246e7e893dd0a4386484062c208a27a' => $baseDir . '/Processor/Processor.php',
+    '658bdf336c9d198311ab5e6434753d27' => $baseDir . '/App/HMS/Processor/Processor.php',
 );

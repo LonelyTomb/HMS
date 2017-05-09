@@ -6,10 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'HMS\\Processor\\' => array($baseDir . '/Processor'),
-    'HMS\\Modules\\Patient\\' => array($baseDir . '/Modules/Patient'),
-    'HMS\\Modules\\Doctor\\' => array($baseDir . '/Modules/Doctor'),
-    'HMS\\Modules\\Admin\\' => array($baseDir . '/Modules/Admin'),
-    'HMS\\Modules\\' => array($baseDir . '/Modules'),
-    'HMS\\Database\\' => array($baseDir . '/Database'),
+    'HMS\\' => array($baseDir . '/App/HMS'),
 );
