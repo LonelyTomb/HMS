@@ -1,7 +1,9 @@
 <?php
 use HMS\Processor\{
-	Sessions, Site
+	Sessions, Site, Functions
 };
+
+$type = Sessions::get('user/type') === 'patient' ? ucfirst(Sessions::get('user/type')) : 'Doctor';
 ?>
 <div class="nav-content brown">
         <div class="row">
@@ -16,7 +18,8 @@ use HMS\Processor\{
                         <a href="#"><i class="material-icons left">thumb_up</i>Authorization</a>
                     </li>-->
                 <li>
-                    <a href="<?php echo Site::getRoot() ?>Views/Patient/appointments/"><i class="material-icons left">today</i>Appointment</a>
+                    <a href="<?php echo Site::getRoot() ?>Views/<?php echo $type ?>/appointments/"><i
+                                class="material-icons left">today</i>Appointment</a>
                 </li>
                 <li>
                     <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>

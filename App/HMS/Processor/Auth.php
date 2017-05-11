@@ -4,7 +4,10 @@ namespace HMS\Processor;
 
 use HMS\Database\Database;
 
-
+/**
+ * Class Auth
+ * @package HMS\Processor
+ */
 class Auth extends Database
 {
 	private static $valid = FALSE;
@@ -30,9 +33,9 @@ class Auth extends Database
 		self::$_instance = new Database();
 		$username = Functions::escape($source['username']);
 		$password = Functions::escape($source['password']);
-		$table = $params['table'] ?? "users";
-		$column = $params['column'] ?? "username";
-		$user = self::$_instance->db->get("$table", "*", ["$column" => "$username"]);
+		$table = $params['table'] ?? 'users';
+		$column = $params['column'] ?? 'username';
+		$user = self::$_instance->db->get("$table", '*', ["$column" => "$username"]);
 
 		if ($user) {
 			self::$valid = password_verify($password, $user['password']);
@@ -43,7 +46,7 @@ class Auth extends Database
 				Functions::toast('Login successful');
 				self::redirectUser(Sessions::get('user/type'));
 			} else {
-				Functions::toast("Incorrect Login Details");
+				Functions::toast('Incorrect Login Details');
 			}
 		}
 		return self::$valid;
@@ -89,7 +92,7 @@ class Auth extends Database
 	public static function confirmLogin(string $path = 'index.php')
 	{
 		$status = Sessions::get('loggedIn') ?? FALSE;
-		if ($status == FALSE) Functions::redirect($path);
+		if ($status === FALSE) Functions::redirect($path);
 	}
 
 	/**
@@ -105,8 +108,12 @@ class Auth extends Database
 		}
 	}
 
-	public static function loginBySession(){
-		if(Sessions::get('loggedIn')){
+	/**
+	 * Log in user if previous session exists
+	 */
+	public static function loginBySession()
+	{
+		if (Sessions::get('loggedIn')) {
 			Auth::redirectUser(Sessions::get('user/type'));
 		}
 	}

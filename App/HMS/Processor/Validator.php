@@ -13,6 +13,9 @@ class Validator extends Database
 	private $valid = TRUE, $status = TRUE,
 		$errors = array();
 
+	/**
+	 * Validator constructor.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,9 +26,10 @@ class Validator extends Database
 	 *
 	 * @param array $source
 	 * @param array $rules
-	 * @return void
+	 *
+	 * @return bool
 	 */
-	public function validate(array $source, array $rules = array())
+	public function validate(array $source, array $rules = array()): bool
 	{
 
 		foreach ($rules as $fieldname => $rule) {
@@ -34,8 +38,8 @@ class Validator extends Database
 			foreach ($callbacks as $callback) {
 				$value = Functions::escape($source[$fieldname]);
 				$param = '';
-				if (strpos($callback, ":")) {
-					$temp = explode(":", $callback);
+				if (strpos($callback, ':')) {
+					$temp = explode(':', $callback);
 					$callback = current($temp);
 					$param = next($temp);
 				}
@@ -98,7 +102,7 @@ class Validator extends Database
 	private function required(string $value, string $fieldname, string $param): bool
 	{
 		$this->valid = !empty($value);
-		if ($this->valid == FALSE) $this->setErrors($fieldname, "The {$fieldname} is required");
+		if ($this->valid === FALSE) $this->setErrors($fieldname, "The {$fieldname} is required");
 		return $this->valid;
 	}
 
@@ -113,7 +117,9 @@ class Validator extends Database
 	private function email(string $value, string $fieldname, string $param): bool
 	{
 		$this->valid = filter_var($value, FILTER_VALIDATE_EMAIL);
-		if ($this->valid == FALSE) $this->setErrors($fieldname, "The {$fieldname} has to be valid");
+		if ($this->valid === FALSE) {
+			$this->setErrors($fieldname, "The {$fieldname} has to be valid");
+		}
 		return $this->valid;
 	}
 
@@ -128,7 +134,7 @@ class Validator extends Database
 	private function min(string $value, string $fieldname, string $param): bool
 	{
 		$this->valid = (strlen($value) >= $param);
-		if ($this->valid == FALSE) $this->setErrors($fieldname, "The {$fieldname} has to a minimum of {$param}");
+		if ($this->valid === FALSE) $this->setErrors($fieldname, "The {$fieldname} has to a minimum of {$param}");
 		return $this->valid;
 	}
 
@@ -143,7 +149,7 @@ class Validator extends Database
 	private function max(string $value, string $fieldname, string $param): bool
 	{
 		$this->valid = (strlen($value) > $param);
-		if ($this->valid == FALSE) $this->setErrors($fieldname, "The {$fieldname} has to a maximum of {$param}");
+		if ($this->valid === FALSE) $this->setErrors($fieldname, "The {$fieldname} has to a maximum of {$param}");
 		return $this->valid;
 	}
 
@@ -158,7 +164,7 @@ class Validator extends Database
 	private function match(string $value, string $fieldname, string $param): bool
 	{
 		$this->valid = ($value === Input::catch ($param));
-		if ($this->valid == FALSE) $this->setErrors($fieldname, "The {$fieldname} does not match {$param}");
+		if ($this->valid === FALSE) $this->setErrors($fieldname, "The {$fieldname} does not match {$param}");
 		return $this->valid;
 	}
 
@@ -172,12 +178,14 @@ class Validator extends Database
 	 */
 	private function unique(string $value, string $fieldname, string $param): bool
 	{
-		$dbParams = explode(".", $param);
+		$dbParams = explode('.', $param);
 		$table = $dbParams[0];
 		$column = $dbParams[1];
-		$this->valid = !($this->db->get("$table", "*", ["$column" => "$value"])) ? TRUE : FALSE;
-		// var_dump($this->valid);
-		if ($this->valid === FALSE) $this->setErrors($fieldname, "The {$fieldname} already exists");
+		$this->valid = !$this->db->get("$table", '*', ["$column" => "$value"]) ? TRUE : FALSE;
+
+		if ($this->valid === FALSE) {
+			$this->setErrors($fieldname, "The {$fieldname} already exists");
+		}
 		return $this->valid;
 	}
 

@@ -87,7 +87,7 @@ footer.page-footer {
   }
 }
 
-.appointments {
+.appoin tments {
   .doctor_name {
 	text-transform: capitalize;
   }
@@ -99,6 +99,13 @@ footer.page-footer {
 
   }
   .appointment {
-	@extend %no-float;
+	@media screen and (max-width: 998px) {
+	  float: none !important;
+	  margin: {
+		left: auto;
+		right: auto;
+	  }
+
+	}
   }
 }

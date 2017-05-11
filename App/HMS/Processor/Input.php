@@ -1,7 +1,10 @@
 <?php
 
 namespace HMS\Processor;
-
+/**
+ * Class Input
+ * @package HMS\Processor
+ */
 class Input
 {
 	/**
@@ -10,7 +13,7 @@ class Input
 	 * @param string $type
 	 * @return boolean
 	 */
-	public static function exists($type = 'post'):bool
+	public static function exists($type = 'post'): bool
 	{
 		switch ($type) {
 			case 'post':
@@ -29,7 +32,7 @@ class Input
 	 * Gets data from POST or GET
 	 *
 	 * @param string $item
-	 * @return void
+	 * @return mixed
 	 */
 	public static function catch (string $item)
 	{

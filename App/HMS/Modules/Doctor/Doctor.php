@@ -46,19 +46,19 @@ class Doctor extends User
 		parent::setStatus($daysAvailable);
 
 		$this->db->insert("users", [
-				"username" => parent::getUserId(),
-				"password" => parent::getPassword(),
-				"type" => $this->getType()
+				'username' => parent::getUserId(),
+				'password' => parent::getPassword(),
+				'type' => $this->getType()
 			]
 		);
 		$this->db->insert('doctors', [
-			"doctorId" => parent::getUserId(),
-			"surname" => parent::getSurname(),
-			"otherNames" => parent::getOtherNames(),
-			"phoneNumber" => parent::getPhoneNumber(),
-			"email" => parent::getEmail(),
-			"daysAvailable" => $this->daysAvailable,
-			"status" => parent::getStatus()
+			'doctorId' => parent::getUserId(),
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'email' => parent::getEmail(),
+			'daysAvailable' => $this->daysAvailable,
+			'status' => parent::getStatus()
 		]);
 		return $this;
 	}

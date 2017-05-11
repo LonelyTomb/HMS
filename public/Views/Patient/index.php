@@ -2,14 +2,12 @@
 
 require "../../../vendor/autoload.php";
 
-use HMS\Processor\{
-	Site, Auth, Input
-};
+use HMS\Processor\Site;
+use HMS\Processor\Auth;
 
-use Carbon\Carbon;
 
 Auth::confirmLogin();
-//Auth::confirmType('patient');
+Auth::confirmType('patient');
 
 
 ?>

@@ -32,6 +32,7 @@ class Errors
 	public static function allErrors(array $errors)
 	{
 		foreach ($errors as $key => $error) {
+			$error = is_array($error) ? end($error) : $error;
 			Functions::toast($error);
 		}
 	}
@@ -43,7 +44,7 @@ class Errors
 	 * @param string $errorName
 	 * @return void
 	 */
-	public static function display(array $errors, string $errorName): void
+	public static function display(array $errors, string $errorName)
 	{
 		foreach ($errors as $key => $error) {
 			if ($key === $errorName) {
@@ -58,7 +59,7 @@ class Errors
 	 * @param array $errors
 	 * @return void
 	 */
-	public static function firstError(array $errors): void
+	public static function firstError(array $errors)
 	{
 		Functions::toast(end($errors));
 	}
@@ -69,7 +70,7 @@ class Errors
 	 * @param array $errors
 	 * @return void
 	 */
-	public static function lastError(array $errors): void
+	public static function lastError(array $errors)
 	{
 		Functions::toast(end($errors));
 	}

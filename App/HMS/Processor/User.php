@@ -39,7 +39,7 @@ class User extends Database
 	 */
 	public function setUserId(string $table, string $prefix)
 	{
-		$id = sprintf('%03d', $this->db->max("$table", "id") + 1);
+		$id = sprintf('%03d', $this->db->max("$table", 'id') + 1);
 		$year = Carbon::today();
 		$year = $year->format('y');
 		$this->userId = "$prefix/" . $year . '-' . $id;
@@ -238,15 +238,16 @@ class User extends Database
 	{
 		return $this->db->get("{$table}s", "{$table}id", ['id' => $identifier]);
 	}
+
 	/**
 	 * Reduce Patient/Specialist Appointment Counter
 	 *
 	 * @param $counter
 	 * @return int
 	 */
-	public function rdAptCounter($counter):int
+	public function rdAptCounter($counter): int
 	{
-		return $counter-=1;
+		return $counter -= 1;
 	}
 
 	/**
@@ -263,11 +264,27 @@ class User extends Database
 		return $this->db->get("{$table}s", 'surname', ["{$table}Id" => $username]);
 	}
 
+	/**
+	 * @param string $username
+	 * @param string $table
+	 *
+	 * @return array
+	 */
+	public function getAllAppointments(string $username, string $table): array
+	{
+		$table = $table === 'patient' ? $table : 'doctor';
+		return $this->db->select('appointments', '*', ["{$table}Id" => $username]);
+	}
+
+	/**
+	 * @param $id
+	 */
 	public function resetApptCounter($id)
 	{
-		$lastAppointment = $this->db->get('patients', 'lastAppointment', ['id' => $id]);
-		$lastAppointment = new Carbon($lastAppointment);
+		$lastAppointment = new Carbon($this->db->get('patients', 'lastAppointment', ['id' => $id]));
+
 		$today = Carbon::now();
+
 		if ($today->diffInDays($lastAppointment) > 0) {
 			$this->db->update('patients', ['appointments' => '2'], ['id' => $id]);
 		}

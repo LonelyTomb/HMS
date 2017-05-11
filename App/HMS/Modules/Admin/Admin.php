@@ -26,10 +26,10 @@ class Admin extends User
 		parent::setUsername($username);
 		parent::setPassword($password);
 		parent::setType('Admin');
-		$this->db->insert("users", [
-				"username" => parent::getUsername(),
-				"password" => parent::getPassword(),
-				"type" => parent::getType()
+		$this->db->insert('users', [
+				'username' => parent::getUsername(),
+				'password' => parent::getPassword(),
+				'type' => parent::getType()
 			]
 		);
 		return $this;

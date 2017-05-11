@@ -1,7 +1,10 @@
 <?php
 
 namespace HMS\Processor;
-
+/**
+ * Class Functions
+ * @package HMS\Processor
+ */
 class Functions
 {
 	/**
@@ -57,14 +60,18 @@ class Functions
 	 *
 	 * @param string $item key of item to be found
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	public static function get(array $array, string $item)
 	{
 		// if (!is_array($array)) return false;
-		if (isset($array[$item])) return $array[$item];
+		if (isset($array[$item])) {
+			return $array[$item];
+		}
 		foreach ($array as $key => $subArray) {
-			if (isset($subArray[$item])) return $subArray[$item];
+			if (isset($subArray[$item])) {
+				return $subArray[$item];
+			}
 		}
 		return false;
 	}

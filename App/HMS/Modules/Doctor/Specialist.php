@@ -32,7 +32,7 @@ class Specialist extends User
 	 * @param string $maxPatients
 	 * @return $this
 	 */
-	public function createSpecialist(string $surname, string $otherNames, string $phoneNumber, string $email, string $maxPatients, string $daysAvailable)
+	public function createSpecialist(string $surname, string $otherNames, string $phoneNumber, string $email, string $maxPatients)
 	{
 		parent::setType('Specialist');
 		parent::setUserId('specialists', 'SPE');
@@ -42,24 +42,21 @@ class Specialist extends User
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->setMaxPatients($maxPatients);
-		$this->daysAvailable = $daysAvailable;
-		parent::setStatus($daysAvailable);
 
 
-		$this->db->insert("users", [
-				"username" => parent::getUserId(),
-				"password" => parent::getPassword(),
-				"type" => $this->getType()
+		$this->db->insert('users', [
+				'username' => parent::getUserId(),
+				'password' => parent::getPassword(),
+				'type' => $this->getType()
 			]
 		);
 		$this->db->insert('specialists', [
-			"SpecialistId" => parent::getUserId(),
-			"Surname" => parent::getSurname(),
-			"OtherNames" => parent::getOtherNames(),
-			"PhoneNumber" => parent::getPhoneNumber(),
-			"Email" => parent::getEmail(),
-			"MaxPatients" => $this->getMaxPatients(),
-			"Status" => parent::getStatus()
+			'SpecialistId' => parent::getUserId(),
+			'Surname' => parent::getSurname(),
+			'OtherNames' => parent::getOtherNames(),
+			'PhoneNumber' => parent::getPhoneNumber(),
+			'Email' => parent::getEmail(),
+			'MaxPatients' => $this->getMaxPatients(),
 		]);
 		return $this;
 	}
@@ -109,7 +106,7 @@ class Specialist extends User
 	 */
 	public function getAptCounter($id): int
 	{
-		return $this->get('specialists', "Appointments", ["id" => $id]);
+		return $this->get('specialists', 'Appointments', ['id' => $id]);
 	}
 
 	/**
@@ -120,12 +117,16 @@ class Specialist extends User
 	 */
 	public function getMaxPatientsDb($id): int
 	{
-		return $this->db->get("specialists", "maxPatients", ["id" => $id]);
+		return $this->db->get('specialists', 'maxPatients', ['id' => $id]);
 	}
 
-	public function rdMaxPatients(int $amount):int
+	/**
+	 * @param int $amount
+	 * @return int
+	 */
+	public function rdMaxPatients(int $amount): int
 	{
-		return $amount -=1;
+		return $amount -= 1;
 	}
 
 }

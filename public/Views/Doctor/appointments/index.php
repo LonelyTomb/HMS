@@ -8,7 +8,6 @@ use HMS\Processor\{
 use Carbon\Carbon;
 
 Auth::confirmLogin();
-Auth::confirmType('patient');
 
 
 ?>
@@ -29,7 +28,7 @@ Auth::confirmType('patient');
 		<?php
 		require __DIR__ . '/sidebar.php';
 
-		if (Input::getExists('appointments') || Input::getExists('make')) {
+		if (Input::getExists('appointments')) {
 			require __DIR__ . '/appointments.php';
 		} elseif (Input::getExists('ongoing')) {
 			require __DIR__ . '/ongoingAppointments.php';

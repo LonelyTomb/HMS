@@ -70,7 +70,7 @@ Class Sessions
 	 *
 	 * @param string $items $_SESSION variable
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	public static function get(string $items)
 	{

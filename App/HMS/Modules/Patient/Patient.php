@@ -67,7 +67,7 @@ class Patient extends User
 	 * @param string $address
 	 * @return void
 	 */
-	public function setAddress(string $address): void
+	public function setAddress(string $address)
 	{
 		$this->address = $address;
 	}
@@ -161,14 +161,5 @@ class Patient extends User
 		return true;
 	}
 
-	/**
-	 * @param int $id
-	 * @return array
-	 */
-	public function getAllAppointments(int $id): array
-	{
-		$username = $this->getUsernameDb($id, 'patient');
-		return $this->db->select('appointments', '*', ['patientId' => $username]);
-	}
 
 }

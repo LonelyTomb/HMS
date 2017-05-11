@@ -19,7 +19,7 @@ class Site
 	 */
 	public static function setRoot()
 	{
-		self::$root = "http://" . $_SERVER['HTTP_HOST'] . CONFIG['customPath'];
+		self::$root = 'http://' . $_SERVER['HTTP_HOST'] . CONFIG['customPath'];
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Site
 	 */
 	public static function reqAbs(string $path)
 	{
-		require self::getAbsPath() . "/" . $path;
+		require self::getAbsPath() . '/' . $path;
 	}
 
 	/**
@@ -79,7 +79,7 @@ class Site
 	/**
 	 * Prints Page Title
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public static function getPageTitle()
 	{
@@ -91,6 +91,6 @@ class Site
 	 */
 	public static function getReferUrl():string
 	{
-		return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+		return $_SERVER['HTTP_REFERER'] ?? '';
 	}
 }
