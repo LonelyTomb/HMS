@@ -1,5 +1,7 @@
 <?php
-use HMS\Processor\Sessions;
+use HMS\Processor\{
+	Sessions, Site
+};
 ?>
 <div class="nav-content brown">
         <div class="row">
@@ -14,7 +16,7 @@ use HMS\Processor\Sessions;
                         <a href="#"><i class="material-icons left">thumb_up</i>Authorization</a>
                     </li>-->
                 <li>
-                    <a href="?appointment"><i class="material-icons left">today</i>Appointment</a>
+                    <a href="<?php echo Site::getRoot() ?>Views/Patient/appointments/"><i class="material-icons left">today</i>Appointment</a>
                 </li>
                 <li>
                     <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>

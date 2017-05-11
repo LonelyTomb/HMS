@@ -5,6 +5,24 @@ namespace HMS\Processor;
 
 class Errors
 {
+	public static $error = [];
+
+	/**
+	 * @param $name
+	 * @param $desc
+	 */
+	public static function addError($name, $desc)
+	{
+		self::$error[$name] = $desc;
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getError(): array
+	{
+		return self::$error;
+	}
 	/**
 	 * Display all errors
 	 *
@@ -14,7 +32,7 @@ class Errors
 	public static function allErrors(array $errors)
 	{
 		foreach ($errors as $key => $error) {
-			Functions::toast(end($error));
+			Functions::toast($error);
 		}
 	}
 
@@ -25,10 +43,10 @@ class Errors
 	 * @param string $errorName
 	 * @return void
 	 */
-	public static function display(array $errors, string $errorName)
+	public static function display(array $errors, string $errorName): void
 	{
 		foreach ($errors as $key => $error) {
-			if ($key == $errorName) {
+			if ($key === $errorName) {
 				Functions::toast(end($error));
 			}
 		}
@@ -40,7 +58,7 @@ class Errors
 	 * @param array $errors
 	 * @return void
 	 */
-	public static function firstError(array $errors)
+	public static function firstError(array $errors): void
 	{
 		Functions::toast(end($errors));
 	}
@@ -51,7 +69,7 @@ class Errors
 	 * @param array $errors
 	 * @return void
 	 */
-	public static function lastError(array $errors)
+	public static function lastError(array $errors): void
 	{
 		Functions::toast(end($errors));
 	}

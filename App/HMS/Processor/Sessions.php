@@ -48,9 +48,9 @@ Class Sessions
 	{
 		if (isset($_SESSION[$name])) {
 			return true;
-		} else {
-			return false;
 		}
+			return false;
+
 	}
 
 	/**
@@ -90,8 +90,10 @@ Class Sessions
 	 *
 	 * @param $name
 	 * @param string $string
+	 *
+	 * @return string
 	 */
-	public static function flash($name, $string = '')
+	public static function flash($name, $string = ''): string
 	{
 		if (self::exists($name)) {
 			$session = Functions::get($_SESSION, $name);

@@ -57,11 +57,11 @@ class Auth extends Database
 	 */
 	public static function redirectUser(string $user)
 	{
-		if ($user == 'Admin') {
+		if ($user === 'admin') {
 			Functions::redirect('Views/Admin/');
-		} elseif ($user == 'Patient') {
+		} elseif ($user === 'patient') {
 			Functions::redirect('Views/Patient/');
-		} elseif ($user == 'Doctor' || $user['type'] == 'Specialist') {
+		} elseif ($user === 'doctor' || $user === 'specialist') {
 			Functions::redirect('Views/Doctor/');
 		}
 	}

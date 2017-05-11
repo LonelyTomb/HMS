@@ -3,6 +3,7 @@
 namespace HMS\Processor;
 
 use HMS\Database\Database;
+use Carbon\Carbon;
 
 /**
  * Class User
@@ -39,7 +40,8 @@ class User extends Database
 	public function setUserId(string $table, string $prefix)
 	{
 		$id = sprintf('%03d', $this->db->max("$table", "id") + 1);
-		$year = Time::setDateTime(null, 'y');;
+		$year = Carbon::today();
+		$year = $year->format('y');
 		$this->userId = "$prefix/" . $year . '-' . $id;
 	}
 
@@ -208,7 +210,7 @@ class User extends Database
 	 */
 	public function setStatus(string $daysAvailable)
 	{
-		if ($daysAvailable == '') {
+		if ($daysAvailable === '') {
 			$this->status = 'Unavailable';
 		} else {
 			$this->status = 'Available';
@@ -226,6 +228,17 @@ class User extends Database
 	}
 
 	/**
+	 * Get User Username in Db
+	 *
+	 * @param string $identifier
+	 * @param string $table table name without s
+	 * @return string
+	 */
+	public function getUsernameDb(string $identifier, string $table): string
+	{
+		return $this->db->get("{$table}s", "{$table}id", ['id' => $identifier]);
+	}
+	/**
 	 * Reduce Patient/Specialist Appointment Counter
 	 *
 	 * @param $counter
@@ -234,6 +247,30 @@ class User extends Database
 	public function rdAptCounter($counter):int
 	{
 		return $counter-=1;
+	}
+
+	/**
+	 * @param string $username
+	 * @return string
+	 */
+	public function getUserTypeDb(string $username): string
+	{
+		return $this->db->get('users', 'type', ['username' => "$username"]);
+	}
+
+	public function getSurnameDb(string $username, string $table)
+	{
+		return $this->db->get("{$table}s", 'surname', ["{$table}Id" => $username]);
+	}
+
+	public function resetApptCounter($id)
+	{
+		$lastAppointment = $this->db->get('patients', 'lastAppointment', ['id' => $id]);
+		$lastAppointment = new Carbon($lastAppointment);
+		$today = Carbon::now();
+		if ($today->diffInDays($lastAppointment) > 0) {
+			$this->db->update('patients', ['appointments' => '2'], ['id' => $id]);
+		}
 	}
 
 

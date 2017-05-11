@@ -2,32 +2,35 @@
 
 require "../../../vendor/autoload.php";
 
-use HMS\Processor\{Site,Sessions,Auth,Input};
+use HMS\Processor\{
+	Site, Auth, Input
+};
 
-// Sessions::init();
+use Carbon\Carbon;
+
 Auth::confirmLogin();
-Auth::confirmType('Patient');
+//Auth::confirmType('patient');
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<?php Site::pageTitle("Patient");Site::reqAbs('Views/Parts/head.php');?>
+	<?php Site::pageTitle("Patient");
+	Site::reqAbs('Views/Parts/head.php'); ?>
 </head>
 <body>
-    <header>
-<?php Site::reqAbs('Views/Parts/navbar.php');?>
-    </header>
+<header>
+	<?php Site::reqAbs('Views/Parts/navbar.php'); ?>
+</header>
 <main>
-<?php
-if(Input::getExists('appointment')){
-    require 'appointments.php';
-}
-?>
+	<?php
+	?>
 </main>
 
-<?php Site::reqAbs('Views/Parts/footer.php');?>
+<?php Site::reqAbs('Views/Parts/footer.php'); ?>
 
 </body>
 

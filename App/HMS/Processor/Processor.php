@@ -6,8 +6,8 @@ Sessions::init();
 /**
  *Public Globally Available Parameters
  */
-define("CONFIG", array(
-		"customPath" => "/labs/HMS/public/"
+define('CONFIG', array(
+		'customPath' => '/labs/HMS/public/'
 	)
 );
 

@@ -3,10 +3,13 @@
 require '../../../vendor/autoload.php';
 
 use HMS\Processor\{Site,Sessions,Auth};
+use Carbon\Carbon;
 
-// Sessions::init();
 Auth::confirmLogin();
-Auth::confirmType('Doctor');
+//Auth::confirmType('doctor');
+$year = Carbon::today();
+$year = $year->format('y');
+var_dump($year);
 ?>
 
 <!DOCTYPE html>

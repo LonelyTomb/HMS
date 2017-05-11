@@ -52,13 +52,13 @@ class Doctor extends User
 			]
 		);
 		$this->db->insert('doctors', [
-			"DoctorId" => parent::getUserId(),
-			"Surname" => parent::getSurname(),
-			"OtherNames" => parent::getOtherNames(),
-			"PhoneNumber" => parent::getPhoneNumber(),
-			"Email" => parent::getEmail(),
-			"DaysAvailable" => $this->daysAvailable,
-			"Status" => parent::getStatus()
+			"doctorId" => parent::getUserId(),
+			"surname" => parent::getSurname(),
+			"otherNames" => parent::getOtherNames(),
+			"phoneNumber" => parent::getPhoneNumber(),
+			"email" => parent::getEmail(),
+			"daysAvailable" => $this->daysAvailable,
+			"status" => parent::getStatus()
 		]);
 		return $this;
 	}
@@ -81,7 +81,7 @@ class Doctor extends User
 	public function getId(string $username): int
 	{
 		$id = $this->db->get('doctors', 'id', [
-			'DoctorId' => $username
+			'doctorId' => $username
 		]);
 		return $id;
 	}

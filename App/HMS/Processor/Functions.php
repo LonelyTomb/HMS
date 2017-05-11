@@ -38,7 +38,7 @@ class Functions
 	/**
 	 * Redirect to given path
 	 *
-	 * @param string $path the file directory in existing project
+	 * @param string $path the file directory from existing project root
 	 *
 	 * @return void
 	 */

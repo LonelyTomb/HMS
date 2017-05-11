@@ -25,7 +25,9 @@
         "App/HMS/Processor/Processor.php"
       ]
     },
-    "require": {},
+  "require": {
+    "nesbot/carbon": "~1.18"
+  },
     "config": {
         "optimize-autoloader": true
     }

@@ -2,10 +2,9 @@
 
 namespace HMS\Modules\Patient;
 
-use HMS\Modules\Doctor\Doctor;
 use HMS\Modules\Doctor\Specialist;
 use HMS\Processor\{
-	Functions, Input, User
+	Errors, Functions, Input, User
 };
 
 /**
@@ -45,19 +44,19 @@ class Patient extends User
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 
-		$this->db->insert("users", [
-				"username" => parent::getUserId(),
-				"password" => parent::getPassword(),
-				"type" => $this->getType()
+		$this->db->insert('users', [
+				'username' => parent::getUserId(),
+				'password' => parent::getPassword(),
+				'type' => $this->getType()
 			]
 		);
-		$this->db->insert("patients", [
-			"PatientId" => parent::getUserId(),
-			"Surname" => parent::getSurname(),
-			"OtherNames" => parent::getOtherNames(),
-			"Address" => $this->getAddress(),
-			"PhoneNumber" => parent::getPhoneNumber(),
-			"Email" => parent::getEmail()
+		$this->db->insert('patients', [
+			'PatientId' => parent::getUserId(),
+			'Surname' => parent::getSurname(),
+			'OtherNames' => parent::getOtherNames(),
+			'Address' => $this->getAddress(),
+			'PhoneNumber' => parent::getPhoneNumber(),
+			'Email' => parent::getEmail()
 		]);
 		return $this;
 	}
@@ -68,7 +67,7 @@ class Patient extends User
 	 * @param string $address
 	 * @return void
 	 */
-	public function setAddress(string $address)
+	public function setAddress(string $address): void
 	{
 		$this->address = $address;
 	}
@@ -105,50 +104,71 @@ class Patient extends User
 	 */
 	public function getAptCounter($id): int
 	{
-		return $this->get('patient', "Appointments", ["id" => $id]);
+		return $this->db->get('patients', 'Appointments', ['id' => $id]);
 	}
 
-
-	public function makeAppointment()
+	/**
+	 * Make Appointment Function
+	 *
+	 * @return boolean
+	 */
+	public function makeAppointment(): bool
 	{
-		if (Input::getExists('make')) {
 
-			$patientId = Functions::escape(Input::catch ('id'));
-			$type = Functions::escape(Input::catch ('type'));
-			$doctorId = Functions::escape(Input::catch ('docId'));
+		$patientId = Functions::escape(Input::catch ('id'));
+		$type = Functions::escape(Input::catch ('type'));
+		$doctorId = Functions::escape(Input::catch ('docId'));
 
-			if ($this->getAptCounter($patientId) == 0) {
-				return ["error" => "Maximum number of appointments made"];
-			}
+		if ($this->getAptCounter($patientId) === 0) {
+			Errors::addError('Max Appointments', 'Maximum Appointments reached');
+			return false;
+		}
 
-			if ($type == 'doctors') {
-				$doctors = new Doctor();
-				$doctorUserId = $doctors->getId($doctorId);
-			} else if ($type == 'Specialists') {
-				$specialists = new Specialist();
-				$doctorUserId = $specialists->getId($doctorId);
-			} else {
+		$patientUsername = $this->getUsernameDb($patientId, 'patient');
+		$doctorUsername = $this->getUsernameDb($doctorId, $type);
+
+		if ($type === 'specialist') {
+			$specialist = new Specialist();
+			if ($specialist->getMaxPatientsDb($doctorId) === 0) {
+				Errors::addError('Max Patients', 'Maximum Patients Reached');
 				return false;
 			}
-
-			$this->db->insert('appointments', [
-				"PatientId" => "$patientId",
-				"DoctorId" => "$doctorUserId"
-			]);
-
-			$appointmentTime = $this->get("appointments", "AppointmentDate", ["id" => $this->db->id()]);
-			#Update Patient's available Appointments && Last Appointment Date
-			$this->db->update("patients", ["Appointment"=>$this->rdAptCounter($this->getAptCounter($patientId)),"LastAppointment"=>$appointmentTime],["id"=>$patientId]);
-
-
-			#Update Doctor's or Specialist's Last Appointment Date
-			$this->db->update($type, ["LastAppointment"=>$appointmentTime],["id"=>$doctorUserId]);
-
-			if($type == "specialists"){
-				$this->db->update("specialists", ["MaxPatients"=>$specialists->rdMaxPatients($specialists->getMaxPatientsDb($doctorId))],["id"=>$doctorUserId]);
-			}
-
-
 		}
+
+		$this->db->insert('appointments', [
+			'patientId' => "{$patientUsername}",
+			'doctorId' => "{$doctorUsername}"
+		]);
+
+		$appointmentTime = $this->db->get('appointments', 'appointmentDate', ['id' => $this->db->id()]);
+		/**
+		 *Update Patient's available Appointments && Last Appointment Date
+		 */
+		$this->db->update('patients', ['appointments' => $this->rdAptCounter($this->getAptCounter($patientId)), 'lastAppointment' => $appointmentTime], ['id' => $patientId]);
+
+		/**
+		 *Update Doctor's or Specialist's Last Appointment Date
+		 */
+		$this->db->update("{$type}s", ['lastAppointment' => $appointmentTime], ['id' => $doctorId]);
+
+		/**
+		 * Update max Patients for specialist
+		 */
+		if ($type === 'specialists') {
+			$this->db->update('specialists', ['maxPatients' => $specialist->rdMaxPatients($specialist->getMaxPatientsDb($doctorId))], ['id' => $doctorId]);
+		}
+
+		return true;
 	}
+
+	/**
+	 * @param int $id
+	 * @return array
+	 */
+	public function getAllAppointments(int $id): array
+	{
+		$username = $this->getUsernameDb($id, 'patient');
+		return $this->db->select('appointments', '*', ['patientId' => $username]);
+	}
+
 }

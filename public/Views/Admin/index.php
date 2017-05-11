@@ -7,7 +7,7 @@ use HMS\Processor\{Auth,Site,Sessions,Input,Functions};
 
 // Sessions::init();
 Auth::confirmLogin();
-Auth::confirmType('Admin');
+Auth::confirmType('admin');
 ?>
     <!DOCTYPE html>
     <html lang="en">

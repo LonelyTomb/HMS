@@ -4,7 +4,7 @@ use HMS\Processor\{
 };
 
 if (Input::exists()) {
-	Auth::login($_POST);
+	Auth::logIn($_POST);
 }
 
 ?>
@@ -25,7 +25,7 @@ if (Input::exists()) {
                     <div class="row">
                         <div class="col s12 input-field">
                             <input type="password" id="password" class="validate" name="password">
-                            <label for="Password">Password</label>
+                            <label for="password">Password</label>
                         </div>
                     </div>
                     <button type="submit" class="btn waves-effect waves-ripple waves-teal waves-light enter pink l2">
