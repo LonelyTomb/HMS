@@ -46,7 +46,22 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'A' => 
+        array (
+            'AshleyDawson\\SimplePagination\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/ashleydawson/simple-pagination/lib',
+            ),
+        ),
+    );
+
     public static $classMap = array (
+        'AshleyDawson\\SimplePagination\\Exception\\CallbackNotFoundException' => __DIR__ . '/..' . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Exception/CallbackNotFoundException.php',
+        'AshleyDawson\\SimplePagination\\Exception\\InvalidPageNumberException' => __DIR__ . '/..' . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Exception/InvalidPageNumberException.php',
+        'AshleyDawson\\SimplePagination\\Pagination' => __DIR__ . '/..' . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Pagination.php',
+        'AshleyDawson\\SimplePagination\\Paginator' => __DIR__ . '/..' . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Paginator.php',
+        'AshleyDawson\\SimplePagination\\PaginatorInterface' => __DIR__ . '/..' . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/PaginatorInterface.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
@@ -131,6 +146,7 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77::$classMap;
 
         }, null, ClassLoader::class);

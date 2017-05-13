@@ -180,5 +180,57 @@
             "datetime",
             "time"
         ]
+    },
+    {
+        "name": "ashleydawson/simple-pagination",
+        "version": "1.0.3",
+        "version_normalized": "1.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/AshleyDawson/SimplePagination.git",
+            "reference": "a155be1e3338d41dec5aae840e2ec17e575e4b66"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/AshleyDawson/SimplePagination/zipball/a155be1e3338d41dec5aae840e2ec17e575e4b66",
+            "reference": "a155be1e3338d41dec5aae840e2ec17e575e4b66",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.3.*"
+        },
+        "time": "2015-05-20T18:16:52+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "AshleyDawson\\SimplePagination\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ashley Dawson",
+                "email": "ashley@ashleydawson.co.uk"
+            }
+        ],
+        "description": "Simple, lightweight and universal service that implements pagination on collections of things",
+        "keywords": [
+            "Flexible",
+            "Simple",
+            "easy",
+            "lightweight",
+            "lite",
+            "pager",
+            "pagination",
+            "paginator",
+            "universal"
+        ]
     }
 ]

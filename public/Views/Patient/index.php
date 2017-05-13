@@ -2,14 +2,17 @@
 
 require "../../../vendor/autoload.php";
 
-use HMS\Processor\Site;
-use HMS\Processor\Auth;
+use HMS\Modules\Patient\Patient;
+use HMS\Processor\{
+	Auth, Site, Sessions
+};
 
 
 Auth::confirmLogin();
 Auth::confirmType('patient');
 
-
+$patient = new Patient();
+$patient->resetApptCounter(Sessions::get('user/username'));
 ?>
 
 <!DOCTYPE html>

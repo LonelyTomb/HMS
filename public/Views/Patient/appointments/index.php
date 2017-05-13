@@ -29,8 +29,10 @@ Auth::confirmType('patient');
 		<?php
 		require __DIR__ . '/sidebar.php';
 
-		if (Input::getExists('appointments') || Input::getExists('make')) {
-			require __DIR__ . '/appointments.php';
+		if (Input::getExists('doctors') || Input::getExists('make')) {
+			require __DIR__ . '/doctors.php';
+		} elseif (Input::getExists('specialists') || Input::getExists('make')) {
+			require __DIR__ . '/specialists.php';
 		} elseif (Input::getExists('ongoing')) {
 			require __DIR__ . '/ongoingAppointments.php';
 		}

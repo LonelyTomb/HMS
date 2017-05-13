@@ -7,7 +7,6 @@ use HMS\Modules\Patient\Patient;
 use HMS\Processor\{
 	Jasonify, Functions, Sessions, Input, Errors, Site
 };
-use Carbon\Carbon;
 
 $doctors = new Doctor();
 $allDoctors = $doctors->getDoctors();
@@ -16,7 +15,7 @@ $specialists = new Specialist();
 $allSpecialists = $specialists->getSpecialists();
 $patient = new Patient();
 $patientId = $patient->getId(Sessions::get('user/username'));
-//$patient->resetApptCounter($patientId);
+
 
 if (Input::getExists('make')) {
 	if ($patient->makeAppointment() === true) {
@@ -49,7 +48,7 @@ if (Input::getExists('make')) {
 			echo '</div>
             <div class="card-action">';
 
-			if ($daysAvailable == "") {
+			if ($daysAvailable === "") {
 				echo '<p>Not Available</p>';
 			} else {
 				echo "<a href='?make&id={$patientId}&type=doctor&docId={$docId}' class='waves waves-ripple red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
@@ -65,7 +64,8 @@ if (Input::getExists('make')) {
         ';
 		}
 		?>
-
+    </div>
+    <div class="row">
 		<?php
 		foreach ($allSpecialists as $specialist) {
 			$speId = $specialists->getId($specialist['specialistId']);
@@ -86,7 +86,7 @@ if (Input::getExists('make')) {
 			echo '      </div>
             <div class="card-action">';
 
-			if ($status == 'Unavailable') {
+			if ($status === 'Unavailable') {
 				echo '<p>Not Available</p>';
 			} else {
 				echo "<a href='?make&id={$patientId}&type=specialist&docId={$speId}' class='waves waves-ripple red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";

@@ -149,7 +149,9 @@ class Validator extends Database
 	private function max(string $value, string $fieldname, string $param): bool
 	{
 		$this->valid = (strlen($value) > $param);
-		if ($this->valid === FALSE) $this->setErrors($fieldname, "The {$fieldname} has to a maximum of {$param}");
+		if ($this->valid === FALSE) {
+			$this->setErrors($fieldname, "The {$fieldname} has to a maximum of {$param}");
+		}
 		return $this->valid;
 	}
 

@@ -12,7 +12,7 @@ $type = Sessions::get('user/type') === 'patient' ? ucfirst(Sessions::get('user/t
             </a>
             <ul class="hide-on-med-and-down left">
                 <li>
-                    <a href="index.php"><i class="material-icons left">home</i>Home</a>
+                    <a href="<?php echo Site::getRoot() ?>index.php"><i class="material-icons left">home</i>Home</a>
                 </li>
                 <!--<li>
                         <a href="#"><i class="material-icons left">thumb_up</i>Authorization</a>

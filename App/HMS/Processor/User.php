@@ -259,12 +259,21 @@ class User extends Database
 		return $this->db->get('users', 'type', ['username' => "$username"]);
 	}
 
+	/**
+	 * Get Surname from Db
+	 *
+	 * @param string $username
+	 * @param string $table
+	 * @return bool|mixed
+	 */
 	public function getSurnameDb(string $username, string $table)
 	{
 		return $this->db->get("{$table}s", 'surname', ["{$table}Id" => $username]);
 	}
 
 	/**
+	 * Get All Appointments
+	 *
 	 * @param string $username
 	 * @param string $table
 	 *
@@ -277,16 +286,17 @@ class User extends Database
 	}
 
 	/**
-	 * @param $id
+	 * Reset patient's appointment counter
+	 *
+	 * @param string $username
 	 */
-	public function resetApptCounter($id)
+	public function resetApptCounter(string $username)
 	{
-		$lastAppointment = new Carbon($this->db->get('patients', 'lastAppointment', ['id' => $id]));
+		$lastAppointment = new Carbon($this->db->get('patients', 'lastAppointment', ['patientId' => $username]));
 
 		$today = Carbon::now();
-
 		if ($today->diffInDays($lastAppointment) > 0) {
-			$this->db->update('patients', ['appointments' => '2'], ['id' => $id]);
+			$this->db->update('patients', ['appointments' => '2'], ['patientId' => $username]);
 		}
 	}
 

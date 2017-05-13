@@ -6,6 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AshleyDawson\\SimplePagination\\Exception\\CallbackNotFoundException' => $vendorDir . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Exception/CallbackNotFoundException.php',
+    'AshleyDawson\\SimplePagination\\Exception\\InvalidPageNumberException' => $vendorDir . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Exception/InvalidPageNumberException.php',
+    'AshleyDawson\\SimplePagination\\Pagination' => $vendorDir . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Pagination.php',
+    'AshleyDawson\\SimplePagination\\Paginator' => $vendorDir . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/Paginator.php',
+    'AshleyDawson\\SimplePagination\\PaginatorInterface' => $vendorDir . '/ashleydawson/simple-pagination/lib/AshleyDawson/SimplePagination/PaginatorInterface.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
