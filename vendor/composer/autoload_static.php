@@ -47,6 +47,13 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
     );
 
     public static $prefixesPsr0 = array (
+        'J' => 
+        array (
+            'JasonGrimes' => 
+            array (
+                0 => __DIR__ . '/..' . '/jasongrimes/paginator/src',
+            ),
+        ),
         'A' => 
         array (
             'AshleyDawson\\SimplePagination\\' => 
@@ -76,6 +83,7 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         'HMS\\Processor\\Email' => __DIR__ . '/../..' . '/App/HMS/Processor/Email.php',
         'HMS\\Processor\\Errors' => __DIR__ . '/../..' . '/App/HMS/Processor/Errors.php',
         'HMS\\Processor\\Functions' => __DIR__ . '/../..' . '/App/HMS/Processor/Functions.php',
+        'HMS\\Processor\\HMSPaginator' => __DIR__ . '/../..' . '/App/HMS/Processor/HMSPaginator.php',
         'HMS\\Processor\\Input' => __DIR__ . '/../..' . '/App/HMS/Processor/Input.php',
         'HMS\\Processor\\Jasonify' => __DIR__ . '/../..' . '/App/HMS/Processor/Jasonify.php',
         'HMS\\Processor\\Sessions' => __DIR__ . '/../..' . '/App/HMS/Processor/Sessions.php',
@@ -84,6 +92,7 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         'HMS\\Processor\\Token' => __DIR__ . '/../..' . '/App/HMS/Processor/Token.php',
         'HMS\\Processor\\User' => __DIR__ . '/../..' . '/App/HMS/Processor/User.php',
         'HMS\\Processor\\Validator' => __DIR__ . '/../..' . '/App/HMS/Processor/Validator.php',
+        'JasonGrimes\\Paginator' => __DIR__ . '/..' . '/jasongrimes/paginator/src/JasonGrimes/Paginator.php',
         'Symfony\\Component\\Translation\\Catalogue\\AbstractOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/AbstractOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\MergeOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/MergeOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\OperationInterface' => __DIR__ . '/..' . '/symfony/translation/Catalogue/OperationInterface.php',

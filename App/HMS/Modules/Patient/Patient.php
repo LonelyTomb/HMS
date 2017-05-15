@@ -23,6 +23,7 @@ class Patient extends User
 	public function __construct()
 	{
 		parent::__construct();
+		parent::setType('patient');
 	}
 
 	/**
@@ -35,7 +36,6 @@ class Patient extends User
 	 */
 	public function createPatient(string $surname, string $otherNames, string $address, string $phoneNumber, string $email)
 	{
-		parent::setType('Patient');
 		parent::setUserId('patients', 'PAT');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
@@ -127,20 +127,12 @@ class Patient extends User
 		$patientUsername = $this->getUsernameDb($patientId, 'patient');
 		$doctorUsername = $this->getUsernameDb($doctorId, $type);
 
-		if ($type === 'specialist') {
-			$specialist = new Specialist();
-			if ($specialist->getMaxPatientsDb($doctorId) === 0) {
-				Errors::addError('Max Patients', 'Maximum Patients Reached');
-				return false;
-			}
-		}
-
 		$this->db->insert('appointments', [
 			'patientId' => "{$patientUsername}",
 			'doctorId' => "{$doctorUsername}"
 		]);
 
-		$appointmentTime = $this->db->get('appointments', 'appointmentDate', ['id' => $this->db->id()]);
+		$appointmentTime = $this->db->get('appointments', 'appointment_date', ['id' => $this->db->id()]);
 		/**
 		 *Update Patient's available Appointments && Last Appointment Date
 		 */
@@ -154,11 +146,23 @@ class Patient extends User
 		/**
 		 * Update max Patients for specialist
 		 */
-		if ($type === 'specialists') {
-			$this->db->update('specialists', ['maxPatients' => $specialist->rdMaxPatients($specialist->getMaxPatientsDb($doctorId))], ['id' => $doctorId]);
+		if ($type === 'specialist') {
+			$specialist = new Specialist();
+			$this->db->update('specialists', ['currentPatients' => $specialist->incCurrentPatients($specialist->getCurrentPatientsDb($doctorId))], ['id' => $doctorId]);
 		}
 
 		return true;
+	}
+
+	/**
+	 * @param string $id
+	 * @param string $doctorId
+	 */
+	public function confirmAppointment(string $id, string $doctorId)
+	{
+		$patientId = $this->getUsernameDb($id, 'patient');
+		$this->db->update('appointments', ['status' => 'Confirmed'], ['patientId' => $patientId, 'doctorId' => $doctorId]);
+		$this->db->insert('diagnosis', ['patientId' => $patientId, 'doctorId' => $doctorId]);
 	}
 
 

@@ -14,6 +14,8 @@ class Admin extends User
 	public function __construct()
 	{
 		parent::__construct();
+		parent::setType('admin');
+
 	}
 
 	/**
@@ -25,7 +27,6 @@ class Admin extends User
 	{
 		parent::setUsername($username);
 		parent::setPassword($password);
-		parent::setType('Admin');
 		$this->db->insert('users', [
 				'username' => parent::getUsername(),
 				'password' => parent::getPassword(),

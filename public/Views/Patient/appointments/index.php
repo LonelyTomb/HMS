@@ -24,20 +24,23 @@ Auth::confirmType('patient');
 <header>
 	<?php Site::reqAbs('Views/Parts/navbar.php'); ?>
 </header>
-<main class="appointments">
-    <div class="row">
-		<?php
-		require __DIR__ . '/sidebar.php';
 
-		if (Input::getExists('doctors') || Input::getExists('make')) {
+<main class="appointments row">
+    <!--    <div class="row">-->
+	<?php
+	require __DIR__ . '/sidebar.php';
+
+	if (Input::getExists('type')) {
+		if (Input::catch ('type') === 'doctor'):
 			require __DIR__ . '/doctors.php';
-		} elseif (Input::getExists('specialists') || Input::getExists('make')) {
+        elseif (Input::catch ('type') === 'specialist'):
 			require __DIR__ . '/specialists.php';
-		} elseif (Input::getExists('ongoing')) {
-			require __DIR__ . '/ongoingAppointments.php';
-		}
-		?>
-    </div>
+		endif;
+	} elseif (Input::getExists('ongoing')) {
+		require __DIR__ . '/ongoingAppointments.php';
+	}
+	?>
+    <!--    </div>-->
 </main>
 
 <?php Site::reqAbs('Views/Parts/footer.php'); ?>

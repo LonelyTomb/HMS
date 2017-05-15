@@ -2,9 +2,9 @@
 
 namespace HMS\Processor;
 
-use AshleyDawson\SimplePagination\Paginator;
+use AshleyDawson\SimplePagination\Paginator as Pagination;
+use JasonGrimes\Paginator as PageUrl;
 
-use HMS\Processor\Input;
 
 /**
  * Class HMSPaginator
@@ -17,25 +17,41 @@ class HMSPaginator
 	public $pagesInRange;
 	public $paginator;
 	public $pagination;
+	public $urlPattern;
+	public $pageUrl;
 
 	/**
 	 * HMSPaginator constructor.
 	 * @param array $items
 	 * @param int $noOfItems
 	 * @param int $pagesInRange
+	 * @param string $urlPattern
 	 */
-	public function __construct(array $items, int $noOfItems = 10, int $pagesInRange = 5)
+	public function __construct(array $items, string $urlPattern, int $noOfItems = 10, int $pagesInRange = 5)
 	{
+		/**
+		 * For Paginator
+		 */
 		$this->items = $items;
 		$this->noOfItems = $noOfItems;
 		$this->pagesInRange = $pagesInRange;
-		$this->paginator = new Paginator();
+		$this->paginator = new Pagination();
 		if (Input::catch ('page') === ''): $_GET['page'] = 1;endif;
+
+		/**
+		 * For PageUrl
+		 */
+		$this->urlPattern = "?$urlPattern&page=(:num)";
+		$this->pageUrl = new PageUrl(count($items), $noOfItems, $_GET['page'], $this->urlPattern);
+
+
 
 	}
 
 
 	/**
+	 * Create Pagination
+	 *
 	 * @return mixed
 	 */
 	public function getPagination()
@@ -57,5 +73,13 @@ class HMSPaginator
 
 		return $this->paginator->paginate((int)$_GET['page']);
 
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPageUrl()
+	{
+		return "<div class=\"row pagination_block\">{$this->pageUrl}</div>";
 	}
 }

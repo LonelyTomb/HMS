@@ -92,7 +92,7 @@ class Auth extends Database
 	public static function confirmLogin(string $path = 'index.php')
 	{
 		$status = Sessions::get('loggedIn') ?? FALSE;
-		if ($status === FALSE) Functions::redirect($path);
+		if ($status === FALSE): Functions::redirect($path);endif;
 	}
 
 	/**
@@ -113,8 +113,8 @@ class Auth extends Database
 	 */
 	public static function loginBySession()
 	{
-		if (Sessions::get('loggedIn')) {
+		if (Sessions::get('loggedIn')) :
 			Auth::redirectUser(Sessions::get('user/type'));
-		}
+		endif;
 	}
 }

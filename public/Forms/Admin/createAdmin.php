@@ -30,7 +30,7 @@ if (Input::exists()) {
 <div class="container">
     <div class="card z-depth-3">
         <div class="card-content">
-            <form action=8"" class="" method="POST">
+            <form action="" class="" method="POST">
                 <h3 class="flow-text left-align ">CREATE ADMIN</h3>
                 <div class="row">
                     <div class="input-field col s12">

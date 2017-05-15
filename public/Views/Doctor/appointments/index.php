@@ -23,18 +23,17 @@ Auth::confirmLogin();
 <header>
 	<?php Site::reqAbs('Views/Parts/navbar.php'); ?>
 </header>
-<main class="appointments">
-    <div class="row">
+<main class="appointments row">
 		<?php
 		require __DIR__ . '/sidebar.php';
 
 		if (Input::getExists('appointments')) {
 			require __DIR__ . '/appointments.php';
-		} elseif (Input::getExists('ongoing')) {
-			require __DIR__ . '/ongoingAppointments.php';
+		} elseif (Input::getExists('status')) {
+			require __DIR__ . '/manage_status.php';
 		}
 		?>
-    </div>
+
 </main>
 
 <?php Site::reqAbs('Views/Parts/footer.php'); ?>

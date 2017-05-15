@@ -228,6 +228,16 @@ class User extends Database
 	}
 
 	/**
+	 * @param string $username
+	 * @param string $table
+	 * @return string
+	 */
+	public function getStatusDb(string $username, string $table): string
+	{
+		return $this->db->get("{$table}s", 'status', ["{$table}Id" => $username]);
+	}
+
+	/**
 	 * Get User Username in Db
 	 *
 	 * @param string $identifier

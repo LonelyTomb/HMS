@@ -1,18 +1,21 @@
 <?php
 use HMS\Modules\Doctor\{
-	Doctor, Specialist
+	Doctor
 };
 
 use HMS\Modules\Patient\Patient;
 use HMS\Processor\{
-	Jasonify, Functions, Sessions, Input, Errors, Site
+	Jasonify, Functions, Sessions, Input, Errors, HMSPaginator
 };
 
 $doctors = new Doctor();
-$allDoctors = $doctors->getDoctors();
 
-$specialists = new Specialist();
-$allSpecialists = $specialists->getSpecialists();
+/**
+ * Pagination
+ */
+$paginator = new HMSPaginator($doctors->getDoctors(), 'type=doctor', 2);
+$pagination = $paginator->getPagination();
+
 $patient = new Patient();
 $patientId = $patient->getId(Sessions::get('user/username'));
 
@@ -31,7 +34,7 @@ if (Input::getExists('make')) {
     <h4 class="center-align">Available Appointments</h4>
     <div class="row">
 		<?php
-		foreach ($allDoctors as $doctor) {
+		foreach ($pagination->getItems() as $doctor) {
 			$docId = $doctors->getId($doctor['doctorId']);
 			echo '
             <div class="col l5 s10 doctor_outline">
@@ -51,7 +54,7 @@ if (Input::getExists('make')) {
 			if ($daysAvailable === "") {
 				echo '<p>Not Available</p>';
 			} else {
-				echo "<a href='?make&id={$patientId}&type=doctor&docId={$docId}' class='waves waves-ripple red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
+				echo "<a href='?make&id={$patientId}&type=doctor&docId={$docId}' class='waves waves-effect red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
 				foreach ($daysAvailable as $day) {
 					echo "<span class='new badge cyan' data-badge-caption=''>$day</span>";
 				}
@@ -65,38 +68,12 @@ if (Input::getExists('make')) {
 		}
 		?>
     </div>
-    <div class="row">
-		<?php
-		foreach ($allSpecialists as $specialist) {
-			$speId = $specialists->getId($specialist['specialistId']);
-			echo '
-            <div class="col l5 s10 specialist_outline">
-                <div class="card">
-                <div class="card-content">
-                    <p class="name">
-                        <h5>Specialist ';
 
-			echo $specialist['surname'];
-
-			echo '        </h5>
-                    </p>';
-
-			$status = $specialist['status'];
-
-			echo '      </div>
-            <div class="card-action">';
-
-			if ($status === 'Unavailable') {
-				echo '<p>Not Available</p>';
-			} else {
-				echo "<a href='?make&id={$patientId}&type=specialist&docId={$speId}' class='waves waves-ripple red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
-			}
-			echo '    <p class="clearfix"></p>
-                </div>
-            </div>
-            </div>
-        ';
-		}
-		?>
-    </div>
 </div>
+<p class="clearfix"></p>
+
+<?php
+echo $paginator->getPageUrl();
+?>
+
+

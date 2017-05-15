@@ -21,6 +21,8 @@ class Doctor extends User
 	public function __construct()
 	{
 		parent::__construct();
+		parent::setType('doctor');
+
 	}
 
 	/**
@@ -35,7 +37,6 @@ class Doctor extends User
 	 */
 	public function createDoctor(string $surname, string $otherNames, string $phoneNumber, string $email, string $daysAvailable)
 	{
-		parent::setType('Doctor');
 		parent::setUserId('doctors', 'DOC');
 		parent::setPassword($surname);
 		parent::setSurname($surname);

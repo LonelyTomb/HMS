@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'JasonGrimes' => array($vendorDir . '/jasongrimes/paginator/src'),
     'AshleyDawson\\SimplePagination\\' => array($vendorDir . '/ashleydawson/simple-pagination/lib'),
 );

@@ -22,6 +22,7 @@ class Specialist extends User
 	public function __construct()
 	{
 		parent::__construct();
+		parent::setType('specialist');
 	}
 
 	/**
@@ -34,7 +35,7 @@ class Specialist extends User
 	 */
 	public function createSpecialist(string $surname, string $otherNames, string $phoneNumber, string $email, string $maxPatients)
 	{
-		parent::setType('Specialist');
+
 		parent::setUserId('specialists', 'SPE');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
@@ -120,13 +121,18 @@ class Specialist extends User
 		return $this->db->get('specialists', 'maxPatients', ['id' => $id]);
 	}
 
+	public function getCurrentPatientsDb($id): int
+	{
+		return $this->db->get('specialists', 'currentPatients', ['id' => $id]);
+	}
+
 	/**
 	 * @param int $amount
 	 * @return int
 	 */
-	public function rdMaxPatients(int $amount): int
+	public function incCurrentPatients(int $amount): int
 	{
-		return $amount -= 1;
+		return $amount += 1;
 	}
 
 }

@@ -27,7 +27,8 @@
     },
   "require": {
     "nesbot/carbon": "~1.18",
-    "ashleydawson/simple-pagination": "~1.0"
+    "ashleydawson/simple-pagination": "~1.0",
+    "jasongrimes/paginator": "~1.0"
   },
     "config": {
         "optimize-autoloader": true
