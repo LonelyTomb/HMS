@@ -29,7 +29,7 @@ $paginator = new HMSPaginator($doctor->getAllAppointments(Sessions::get('user/us
 			echo "<p class='doctor_name'>Patient: $patientName </p>";
 			echo "<p class='date'>Date Made: {$appointmentDate->toDayDateTimeString()}</p>";
 			if ($appointment['status'] === 'Unconfirmed') {
-				echo "<div class='center-align action-block'><a href='?appointments&confirm&patient={$patient->getId($appointment['patientId'])}' class=' waves waves-ripple cyan btn'>Confirm</a></div>";
+				echo "<div class='center-align action-block'><a href='?appointments&confirm&patient={$patient->getIdDb($appointment['patientId'])}' class=' waves waves-ripple cyan btn'>Confirm</a></div>";
 			} elseif ($appointment['status'] === 'Confirmed') {
 				echo "<div class='center-align action-block'><a href='#' class=' waves waves-ripple cyan btn'>View Treatment</a></div>";
 			}

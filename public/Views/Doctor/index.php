@@ -15,7 +15,7 @@ Auth::confirmLogin();
 
 <head>
 	<?php
-	Site::pageTitle('Doctor');
+	Site::setPageTitle('Doctor');
 	Site::reqAbs('Views/Parts/head.php'); ?>
 </head>
 <body>

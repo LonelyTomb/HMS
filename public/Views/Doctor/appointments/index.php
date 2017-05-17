@@ -16,7 +16,7 @@ Auth::confirmLogin();
 <html lang="en">
 
 <head>
-	<?php Site::pageTitle('Appointments');
+	<?php Site::setPageTitle('Appointments');
 	Site::reqAbs('Views/Parts/head.php'); ?>
 </head>
 <body>
@@ -27,7 +27,7 @@ Auth::confirmLogin();
 		<?php
 		require __DIR__ . '/sidebar.php';
 
-		if (Input::getExists('appointments')) {
+		if (Input::getExists('appointments') || Input::exists('get') === false) {
 			require __DIR__ . '/appointments.php';
 		} elseif (Input::getExists('status')) {
 			require __DIR__ . '/manage_status.php';

@@ -11,8 +11,8 @@ use HMS\Modules\Doctor\Specialist;
 if (Input::exists()) {
 	$validator = new Validator();
 	$rules = [
-		'surname' => 'required|min:4',
-		'otherNames' => 'required|min:4',
+		'surname' => 'required|min:2',
+		'otherNames' => 'required|min:2',
 		'email' => 'required|min:4|unique:specialists.email',
 		'phoneNumber' => 'required|min:4',
 		'maxPatients' => 'required'

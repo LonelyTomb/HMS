@@ -27,7 +27,7 @@ class Site
 	 *
 	 * @return string
 	 */
-	public static function getRoot():string
+	public static function getRoot(): string
 	{
 		self::setRoot();
 		return self::$root;
@@ -48,7 +48,7 @@ class Site
 	 *
 	 * @return string
 	 */
-	public static function getAbsPath():string
+	public static function getAbsPath(): string
 	{
 		self::setAbsPath();
 		return self::$absPath;
@@ -71,7 +71,7 @@ class Site
 	 * @param string $title
 	 * @return void
 	 */
-	public static function pageTitle(string $title)
+	public static function setPageTitle(string $title)
 	{
 		self::$title = $title;
 	}
@@ -89,7 +89,7 @@ class Site
 	/**
 	 * @return string
 	 */
-	public static function getReferUrl():string
+	public static function getReferUrl(): string
 	{
 		return $_SERVER['HTTP_REFERER'] ?? '';
 	}

@@ -17,7 +17,7 @@ Auth::confirmType('patient');
 <html lang="en">
 
 <head>
-	<?php Site::pageTitle('Appointments');
+	<?php Site::setPageTitle('Appointments');
 	Site::reqAbs('Views/Parts/head.php'); ?>
 </head>
 <body>
@@ -36,7 +36,7 @@ Auth::confirmType('patient');
         elseif (Input::catch ('type') === 'specialist'):
 			require __DIR__ . '/specialists.php';
 		endif;
-	} elseif (Input::getExists('ongoing')) {
+	} elseif (Input::getExists('ongoing') || Input::exists('get') === false) {
 		require __DIR__ . '/ongoingAppointments.php';
 	}
 	?>

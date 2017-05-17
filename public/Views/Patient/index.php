@@ -19,7 +19,7 @@ $patient->resetApptCounter(Sessions::get('user/username'));
 <html lang="en">
 
 <head>
-	<?php Site::pageTitle('Patient');
+	<?php Site::setPageTitle('Patient');
 	Site::reqAbs('Views/Parts/head.php'); ?>
 </head>
 <body>

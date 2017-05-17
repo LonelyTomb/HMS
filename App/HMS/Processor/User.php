@@ -56,6 +56,18 @@ class User extends Database
 	}
 
 	/**
+	 * Get User Username in Db
+	 *
+	 * @param string $id
+	 * @param string $table remove 's' from table name
+	 * @return string
+	 */
+	public function getUsernameDb(string $id, string $table): string
+	{
+		return $this->db->get("{$table}s", "{$table}id", ['id' => $id]);
+	}
+
+	/**
 	 * Sets username
 	 *
 	 * @param string $username
@@ -98,6 +110,15 @@ class User extends Database
 	}
 
 	/**
+	 * @param string $username
+	 * @return string
+	 */
+	public function getUserTypeDb(string $username): string
+	{
+		return $this->db->get('users', 'type', ['username' => "$username"]);
+	}
+
+	/**
 	 * Sets User Password
 	 *
 	 * @param string $password
@@ -137,6 +158,18 @@ class User extends Database
 	public function getSurname(): string
 	{
 		return $this->surname;
+	}
+
+	/**
+	 * Get Surname from Db
+	 *
+	 * @param string $username
+	 * @param string $table remove 's' from table name
+	 * @return bool|mixed
+	 */
+	public function getSurnameDb(string $username, string $table)
+	{
+		return $this->db->get("{$table}s", 'surname', ["{$table}Id" => $username]);
 	}
 
 	/**
@@ -208,13 +241,14 @@ class User extends Database
 	 * @param string $daysAvailable
 	 * @return void
 	 */
-	public function setStatus(string $daysAvailable)
+	public function setStatus($daysAvailable)
 	{
-		if ($daysAvailable === '') {
+		$this->status = 'Available';
+
+		if (empty($daysAvailable)) {
 			$this->status = 'Unavailable';
-		} else {
-			$this->status = 'Available';
 		}
+
 	}
 
 	/**
@@ -237,49 +271,18 @@ class User extends Database
 		return $this->db->get("{$table}s", 'status', ["{$table}Id" => $username]);
 	}
 
-	/**
-	 * Get User Username in Db
-	 *
-	 * @param string $identifier
-	 * @param string $table table name without s
-	 * @return string
-	 */
-	public function getUsernameDb(string $identifier, string $table): string
-	{
-		return $this->db->get("{$table}s", "{$table}id", ['id' => $identifier]);
-	}
 
 	/**
 	 * Reduce Patient/Specialist Appointment Counter
 	 *
-	 * @param $counter
+	 * @param string $counter
 	 * @return int
 	 */
-	public function rdAptCounter($counter): int
+	public function rdAptCounter(string $counter): int
 	{
 		return $counter -= 1;
 	}
 
-	/**
-	 * @param string $username
-	 * @return string
-	 */
-	public function getUserTypeDb(string $username): string
-	{
-		return $this->db->get('users', 'type', ['username' => "$username"]);
-	}
-
-	/**
-	 * Get Surname from Db
-	 *
-	 * @param string $username
-	 * @param string $table
-	 * @return bool|mixed
-	 */
-	public function getSurnameDb(string $username, string $table)
-	{
-		return $this->db->get("{$table}s", 'surname', ["{$table}Id" => $username]);
-	}
 
 	/**
 	 * Get All Appointments

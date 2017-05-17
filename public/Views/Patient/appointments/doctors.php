@@ -17,7 +17,7 @@ $paginator = new HMSPaginator($doctors->getDoctors(), 'type=doctor', 2);
 $pagination = $paginator->getPagination();
 
 $patient = new Patient();
-$patientId = $patient->getId(Sessions::get('user/username'));
+$patientId = $patient->getIdDb(Sessions::get('user/username'));
 
 
 if (Input::getExists('make')) {
@@ -31,11 +31,13 @@ if (Input::getExists('make')) {
 }
 ?>
 <div class="col s10 m8 hms_officials offset-m1">
-    <h4 class="center-align">Available Appointments</h4>
+    <p><h4 class="center-align">Available Appointments For
+        Today: <?php echo $patient->getAptCounter($patient->getIdDb(Sessions::get('user/username'))); ?></h4></p>
+
     <div class="row">
 		<?php
 		foreach ($pagination->getItems() as $doctor) {
-			$docId = $doctors->getId($doctor['doctorId']);
+			$docId = $doctors->getIdDb($doctor['doctorId']);
 			echo '
             <div class="col l5 s10 doctor_outline">
                 <div class="card">
@@ -51,7 +53,7 @@ if (Input::getExists('make')) {
 			echo '</div>
             <div class="card-action">';
 
-			if ($daysAvailable === "") {
+			if ($daysAvailable === null) {
 				echo '<p>Not Available</p>';
 			} else {
 				echo "<a href='?make&id={$patientId}&type=doctor&docId={$docId}' class='waves waves-effect red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";

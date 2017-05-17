@@ -9,9 +9,10 @@ use HMS\Modules\Doctor\Doctor;
 
 if (Input::exists()) {
 	$validator = new Validator();
+
 	$rules = [
-		'surname' => 'required|min:4',
-		'otherNames' => 'required|min:4',
+		'surname' => 'required|min:2',
+		'otherNames' => 'required|min:2',
 		'email' => 'required|min:4|unique:doctors.email',
 		'phoneNumber' => 'required|min:4'
 	];
@@ -20,7 +21,7 @@ if (Input::exists()) {
 		$otherNames = Functions::escape(Input::catch ('otherNames'));
 		$email = Functions::escape(Input::catch ('email'));
 		$phoneNumber = Functions::escape(Input::catch ('phoneNumber'));
-		$daysAvailable = Jasonify::toJson(Input::catch ('daysAvailable'));
+		$daysAvailable = empty($daysAvailable) ? null : Jasonify::toJson(Input::catch ('daysAvailable'));
 		$doctor = new Doctor();
 		$doctor->createDoctor($surname, $otherNames, $phoneNumber, $email, $daysAvailable);
 		Functions::toast('Success');

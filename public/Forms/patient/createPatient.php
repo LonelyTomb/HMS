@@ -12,7 +12,7 @@ if (Input::exists()) {
 	$validator = new Validator();
 	$rules = [
 		'surname' => 'required',
-		'otherNames' => 'required|min:4',
+		'otherNames' => 'required|min:2',
 		'email' => 'required|min:4|unique:patients.email',
 		'phoneNumber' => 'required',
 		'address' => 'required|min:4'

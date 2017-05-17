@@ -3,7 +3,7 @@
 namespace HMS\Modules\Doctor;
 
 use HMS\Processor\{
-	User
+	Functions, User
 };
 
 /**
@@ -32,10 +32,10 @@ class Doctor extends User
 	 * @param string $otherNames
 	 * @param string $phoneNumber
 	 * @param string $email
-	 * @param string $daysAvailable
+	 * @param $daysAvailable
 	 * @return void
 	 */
-	public function createDoctor(string $surname, string $otherNames, string $phoneNumber, string $email, string $daysAvailable)
+	public function createDoctor(string $surname, string $otherNames, string $phoneNumber, string $email, $daysAvailable)
 	{
 		parent::setUserId('doctors', 'DOC');
 		parent::setPassword($surname);
@@ -44,8 +44,7 @@ class Doctor extends User
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->daysAvailable = $daysAvailable;
-		parent::setStatus($daysAvailable);
-
+		parent::setStatus($this->daysAvailable);
 		$this->db->insert("users", [
 				'username' => parent::getUserId(),
 				'password' => parent::getPassword(),
@@ -79,12 +78,27 @@ class Doctor extends User
 	 * @param string $username
 	 * @return int
 	 */
-	public function getId(string $username): int
+	public function getIdDb(string $username): int
 	{
 		$id = $this->db->get('doctors', 'id', [
 			'doctorId' => $username
 		]);
 		return $id;
+	}
+
+	/**
+	 * @param string $username
+	 * @return bool|mixed
+	 *
+	 */
+	public function getDaysAvailableDb(string $username)
+	{
+		return $this->db->get('doctors', 'daysAvailable', ['doctorId' => $username]);
+	}
+
+	public function saveOptions(string $username, string $status, $dayAvailable)
+	{
+		return $this->db->update('doctors', ['status' => $status, 'daysAvailable' => $dayAvailable], ['doctorId' => $username]);
 	}
 
 

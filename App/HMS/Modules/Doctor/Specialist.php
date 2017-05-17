@@ -52,12 +52,12 @@ class Specialist extends User
 			]
 		);
 		$this->db->insert('specialists', [
-			'SpecialistId' => parent::getUserId(),
-			'Surname' => parent::getSurname(),
-			'OtherNames' => parent::getOtherNames(),
-			'PhoneNumber' => parent::getPhoneNumber(),
-			'Email' => parent::getEmail(),
-			'MaxPatients' => $this->getMaxPatients(),
+			'specialistId' => parent::getUserId(),
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'email' => parent::getEmail(),
+			'maxPatients' => $this->getMaxPatients(),
 		]);
 		return $this;
 	}
@@ -79,6 +79,17 @@ class Specialist extends User
 	}
 
 	/**
+	 * Get Available Patients to Specialist
+	 *
+	 * @param string $username
+	 * @return bool|mixed
+	 */
+	public function getMaxPatientsDb(string $username)
+	{
+		return $this->db->get('specialists', 'maxPatients', ['specialistId' => $username]);
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getSpecialists(): array
@@ -91,10 +102,10 @@ class Specialist extends User
 	 * @param $username
 	 * @return int
 	 */
-	public function getId($username): int
+	public function getIdDb($username): int
 	{
 		$id = $this->db->get('specialists', 'id', [
-			'SpecialistId' => $username
+			'specialistId' => $username
 		]);
 		return $id;
 	}
@@ -102,28 +113,17 @@ class Specialist extends User
 	/**
 	 * Gets Total Available Specialist Appointment from Db
 	 *
-	 * @param $id
+	 * @param int $id
 	 * @return int
 	 */
-	public function getAptCounter($id): int
+	public function getAptCounter(int $id): int
 	{
-		return $this->get('specialists', 'Appointments', ['id' => $id]);
+		return $this->db->get('specialists', 'appointments', ['id' => $id]);
 	}
 
-	/**
-	 * Get Available Patients to Specialist
-	 *
-	 * @param $id
-	 * @return int
-	 */
-	public function getMaxPatientsDb($id): int
+	public function getCurrentPatientsDb($username): int
 	{
-		return $this->db->get('specialists', 'maxPatients', ['id' => $id]);
-	}
-
-	public function getCurrentPatientsDb($id): int
-	{
-		return $this->db->get('specialists', 'currentPatients', ['id' => $id]);
+		return $this->db->get('specialists', 'currentPatients', ['specialistId' => $username]);
 	}
 
 	/**
@@ -133,6 +133,11 @@ class Specialist extends User
 	public function incCurrentPatients(int $amount): int
 	{
 		return $amount += 1;
+	}
+
+	public function saveOptions(string $username, string $status, $maxPatients)
+	{
+		return $this->db->update('specialists', ['status' => $status, 'maxPatients' => $maxPatients], ['specialistId' => $username]);
 	}
 
 }

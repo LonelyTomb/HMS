@@ -12,7 +12,7 @@ Auth::loginBySession();
 <html lang="en">
 
 <head>
-	<?php Site::pageTitle('HMS');
+	<?php Site::setPageTitle('HMS');
 	Site::reqAbs('Views/Parts/head.php');
 	?>
 </head>

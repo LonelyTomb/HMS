@@ -5,7 +5,6 @@ require '../../../vendor/autoload.php';
 
 use HMS\Processor\{Auth,Site,Sessions,Input,Functions};
 
-// Sessions::init();
 Auth::confirmLogin();
 Auth::confirmType('admin');
 ?>
@@ -13,7 +12,8 @@ Auth::confirmType('admin');
     <html lang="en">
 
     <head>
-        <?php Site::pageTitle("Admin");Site::reqAbs('Views/Parts/head.php');?>
+	    <?php Site::setPageTitle("Admin");
+	    Site::reqAbs('Views/Parts/head.php'); ?>
     </head>
 
     <body>

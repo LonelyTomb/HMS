@@ -88,10 +88,10 @@ class Patient extends User
 	 * @param $username
 	 * @return int
 	 */
-	public function getId($username): int
+	public function getIdDb($username): int
 	{
 		$id = $this->db->get('patients', 'id', [
-			'PatientId' => $username
+			'patientId' => $username
 		]);
 		return $id;
 	}

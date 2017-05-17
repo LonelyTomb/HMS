@@ -31,7 +31,7 @@ $doctor = new Doctor();
 				echo "<p class='date'>Date Made: {$appointmentDate->toDayDateTimeString()}</p>";
 				if ($appointment['status'] === 'Unconfirmed') {
 					echo "<div class='center-align'><a href='#' class='disabled waves waves-ripple cyan btn'>Unconfirmed</a></div>";
-				} else {
+				} elseif ($appointment['status'] === 'Confirmed') {
 					echo "<div class='center-align'><a href='#' class=' waves waves-ripple cyan btn'>View</a></div>";
 				}
 
