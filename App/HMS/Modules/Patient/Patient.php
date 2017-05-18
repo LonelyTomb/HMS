@@ -155,14 +155,15 @@ class Patient extends User
 	}
 
 	/**
+	 * @param int $aptId
 	 * @param string $id
 	 * @param string $doctorId
 	 */
-	public function confirmAppointment(string $id, string $doctorId)
+	public function confirmAppointment(int $aptId, string $id, string $doctorId)
 	{
 		$patientId = $this->getUsernameDb($id, 'patient');
-		$this->db->update('appointments', ['status' => 'Confirmed'], ['patientId' => $patientId, 'doctorId' => $doctorId]);
-		$this->db->insert('diagnosis', ['patientId' => $patientId, 'doctorId' => $doctorId]);
+		$this->db->update('appointments', ['status' => 'Confirmed'], ['id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
+		$this->db->insert('diagnosis', ['appointment_id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
 	}
 
 

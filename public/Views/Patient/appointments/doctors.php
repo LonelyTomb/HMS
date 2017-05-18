@@ -52,11 +52,10 @@ if (Input::getExists('make')) {
 
 			echo '</div>
             <div class="card-action">';
-
-			if ($daysAvailable === null) {
+			if ($daysAvailable === '' || $doctor['status'] === 'Unavailable') {
 				echo '<p>Not Available</p>';
 			} else {
-				echo "<a href='?make&id={$patientId}&type=doctor&docId={$docId}' class='waves waves-effect red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
+				echo "<a href='?type=doctor&make&id={$patientId}&docId={$docId}' class='waves waves-effect red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
 				foreach ($daysAvailable as $day) {
 					echo "<span class='new badge cyan' data-badge-caption=''>$day</span>";
 				}

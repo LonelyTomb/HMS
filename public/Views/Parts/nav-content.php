@@ -25,7 +25,8 @@ $type = Sessions::get('user/type') === 'patient' ? ucfirst(Sessions::get('user/t
                 <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>
             </li>
             <li>
-                <a href="#"><i class="material-icons left">local_hospital</i>Treatment</a>
+                <a href="<?php echo Site::getRoot(); ?>Views/<?php echo $type ?>/treatments/"><i
+                            class="material-icons left">local_hospital</i>Treatment</a>
             </li>
             <li>
                 <a href="#"><i class="material-icons left">sms_failed</i>Feedback</a>
@@ -52,7 +53,7 @@ $type = Sessions::get('user/type') === 'patient' ? ucfirst(Sessions::get('user/t
         <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>
     </li>
     <li>
-        <a href="#"><i class="material-icons left">local_hospital</i>Treatment</a>
+        <a href="<?php echo Site::getRoot(); ?>Views/<?php echo $type ?>/treatments/"><i class="material-icons left">local_hospital</i>Treatment</a>
     </li>
     <li>
         <a href="#"><i class="material-icons left">sms_failed</i>Feedback</a>

@@ -2,13 +2,14 @@
 use HMS\Modules\Doctor\Doctor;
 use HMS\Modules\Patient\Patient;
 use HMS\Processor\{
-	Sessions, HMSPaginator
+	Sessions, HMSPaginator, Functions
 };
 use Carbon\Carbon;
 
 $patient = new Patient();
 
-$paginator = new HMSPaginator($patient->getAllAppointments(Sessions::get('user/username'), Sessions::get('user/type')), 'ongoing', 1);
+
+$paginator = new HMSPaginator($patient->getAllAppointments(Sessions::get('user/username'), Sessions::get('user/type')), 'ongoing', 2);
 $doctor = new Doctor();
 
 ?>

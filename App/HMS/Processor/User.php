@@ -193,6 +193,11 @@ class User extends Database
 		return $this->otherNames;
 	}
 
+	public function getOtherNamesDb(string $username, string $table): string
+	{
+		return $this->db->get("{$table}s", 'otherNames', ["{$table}Id" => $username]);
+	}
+
 	/**
 	 * Sets User PhoneNumber
 	 *
@@ -295,7 +300,18 @@ class User extends Database
 	public function getAllAppointments(string $username, string $table): array
 	{
 		$table = $table === 'patient' ? $table : 'doctor';
-		return $this->db->select('appointments', '*', ["{$table}Id" => $username]);
+		return $this->db->select('appointments', '*', ["{$table}Id" => $username, 'ORDER' => ['appointments.id' => 'DESC']]);
+	}
+
+	/**
+	 * @param string $username
+	 * @param string $type
+	 * @return array
+	 */
+	public function getAllConfirmedAppt(string $username, string $type): array
+	{
+		$type = $type === 'patient' ? $type : 'doctor';
+		return $this->db->select('diagnosis', '*', ["{$type}Id" => $username, 'ORDER' => ['id' => 'DESC']]);
 	}
 
 	/**

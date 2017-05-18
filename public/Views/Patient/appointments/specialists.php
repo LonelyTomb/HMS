@@ -56,7 +56,7 @@ if (Input::getExists('make')) {
 				if ($status === 'Unavailable' || $specialist['maxPatients'] === $specialist['currentPatients']) {
 					echo '<p>Not Available</p>';
 				} else {
-					echo "<a href='?make&id={$patientId}&type=specialist&docId={$speId}' class='waves waves-ripple red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
+					echo "<a href='?type=specialist&make&id={$patientId}&docId={$speId}' class='waves waves-ripple red btn' data-position='bottom' data-delay='50' data-tooltip='Make Appointment'>Make</a>";
 				}
 				echo '    <p class="clearfix"></p>
                 </div>

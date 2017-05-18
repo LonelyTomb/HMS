@@ -48,6 +48,8 @@ class Auth extends Database
 			} else {
 				Functions::toast('Incorrect Login Details');
 			}
+		} else {
+			Functions::toast('Incorrect Login Details');
 		}
 		return self::$valid;
 	}
