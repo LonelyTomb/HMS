@@ -42,46 +42,46 @@ if (Input::exists()) {
                                     Unavailable
                                     <input name='status' type='hidden' value='Unavailable'>
                                     <input type="checkbox" name="status" value="Available"
-								        <?php if ($doctor->getStatusDb(Sessions::get('user/username'), Sessions::get('user/type')) === 'Available'):
-									        ?>
+	                                    <?php if ($doctor->getStatusDb(Sessions::get('user/username'), Sessions::get('user/type')) === 'Available'):
+		                                    ?>
                                             checked
-								        <?php endif; ?>
+	                                    <?php endif; ?>
                                     >
                                     <span class="lever"></span>
                                     Available
                                 </label>
                             </div>
-					        <?php if (Sessions::get('user/type') === 'specialist'): ?>
+	                        <?php if (Sessions::get('user/type') === 'specialist'): ?>
                                 <span class="new badge brown col s4 l3"
                                       data-badge-caption="<?php echo $doctor->getAptCounter($doctor->getIdDb(Sessions::get('user/username'))); ?>">Days Available left: </span>
-					        <?php endif; ?>
+	                        <?php endif; ?>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12 days-available">
-				        <?php if (Sessions::get('user/type') === 'doctor'): ?>
+	                    <?php if (Sessions::get('user/type') === 'doctor'): ?>
                             <p>Days Available</p>
-					        <?php
-					        if ($doctor->getDaysAvailableDb(Sessions::get('user/username')) === null) {
-						        echo '<p>Currently Not Set</p>';
-					        } else {
-						        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-						        $daysAvailable = Jasonify::toArray($doctor->getDaysAvailableDb(Sessions::get('user/username')));
-						        foreach ($days as $day) {
-							        echo '<p>';
-							        echo "<input type='checkbox' id={$day} class='validate filled-in' name='daysAvailable[]' value='{$day}' ";
-							        if (in_array($day, $daysAvailable, false)) {
-								        echo 'checked';
-							        }
-							        echo '>';
-							        echo "<label for={$day}>{$day}</label>";
-							        echo '</p>';
-						        }
-					        }
-					        ?>
-				        <?php elseif (Sessions::get('user/type') === 'specialist'): ?>
+		                    <?php
+		                    if ($doctor->getDaysAvailableDb(Sessions::get('user/username')) === null) {
+			                    echo '<p>Currently Not Set</p>';
+		                    } else {
+			                    $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			                    $daysAvailable = Jasonify::toArray($doctor->getDaysAvailableDb(Sessions::get('user/username')));
+			                    foreach ($days as $day) {
+				                    echo '<p>';
+				                    echo "<input type='checkbox' id={$day} class='validate filled-in' name='daysAvailable[]' value='{$day}' ";
+				                    if (in_array($day, $daysAvailable, false)) {
+					                    echo 'checked';
+				                    }
+				                    echo '>';
+				                    echo "<label for={$day}>{$day}</label>";
+				                    echo '</p>';
+			                    }
+		                    }
+		                    ?>
+	                    <?php elseif (Sessions::get('user/type') === 'specialist'): ?>
                             <p>Maximum Patients Available to Specialist</p>
                             <div class="row">
                                 <input type="text" name="maxPatients" id="maxPatients" class="validate col s7 m8 l9"
@@ -92,7 +92,7 @@ if (Input::exists()) {
                                       data-badge-caption="<?php echo $doctor->getCurrentPatientsDb(Sessions::get('user/username')) ?>">Patients Attended: </span>
                             </div>
 
-				        <?php endif; ?>
+	                    <?php endif; ?>
                     </div>
                 </div>
                 <div class="row">

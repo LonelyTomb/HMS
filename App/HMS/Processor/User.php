@@ -2,14 +2,14 @@
 
 namespace HMS\Processor;
 
-use HMS\Database\Database;
+use HMS\Database\Database as DB;
 use Carbon\Carbon;
 
 /**
  * Class User
  * @package HMS\Processor
  */
-class User extends Database
+class User
 {
 	protected $username;
 	protected $userId;
@@ -20,14 +20,12 @@ class User extends Database
 	protected $phoneNumber;
 	protected $email;
 	protected $status;
+	protected $address;
+	protected $gender;
 
-	/**
-	 * Creates User Object
-	 *
-	 */
-	public function __construct()
+	public function getUserFromDb(string $username)
 	{
-		parent::__construct();
+		return DB::_db()->get('users', '*', ['username' => $username]);
 	}
 
 	/**
@@ -39,7 +37,11 @@ class User extends Database
 	 */
 	public function setUserId(string $table, string $prefix)
 	{
-		$id = sprintf('%03d', $this->db->max("$table", 'id') + 1);
+		$id = DB::_db()->query("SELECT AUTO_INCREMENT
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_SCHEMA = 'HMS'
+AND TABLE_NAME = '{$table}'")->fetch();
+		$id = sprintf('%03d', $id->AUTO_INCREMENT);
 		$year = Carbon::today();
 		$year = $year->format('y');
 		$this->userId = "$prefix/" . $year . '-' . $id;
@@ -64,7 +66,7 @@ class User extends Database
 	 */
 	public function getUsernameDb(string $id, string $table): string
 	{
-		return $this->db->get("{$table}s", "{$table}id", ['id' => $id]);
+		return DB::_db()->get("{$table}s", "{$table}id", ['id' => $id]);
 	}
 
 	/**
@@ -115,7 +117,7 @@ class User extends Database
 	 */
 	public function getUserTypeDb(string $username): string
 	{
-		return $this->db->get('users', 'type', ['username' => "$username"]);
+		return DB::_db()->get('users', 'type', ['username' => "$username"]);
 	}
 
 	/**
@@ -169,7 +171,7 @@ class User extends Database
 	 */
 	public function getSurnameDb(string $username, string $table)
 	{
-		return $this->db->get("{$table}s", 'surname', ["{$table}Id" => $username]);
+		return DB::_db()->get("{$table}s", 'surname', ["{$table}Id" => $username]);
 	}
 
 	/**
@@ -193,9 +195,52 @@ class User extends Database
 		return $this->otherNames;
 	}
 
+	/**
+	 * @param string $username
+	 * @param string $table
+	 * @return string
+	 */
 	public function getOtherNamesDb(string $username, string $table): string
 	{
-		return $this->db->get("{$table}s", 'otherNames', ["{$table}Id" => $username]);
+		return DB::_db()->get("{$table}s", 'otherNames', ["{$table}Id" => $username]);
+	}
+
+	/**
+	 * @param string $gender
+	 */
+
+	public function setGender(string $gender)
+	{
+		$this->gender = $gender;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getGender(): string
+	{
+		return $this->gender;
+	}
+
+	/**
+	 * Sets User Address
+	 *
+	 * @param string $address
+	 * @return void
+	 */
+	public function setAddress(string $address)
+	{
+		$this->address = $address;
+	}
+
+	/**
+	 * Gets User Address
+	 *
+	 * @return string
+	 */
+	public function getAddress(): string
+	{
+		return $this->address;
 	}
 
 	/**
@@ -273,7 +318,7 @@ class User extends Database
 	 */
 	public function getStatusDb(string $username, string $table): string
 	{
-		return $this->db->get("{$table}s", 'status', ["{$table}Id" => $username]);
+		return DB::_db()->get("{$table}s", 'status', ["{$table}Id" => $username]);
 	}
 
 
@@ -300,7 +345,7 @@ class User extends Database
 	public function getAllAppointments(string $username, string $table): array
 	{
 		$table = $table === 'patient' ? $table : 'doctor';
-		return $this->db->select('appointments', '*', ["{$table}Id" => $username, 'ORDER' => ['appointments.id' => 'DESC']]);
+		return DB::_db()->select('appointments', '*', ["{$table}Id" => $username, 'ORDER' => ['appointments.id' => 'DESC']]);
 	}
 
 	/**
@@ -311,7 +356,7 @@ class User extends Database
 	public function getAllConfirmedAppt(string $username, string $type): array
 	{
 		$type = $type === 'patient' ? $type : 'doctor';
-		return $this->db->select('diagnosis', '*', ["{$type}Id" => $username, 'ORDER' => ['id' => 'DESC']]);
+		return DB::_db()->select('diagnosis', '*', ["{$type}Id" => $username, 'ORDER' => ['id' => 'DESC']]);
 	}
 
 	/**
@@ -321,11 +366,11 @@ class User extends Database
 	 */
 	public function resetApptCounter(string $username)
 	{
-		$lastAppointment = new Carbon($this->db->get('patients', 'lastAppointment', ['patientId' => $username]));
+		$lastAppointment = new Carbon(DB::_db()->get('patients', 'lastAppointment', ['patientId' => $username]));
 
 		$today = Carbon::now();
 		if ($today->diffInDays($lastAppointment) > 0) {
-			$this->db->update('patients', ['appointments' => '2'], ['patientId' => $username]);
+			DB::_db()->update('patients', ['appointments' => '2'], ['patientId' => $username]);
 		}
 	}
 

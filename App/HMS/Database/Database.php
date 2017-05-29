@@ -4,10 +4,12 @@ namespace HMS\Database;
 
 
 use PDO;
+use Medoo\Medoo;
 
 class Database extends Config
 {
-	protected $db;
+	private $db;
+	private static $instance;
 
 	/**
 	 * Database constructor.
@@ -18,10 +20,10 @@ class Database extends Config
 			$this->db = new Medoo(
 				[
 					'database_type' => 'mysql',
-					'database_name' => $this->db_params['DB_NAME'],
+					'database_name' => parent::$db_params['DB_NAME'],
 					'server' => 'localhost',
-					'username' => $this->db_params['DB_USERNAME'],
-					'password' => $this->db_params['DB_PASSWORD'],
+					'username' => parent::$db_params['DB_USERNAME'],
+					'password' => parent::$db_params['DB_PASSWORD'],
 					'charset' => 'utf8',
 					'option' => [
 						PDO::ATTR_CASE => PDO::CASE_NATURAL,
@@ -35,6 +37,20 @@ class Database extends Config
 		} catch (PDOException $e) {
 			echo $e->getMessage();
 		}
-		return $this;
+//		return $this->db;
+	}
+
+	/**
+	 * Creates instance of database connection
+	 *
+	 * @return \Medoo\Medoo
+	 */
+	public static function _db()
+	{
+		if (!isset(self::$instance)) {
+			self::$instance = new self();
+
+		}
+		return self::$instance->db;
 	}
 }

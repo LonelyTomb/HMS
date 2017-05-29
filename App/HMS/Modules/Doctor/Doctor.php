@@ -2,6 +2,7 @@
 
 namespace HMS\Modules\Doctor;
 
+use HMS\Database\Database as DB;
 use HMS\Processor\{
 	Functions, User
 };
@@ -20,7 +21,6 @@ class Doctor extends User
 	 */
 	public function __construct()
 	{
-		parent::__construct();
 		parent::setType('doctor');
 
 	}
@@ -30,31 +30,38 @@ class Doctor extends User
 	 *
 	 * @param string $surname
 	 * @param string $otherNames
+	 * @param string $gender
+	 * @param string $address
 	 * @param string $phoneNumber
 	 * @param string $email
 	 * @param $daysAvailable
 	 * @return void
 	 */
-	public function createDoctor(string $surname, string $otherNames, string $phoneNumber, string $email, $daysAvailable)
+	public function createDoctor(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, $daysAvailable)
 	{
 		parent::setUserId('doctors', 'DOC');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
 		parent::setOtherNames($otherNames);
 		parent::setPhoneNumber($phoneNumber);
+		parent::setGender($gender);
+		parent::setAddress($address);
 		parent::setEmail($email);
 		$this->daysAvailable = $daysAvailable;
 		parent::setStatus($this->daysAvailable);
-		$this->db->insert("users", [
+		DB::_db()->insert('users', [
 				'username' => parent::getUserId(),
 				'password' => parent::getPassword(),
 				'type' => $this->getType()
 			]
 		);
-		$this->db->insert('doctors', [
+
+		DB::_db()->insert('doctors', [
 			'doctorId' => parent::getUserId(),
 			'surname' => parent::getSurname(),
 			'otherNames' => parent::getOtherNames(),
+			'gender' => parent::getGender(),
+			'address' => parent::getAddress(),
 			'phoneNumber' => parent::getPhoneNumber(),
 			'email' => parent::getEmail(),
 			'daysAvailable' => $this->daysAvailable,
@@ -70,8 +77,7 @@ class Doctor extends User
 	 */
 	public function getDoctors(): array
 	{
-		$doctors = $this->db->select('doctors', '*');
-		return $doctors;
+		return DB::_db()->select('doctors', '*');
 	}
 
 	/**
@@ -80,10 +86,9 @@ class Doctor extends User
 	 */
 	public function getIdDb(string $username): int
 	{
-		$id = $this->db->get('doctors', 'id', [
+		return DB::_db()->get('doctors', 'id', [
 			'doctorId' => $username
 		]);
-		return $id;
 	}
 
 	/**
@@ -93,12 +98,12 @@ class Doctor extends User
 	 */
 	public function getDaysAvailableDb(string $username)
 	{
-		return $this->db->get('doctors', 'daysAvailable', ['doctorId' => $username]);
+		return DB::_db()->get('doctors', 'daysAvailable', ['doctorId' => $username]);
 	}
 
 	public function saveOptions(string $username, string $status, $dayAvailable)
 	{
-		return $this->db->update('doctors', ['status' => $status, 'daysAvailable' => $dayAvailable], ['doctorId' => $username]);
+		return DB::_db()->update('doctors', ['status' => $status, 'daysAvailable' => $dayAvailable], ['doctorId' => $username]);
 	}
 
 

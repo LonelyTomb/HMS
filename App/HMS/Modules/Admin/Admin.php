@@ -2,6 +2,7 @@
 
 namespace HMS\Modules\Admin;
 
+use HMS\Database\Database as DB;
 use HMS\Processor\{
 	User, Validator
 };
@@ -13,7 +14,6 @@ class Admin extends User
 	 */
 	public function __construct()
 	{
-		parent::__construct();
 		parent::setType('admin');
 
 	}
@@ -27,7 +27,7 @@ class Admin extends User
 	{
 		parent::setUsername($username);
 		parent::setPassword($password);
-		$this->db->insert('users', [
+		DB::_db()->insert('users', [
 				'username' => parent::getUsername(),
 				'password' => parent::getPassword(),
 				'type' => parent::getType()

@@ -2,10 +2,12 @@
 
 namespace HMS\Modules\Patient;
 
+use HMS\Database\Database as DB;
 use HMS\Modules\Doctor\Specialist;
 use HMS\Processor\{
 	Errors, Functions, Input, User
 };
+
 
 /**
  * Class Patient
@@ -14,7 +16,23 @@ use HMS\Processor\{
 class Patient extends User
 {
 	protected $patientId;
-	protected $address;
+	protected $dateOfBirth;
+
+	/**
+	 * @return mixed
+	 */
+	public function getDateOfBirth()
+	{
+		return $this->dateOfBirth;
+	}
+
+	/**
+	 * @param mixed $dateOfBirth
+	 */
+	public function setDateOfBirth($dateOfBirth)
+	{
+		$this->dateOfBirth = $dateOfBirth;
+	}
 
 	/**
 	 * Patient Constructor
@@ -22,65 +40,49 @@ class Patient extends User
 	 */
 	public function __construct()
 	{
-		parent::__construct();
 		parent::setType('patient');
 	}
 
 	/**
 	 * @param string $surname
 	 * @param string $otherNames
+	 * @param string $gender
 	 * @param string $address
 	 * @param string $phoneNumber
 	 * @param string $email
 	 * @return $this
 	 */
-	public function createPatient(string $surname, string $otherNames, string $address, string $phoneNumber, string $email)
+	public function createPatient(string $surname, string $otherNames, string $gender, string $dob, string $address, string $phoneNumber, string $email)
 	{
 		parent::setUserId('patients', 'PAT');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
 		parent::setOtherNames($otherNames);
-		$this->setAddress($address);
+		parent::setGender($gender);
+		parent::setAddress($address);
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
+		$this->setDateOfBirth($dob);
 
-		$this->db->insert('users', [
+		DB::_db()->insert('users', [
 				'username' => parent::getUserId(),
 				'password' => parent::getPassword(),
 				'type' => $this->getType()
 			]
 		);
-		$this->db->insert('patients', [
-			'PatientId' => parent::getUserId(),
-			'Surname' => parent::getSurname(),
-			'OtherNames' => parent::getOtherNames(),
-			'Address' => $this->getAddress(),
-			'PhoneNumber' => parent::getPhoneNumber(),
-			'Email' => parent::getEmail()
+		DB::_db()->insert('patients', [
+			'patientId' => parent::getUserId(),
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'gender' => parent::getGender(),
+			'date_of_birth' => $this->getDateOfBirth(),
+			'address' => parent::getAddress(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'email' => parent::getEmail()
 		]);
 		return $this;
 	}
 
-	/**
-	 * Sets User Address
-	 *
-	 * @param string $address
-	 * @return void
-	 */
-	public function setAddress(string $address)
-	{
-		$this->address = $address;
-	}
-
-	/**
-	 * Gets User Address
-	 *
-	 * @return string
-	 */
-	public function getAddress(): string
-	{
-		return $this->address;
-	}
 
 	/**
 	 * Gets Patient PatientId
@@ -90,7 +92,7 @@ class Patient extends User
 	 */
 	public function getIdDb($username): int
 	{
-		$id = $this->db->get('patients', 'id', [
+		$id = DB::_db()->get('patients', 'id', [
 			'patientId' => $username
 		]);
 		return $id;
@@ -104,7 +106,7 @@ class Patient extends User
 	 */
 	public function getAptCounter($id): int
 	{
-		return $this->db->get('patients', 'Appointments', ['id' => $id]);
+		return DB::_db()->get('patients', 'Appointments', ['id' => $id]);
 	}
 
 	/**
@@ -127,28 +129,28 @@ class Patient extends User
 		$patientUsername = $this->getUsernameDb($patientId, 'patient');
 		$doctorUsername = $this->getUsernameDb($doctorId, $type);
 
-		$this->db->insert('appointments', [
+		DB::_db()->insert('appointments', [
 			'patientId' => "{$patientUsername}",
 			'doctorId' => "{$doctorUsername}"
 		]);
 
-		$appointmentTime = $this->db->get('appointments', 'appointment_date', ['id' => $this->db->id()]);
+		$appointmentTime = DB::_db()->get('appointments', 'appointment_date', ['id' => DB::_db()->id()]);
 		/**
 		 *Update Patient's available Appointments && Last Appointment Date
 		 */
-		$this->db->update('patients', ['appointments' => $this->rdAptCounter($this->getAptCounter($patientId)), 'lastAppointment' => $appointmentTime], ['id' => $patientId]);
+		DB::_db()->update('patients', ['appointments' => $this->rdAptCounter($this->getAptCounter($patientId)), 'lastAppointment' => $appointmentTime], ['id' => $patientId]);
 
 		/**
 		 *Update Doctor's or Specialist's Last Appointment Date
 		 */
-		$this->db->update("{$type}s", ['lastAppointment' => $appointmentTime], ['id' => $doctorId]);
+		DB::_db()->update("{$type}s", ['lastAppointment' => $appointmentTime], ['id' => $doctorId]);
 
 		/**
 		 * Update max Patients for specialist
 		 */
 		if ($type === 'specialist') {
 			$specialist = new Specialist();
-			$this->db->update('specialists', ['currentPatients' => $specialist->incCurrentPatients($specialist->getCurrentPatientsDb($doctorId))], ['id' => $doctorId]);
+			DB::_db()->update('specialists', ['currentPatients' => $specialist->incCurrentPatients($specialist->getCurrentPatientsDb($doctorId))], ['id' => $doctorId]);
 		}
 
 		return true;
@@ -162,8 +164,8 @@ class Patient extends User
 	public function confirmAppointment(int $aptId, string $id, string $doctorId)
 	{
 		$patientId = $this->getUsernameDb($id, 'patient');
-		$this->db->update('appointments', ['status' => 'Confirmed'], ['id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
-		$this->db->insert('diagnosis', ['appointment_id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
+		DB::_db()->update('appointments', ['status' => 'Confirmed'], ['id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
+		DB::_db()->insert('diagnosis', ['appointment_id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
 	}
 
 

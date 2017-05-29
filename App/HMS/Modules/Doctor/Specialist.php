@@ -5,6 +5,7 @@ namespace HMS\Modules\Doctor;
 use HMS\Processor\{
 	User
 };
+use HMS\Database\Database as DB;
 
 /**
  * Class Specialist
@@ -21,41 +22,46 @@ class Specialist extends User
 	 */
 	public function __construct()
 	{
-		parent::__construct();
 		parent::setType('specialist');
 	}
 
 	/**
 	 * @param string $surname
 	 * @param string $otherNames
+	 * @param string $gender
+	 * @param string $address
 	 * @param string $phoneNumber
 	 * @param string $email
 	 * @param string $maxPatients
 	 * @return $this
 	 */
-	public function createSpecialist(string $surname, string $otherNames, string $phoneNumber, string $email, string $maxPatients)
+	public function createSpecialist(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients)
 	{
 
 		parent::setUserId('specialists', 'SPE');
 		parent::setPassword($surname);
 		parent::setSurname($surname);
 		parent::setOtherNames($otherNames);
+		parent::setGender($gender);
+		parent::setAddress($address);
 		parent::setPhoneNumber($phoneNumber);
 		parent::setEmail($email);
 		$this->setMaxPatients($maxPatients);
 
 
-		$this->db->insert('users', [
+		DB::_db()->insert('users', [
 				'username' => parent::getUserId(),
 				'password' => parent::getPassword(),
 				'type' => $this->getType()
 			]
 		);
-		$this->db->insert('specialists', [
+		DB::_db()->insert('specialists', [
 			'specialistId' => parent::getUserId(),
 			'surname' => parent::getSurname(),
 			'otherNames' => parent::getOtherNames(),
 			'phoneNumber' => parent::getPhoneNumber(),
+			'gender' => parent::getGender(),
+			'address' => parent::getAddress(),
 			'email' => parent::getEmail(),
 			'maxPatients' => $this->getMaxPatients(),
 		]);
@@ -86,7 +92,7 @@ class Specialist extends User
 	 */
 	public function getMaxPatientsDb(string $username)
 	{
-		return $this->db->get('specialists', 'maxPatients', ['specialistId' => $username]);
+		return DB::_db()->get('specialists', 'maxPatients', ['specialistId' => $username]);
 	}
 
 	/**
@@ -94,7 +100,7 @@ class Specialist extends User
 	 */
 	public function getSpecialists(): array
 	{
-		$doctors = $this->db->select('specialists', '*');
+		$doctors = DB::_db()->select('specialists', '*');
 		return $doctors;
 	}
 
@@ -104,7 +110,7 @@ class Specialist extends User
 	 */
 	public function getIdDb($username): int
 	{
-		$id = $this->db->get('specialists', 'id', [
+		$id = DB::_db()->get('specialists', 'id', [
 			'specialistId' => $username
 		]);
 		return $id;
@@ -118,12 +124,12 @@ class Specialist extends User
 	 */
 	public function getAptCounter(int $id): int
 	{
-		return $this->db->get('specialists', 'appointments', ['id' => $id]);
+		return DB::_db()->get('specialists', 'appointments', ['id' => $id]);
 	}
 
 	public function getCurrentPatientsDb($username): int
 	{
-		return $this->db->get('specialists', 'currentPatients', ['specialistId' => $username]);
+		return DB::_db()->get('specialists', 'currentPatients', ['specialistId' => $username]);
 	}
 
 	/**
@@ -137,7 +143,7 @@ class Specialist extends User
 
 	public function saveOptions(string $username, string $status, $maxPatients)
 	{
-		return $this->db->update('specialists', ['status' => $status, 'maxPatients' => $maxPatients], ['specialistId' => $username]);
+		return DB::_db()->update('specialists', ['status' => $status, 'maxPatients' => $maxPatients], ['specialistId' => $username]);
 	}
 
 }

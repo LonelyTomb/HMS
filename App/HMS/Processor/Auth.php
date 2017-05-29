@@ -2,24 +2,15 @@
 
 namespace HMS\Processor;
 
-use HMS\Database\Database;
+use HMS\Database\Database as DB;
 
 /**
  * Class Auth
  * @package HMS\Processor
  */
-class Auth extends Database
+class Auth
 {
 	private static $valid = FALSE;
-	private static $_instance;
-
-	/**
-	 * Auth constructor.
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
 
 	/**
 	 * Logs User In
@@ -30,12 +21,12 @@ class Auth extends Database
 	 */
 	public static function logIn(array $source, array $params = array())
 	{
-		self::$_instance = new Database();
+
 		$username = Functions::escape($source['username']);
 		$password = Functions::escape($source['password']);
 		$table = $params['table'] ?? 'users';
 		$column = $params['column'] ?? 'username';
-		$user = self::$_instance->db->get("$table", '*', ["$column" => "$username"]);
+		$user = DB::_db()->get("$table", '*', ["$column" => "$username"]);
 
 		if ($user) {
 			self::$valid = password_verify($password, $user['password']);

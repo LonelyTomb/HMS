@@ -2,24 +2,17 @@
 
 namespace HMS\Processor;
 
-use HMS\Database\Database;
+use HMS\Database\Database as DB;
 
 /**
  * Class Validator
  * @package HMS\Processor
  */
-class Validator extends Database
+class Validator
 {
 	private $valid = TRUE, $status = TRUE,
 		$errors = array();
 
-	/**
-	 * Validator constructor.
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
 
 	/**
 	 * Validate Given Post or Get Array
@@ -148,7 +141,7 @@ class Validator extends Database
 	 */
 	private function max(string $value, string $fieldname, string $param): bool
 	{
-		$this->valid = (strlen($value) > $param);
+		$this->valid = (strlen($value) <= $param);
 		if ($this->valid === FALSE) {
 			$this->setErrors($fieldname, "The {$fieldname} has to a maximum of {$param}");
 		}
@@ -183,7 +176,7 @@ class Validator extends Database
 		$dbParams = explode('.', $param);
 		$table = $dbParams[0];
 		$column = $dbParams[1];
-		$this->valid = !$this->db->get("$table", '*', ["$column" => "$value"]) ? TRUE : FALSE;
+		$this->valid = !DB::_db()->get("$table", '*', ["$column" => "$value"]) ? TRUE : FALSE;
 
 		if ($this->valid === FALSE) {
 			$this->setErrors($fieldname, "The {$fieldname} already exists");

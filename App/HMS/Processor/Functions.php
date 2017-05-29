@@ -90,4 +90,40 @@ class Functions
 		echo "<script>Materialize.toast('{$item}',{$time})</script>";
 	}
 
+	/**
+	 * @param array $options
+	 */
+	public static function jGrowl(array $options)
+	{
+		$message = $options['message'] ?? '';
+		$header = $options['header'] ?? '';
+		$theme = $options['theme'] ?? 'bg-primary';
+		$position = $options['position'] ?? 'top-right';
+		$sticky = $options['sticky'] ?? false;
+		$life = $options['life'] ?? 5000;
+
+
+		echo "<script>
+    (function () {
+        $.jGrowl('{$message}', {
+            header: '{$header}',
+            theme: '{$theme}',
+            position:'{$position}',
+            life:'{$life}'
+        });
+    })()
+
+</script>";
+	}
+
+	/**
+	 * @param string $string
+	 */
+	public static function toggleActive(string $string)
+	{
+
+		echo Input::getExists($string) ? 'active' : '';
+
+
+	}
 }

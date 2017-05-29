@@ -17,6 +17,10 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Translation\\' => 30,
         ),
+        'M' => 
+        array (
+            'Medoo\\' => 6,
+        ),
         'H' => 
         array (
             'HMS\\' => 4,
@@ -35,6 +39,10 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Medoo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/catfan/medoo/src',
         ),
         'HMS\\' => 
         array (
@@ -74,7 +82,6 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
         'HMS\\Database\\Config' => __DIR__ . '/../..' . '/App/HMS/Database/Config.php',
         'HMS\\Database\\Database' => __DIR__ . '/../..' . '/App/HMS/Database/Database.php',
-        'HMS\\Database\\Medoo' => __DIR__ . '/../..' . '/App/HMS/Database/Medoo.php',
         'HMS\\Modules\\Admin\\Admin' => __DIR__ . '/../..' . '/App/HMS/Modules/Admin/Admin.php',
         'HMS\\Modules\\Doctor\\Doctor' => __DIR__ . '/../..' . '/App/HMS/Modules/Doctor/Doctor.php',
         'HMS\\Modules\\Doctor\\Specialist' => __DIR__ . '/../..' . '/App/HMS/Modules/Doctor/Specialist.php',
@@ -88,11 +95,11 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         'HMS\\Processor\\Jasonify' => __DIR__ . '/../..' . '/App/HMS/Processor/Jasonify.php',
         'HMS\\Processor\\Sessions' => __DIR__ . '/../..' . '/App/HMS/Processor/Sessions.php',
         'HMS\\Processor\\Site' => __DIR__ . '/../..' . '/App/HMS/Processor/Site.php',
-        'HMS\\Processor\\Time' => __DIR__ . '/../..' . '/App/HMS/Processor/Time.php',
         'HMS\\Processor\\Token' => __DIR__ . '/../..' . '/App/HMS/Processor/Token.php',
         'HMS\\Processor\\User' => __DIR__ . '/../..' . '/App/HMS/Processor/User.php',
         'HMS\\Processor\\Validator' => __DIR__ . '/../..' . '/App/HMS/Processor/Validator.php',
         'JasonGrimes\\Paginator' => __DIR__ . '/..' . '/jasongrimes/paginator/src/JasonGrimes/Paginator.php',
+        'Medoo\\Medoo' => __DIR__ . '/..' . '/catfan/medoo/src/Medoo.php',
         'Symfony\\Component\\Translation\\Catalogue\\AbstractOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/AbstractOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\MergeOperation' => __DIR__ . '/..' . '/symfony/translation/Catalogue/MergeOperation.php',
         'Symfony\\Component\\Translation\\Catalogue\\OperationInterface' => __DIR__ . '/..' . '/symfony/translation/Catalogue/OperationInterface.php',
