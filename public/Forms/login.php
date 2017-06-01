@@ -31,6 +31,13 @@ if (Input::exists()) {
                     <button type="submit" class="btn waves-effect waves-ripple waves-teal waves-light enter pink l2">
                         Enter
                     </button>
+                    <a href="#" class="dropdown-button btn waves-effect materialize-red right"
+                       data-activates="register">Register <i class="material-icons right">send</i></a>
+                    <ul id="register" class="dropdown-content">
+                        <li><a href="?register&patient">As Patient</a></li>
+                        <li><a href="?register&doctor">As Doctor</a></li>
+                        <li><a href="?register&specialist">As Specialist</a></li>
+                    </ul>
                 </form>
             </div>
         </div>

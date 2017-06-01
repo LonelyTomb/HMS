@@ -47,12 +47,47 @@ class Patient extends User
 	 * @param string $surname
 	 * @param string $otherNames
 	 * @param string $gender
+	 * @param  $dob
 	 * @param string $address
 	 * @param string $phoneNumber
 	 * @param string $email
 	 * @return $this
 	 */
-	public function createPatient(string $surname, string $otherNames, string $gender, string $dob, string $address, string $phoneNumber, string $email)
+	public function registerAsPatient(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, $dob, string $email)
+	{
+
+		parent::setSurname($surname);
+		parent::setOtherNames($otherNames);
+		parent::setGender($gender);
+		parent::setAddress($address);
+		parent::setPhoneNumber($phoneNumber);
+		$this->setDateOfBirth($dob);
+		parent::setEmail($email);
+
+		DB::_db()->insert('pending_registration', [
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'gender' => parent::getGender(),
+			'address' => parent::getAddress(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'date_of_birth' => $this->getDateOfBirth(),
+			'email' => parent::getEmail(),
+			'type' => parent::getType()
+		]);
+		return $this;
+	}
+
+	/**
+	 * @param string $surname
+	 * @param string $otherNames
+	 * @param string $gender
+	 * @param $dob
+	 * @param string $address
+	 * @param string $phoneNumber
+	 * @param string $email
+	 * @return $this
+	 */
+	public function createPatient(string $surname, string $otherNames, string $gender, $dob, string $address, string $phoneNumber, string $email)
 	{
 		parent::setUserId('patients', 'PAT');
 		parent::setPassword($surname);
@@ -83,6 +118,10 @@ class Patient extends User
 		return $this;
 	}
 
+	public function getAllPatients()
+	{
+		return DB::_db()->select('patients', '*');
+	}
 
 	/**
 	 * Gets Patient PatientId
@@ -165,7 +204,7 @@ class Patient extends User
 	{
 		$patientId = $this->getUsernameDb($id, 'patient');
 		DB::_db()->update('appointments', ['status' => 'Confirmed'], ['id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
-		DB::_db()->insert('diagnosis', ['appointment_id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
+		DB::_db()->insert('consultations', ['appointment_id' => $aptId, 'patientId' => $patientId, 'doctorId' => $doctorId]);
 	}
 
 

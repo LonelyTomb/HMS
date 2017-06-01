@@ -96,7 +96,7 @@ use HMS\Processor\{
                                     Doctor</a>
                             </li>
                             <li class="<?php Functions::toggleActive('viewSpecialist'); ?>"><a
-                                        href=<?php echo Site::getRoot() . 'Views/Admin/create/?createSpecialist'; ?>>View
+                                        href=<?php echo Site::getRoot() . 'Views/Admin/view/?viewSpecialist'; ?>>View
                                     Specialist</a></li>
                         </ul>
                     </li>

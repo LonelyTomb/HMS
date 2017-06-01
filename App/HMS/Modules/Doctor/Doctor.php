@@ -26,6 +26,41 @@ class Doctor extends User
 	}
 
 	/**
+	 *
+	 * @param string $surname
+	 * @param string $otherNames
+	 * @param string $gender
+	 * @param string $address
+	 * @param string $phoneNumber
+	 * @param string $email
+	 * @param $daysAvailable
+	 * @return $this
+	 */
+	public function registerAsDoctor(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, $daysAvailable)
+	{
+
+		parent::setSurname($surname);
+		parent::setOtherNames($otherNames);
+		parent::setPhoneNumber($phoneNumber);
+		parent::setGender($gender);
+		parent::setAddress($address);
+		parent::setEmail($email);
+		$this->daysAvailable = $daysAvailable;
+
+		DB::_db()->insert('pending_registration', [
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'gender' => parent::getGender(),
+			'address' => parent::getAddress(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'email' => parent::getEmail(),
+			'daysAvailable' => $this->daysAvailable,
+			'type' => parent::getType()
+		]);
+		return $this;
+	}
+
+	/**
 	 * Doctor Creation function
 	 *
 	 * @param string $surname

@@ -12,7 +12,7 @@ if (Input::exists()) {
 	$validator = new Validator();
 
 	$rules = [
-		'surname' => 'required',
+		'surname' => 'required|min:2',
 		'otherNames' => 'required|min:2',
 		'email' => 'required|min:4|unique:patients.email',
 		'phoneNumber' => 'required',
@@ -24,7 +24,6 @@ if (Input::exists()) {
 		$surname = Functions::escape(Input::catch ('surname'));
 		$otherNames = Functions::escape(Input::catch ('otherNames'));
 		$dob = new Carbon(Functions::escape(Input::catch ('dob')));
-//		$dob = $dob->format('Y-m-d');
 		$email = Functions::escape(Input::catch ('email'));
 		$phoneNumber = Functions::escape(Input::catch ('phoneNumber'));
 		$address = Functions::escape(Input::catch ('address'));

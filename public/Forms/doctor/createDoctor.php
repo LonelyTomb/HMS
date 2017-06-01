@@ -31,8 +31,6 @@ if (Input::exists()) {
 		Functions::jGrowl(['message' => 'Success', 'theme' => 'bg-success alert-styled-right alert-arrow-right']);
 	} else {
 		Errors::allErrors($validator->getErrors(), 'jGrowl');
-
-
 	}
 }
 

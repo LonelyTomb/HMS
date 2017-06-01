@@ -54,9 +54,16 @@ require __DIR__ . '/navbar.php';
                         <h4><?php
 							if (!Input::exists('get')) {
 								echo 'Dashboard';
-							} elseif (Input::getExists('createAdmin')) {
-								echo 'Create Admin';
 							}
+	                        if (Input::getExists('createAdmin')) {
+		                        echo 'Create Admin';
+	                        } elseif (Input::getExists('createPatient')) {
+		                        echo 'Create Patient';
+	                        } elseif (Input::getExists('createDoctor')) {
+		                        echo 'Create Doctor';
+	                        } elseif (Input::getExists('createSpecialist')) {
+		                        echo 'Create Specialist';
+	                        }
 							?></h4>
                     </div>
                 </div>
@@ -64,7 +71,7 @@ require __DIR__ . '/navbar.php';
                 <div class="breadcrumb-line breadcrumb-line-component">
                     <ul class="breadcrumb">
                         <li><a href="index.php"><i class="icon-home2 position-left"></i> Home</a></li>
-                        <li class="active">Starters</li>
+                        <li class="active">Dashboard</li>
 
                     </ul>
 

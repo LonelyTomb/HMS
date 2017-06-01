@@ -356,7 +356,7 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	public function getAllConfirmedAppt(string $username, string $type): array
 	{
 		$type = $type === 'patient' ? $type : 'doctor';
-		return DB::_db()->select('diagnosis', '*', ["{$type}Id" => $username, 'ORDER' => ['id' => 'DESC']]);
+		return DB::_db()->select('consultations', '*', ["{$type}Id" => $username, 'ORDER' => ['id' => 'DESC']]);
 	}
 
 	/**

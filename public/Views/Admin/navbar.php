@@ -3,6 +3,8 @@ use HMS\Processor\{
 	Sessions, Site
 };
 
+use Carbon\Carbon;
+
 ?>
 
 <!-- Main navbar -->
@@ -24,7 +26,16 @@ use HMS\Processor\{
         </ul>
 
         <div class="navbar-right">
-            <p class="navbar-text text-capitalize">Morning, <?php echo Sessions::get('user/username') ?></p>
+            <p class="navbar-text text-capitalize"><?php
+		        $time = Carbon::now(); ?>
+		        <?php if ($time->hour < 12): ?>
+                    Morning,
+		        <?php elseif ($time->hour >= 12 && $time->hour < 17): ?>
+                    Afternoon,
+		        <?php elseif ($time->hour >= 17 && $time->hour < 19): ?>
+                    Evening,
+		        <?php endif ?>
+		        <?php echo Sessions::get('user/username') ?></p>
             <p class="navbar-text"><span class="label bg-success">Online</span></p>
 
         </div>

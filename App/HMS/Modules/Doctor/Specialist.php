@@ -25,6 +25,30 @@ class Specialist extends User
 		parent::setType('specialist');
 	}
 
+	public function registerAsSpecialist(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients)
+	{
+
+		parent::setSurname($surname);
+		parent::setOtherNames($otherNames);
+		parent::setGender($gender);
+		parent::setAddress($address);
+		parent::setPhoneNumber($phoneNumber);
+		parent::setEmail($email);
+		$this->setMaxPatients($maxPatients);
+
+		DB::_db()->insert('pending_registration', [
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'gender' => parent::getGender(),
+			'address' => parent::getAddress(),
+			'email' => parent::getEmail(),
+			'maxPatients' => $this->getMaxPatients(),
+			'type' => parent::getType()
+		]);
+		return $this;
+	}
+
 	/**
 	 * @param string $surname
 	 * @param string $otherNames
@@ -100,8 +124,7 @@ class Specialist extends User
 	 */
 	public function getSpecialists(): array
 	{
-		$doctors = DB::_db()->select('specialists', '*');
-		return $doctors;
+		return DB::_db()->select('specialists', '*');
 	}
 
 	/**

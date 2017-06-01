@@ -35,4 +35,9 @@ class Admin extends User
 		);
 		return $this;
 	}
+
+	public function getAllAdmin()
+	{
+		return DB::_db()->select('users', '*', ['type' => 'admin']);
+	}
 }

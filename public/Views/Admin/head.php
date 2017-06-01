@@ -43,3 +43,12 @@ use HMS\Processor\Site;
         src="<?php echo Site::getRoot(); ?>Views/Admin/assets/js/plugins/forms/inputs/autosize.min.js"></script>
 <script type="text/javascript"
         src="<?php echo Site::getRoot(); ?>Views/Admin/assets/js/plugins/forms/selects/select2.min.js"></script>
+<!--/Form JS files-->
+
+<!--Pagination JS files-->
+<!--<script type="text/javascript"-->
+<!--        src="--><?php //echo Site::getRoot(); ?><!--Views/Admin/assets/js/plugins/pagination/bootpag.min.js"></script>-->
+<!--<script type="text/javascript"-->
+<!--        src="--><?php //echo Site::getRoot(); ?><!--Views/Admin/assets/js/plugins/pagination/bs_pagination.min.js"></script>-->
+<!--<script type="text/javascript" src="--><?php //echo Site::getRoot(); ?><!--Views/Admin/assets/js/pages/components_pagination.js"></script>-->
+<!--/Pagination JS files-->

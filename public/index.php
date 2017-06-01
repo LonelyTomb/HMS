@@ -2,7 +2,7 @@
 require "../vendor/autoload.php";
 
 use HMS\Processor\{
-	Auth, Site
+	Auth, Site, Input
 };
 
 Auth::loginBySession();
@@ -24,7 +24,15 @@ Auth::loginBySession();
 <main>
     <p class="clearfix"></p>
 	<?php
-	require 'Forms/login.php';
+	if (!Input::exists('get')) {
+		include 'Forms/login.php';
+	} elseif (Input::getExists('register') && Input::getExists('patient')) {
+		include 'Forms/patient/registerAsPatient.php';
+	} elseif (Input::getExists('register') && Input::getExists('specialist')) {
+		include 'Forms/doctor/registerAsSpecialist.php';
+	} elseif (Input::getExists('register') && Input::getExists('doctor')) {
+		include 'Forms/doctor/registerAsDoctor.php';
+	}
 
 	?>
 </main>
