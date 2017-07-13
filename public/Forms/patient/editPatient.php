@@ -27,6 +27,7 @@ if (Input::exists()) {
 		$gender = Functions::escape(Input::catch ('gender'));
 		$address = Functions::escape(Input::catch ('address'));
         $dob = new Carbon(Functions::escape(Input::catch ('dob')));
+		$dob = $dob->format('Y-m-d');
 		$patient = new Patient();
         $patient->updatePatient($patientId,$surname, $otherNames, $gender, $dob, $address, $phoneNumber, $email);
 		Functions::jGrowl(['message' => 'Success', 'theme' => 'bg-success alert-styled-right alert-arrow-right']);

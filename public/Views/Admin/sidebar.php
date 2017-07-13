@@ -62,6 +62,20 @@ use HMS\Processor\{
                                     Specialist</a></li>
                         </ul>
                     </li>
+	                <li>
+		                <a href="#"><i class="icon-database-add"></i> <span>Register</span></a>
+		                <ul>
+			                <li class="<?php Functions::toggleActive('createPatient'); ?>"><a
+						                href=<?php echo Site::getRoot() . 'Views/Admin/register/?registerPatient'; ?>>Register Pending
+					                Patients</a></li>
+			                <li class="<?php Functions::toggleActive('createDoctor'); ?>"><a
+						                href=<?php echo Site::getRoot() . 'Views/Admin/register/?registerDoctor'; ?>>Register Pending
+					                Doctors</a></li>
+			                <li class="<?php Functions::toggleActive('createSpecialist'); ?>"><a
+						                href=<?php echo Site::getRoot() . 'Views/Admin/register/?registerSpecialist'; ?>>Register Pending
+					                Specialists</a></li>
+		                </ul>
+	                </li>
                     <li>
                         <a href="#"><i class="icon-database-edit2"></i> <span>Edit</span></a>
                         <ul>

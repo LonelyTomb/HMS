@@ -20,7 +20,7 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
 <html lang="en">
 
 <head>
-	<?php Site::setPageTitle('Admin'); ?>
+	<?php Site::setPageTitle('Edit Modules -- Admin'); ?>
     <title><?php Site::getPageTitle(); ?></title>
 	<?php Site::reqAbs('Views/Admin/head.php'); ?>
 
@@ -49,7 +49,7 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
             src="<?php echo Site::getRoot(); ?>Views/Admin/assets/js/plugins/forms/styling/switchery.min.js"></script>
 
 <style>
-        .datatable-scroll{
+        .datatable-scroll,.datatable-basic{
             width: 100%;
             overflow-x: scroll;
         }
@@ -121,12 +121,8 @@ Site::reqAbs('Views/Admin/navbar.php');
                 </div>
             </div>
             <!-- /page header -->
-
-
             <!-- Content area -->
             <div class="content">
-
-
 				<?php
 				if (Input::getExists('editAdmin')) {
 					Site::reqAbs('Forms/admin/editAdmin.php');
@@ -138,7 +134,6 @@ Site::reqAbs('Views/Admin/navbar.php');
 
 				} elseif (Input::getExists('editSpecialist')) {
 					Site::reqAbs('Forms/doctor/editSpecialist.php');
-
 				}
 				?>
                 <!-- Footer -->

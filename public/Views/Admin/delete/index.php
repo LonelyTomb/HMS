@@ -19,10 +19,25 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
 <html lang="en">
 
 <head>
-	<?php Site::setPageTitle('Admin'); ?>
+	<?php Site::setPageTitle('Delete Modules -- Admin'); ?>
     <title><?php Site::getPageTitle(); ?></title>
     <?php Site::reqAbs('Views/Admin/head.php');?>
 
+	<!--    Data Tables JS files-->
+	<script type="text/javascript"
+	        src="<?php echo Site::getRoot(); ?>Views/Admin/assets/js/plugins/tables/datatables/datatables.min.js"></script>
+	<script type="text/javascript"
+	        src="<?php echo Site::getRoot(); ?>Views/Admin/assets/js/pages/datatables_extension_select.js"></script>
+	<script type="text/javascript"
+	        src="<?php echo Site::getRoot(); ?>Views/Admin/assets/js/pages/datatables_basic.js"></script>
+	<!-- /   Data Tables JS files-->
+
+	<style>
+		.datatable-scroll,.datatable-basic{
+			width: 100%;
+			overflow-x: scroll;
+		}
+	</style>
 </head>
 <body class="navbar-top">
 <!-- Main navbar -->
@@ -55,8 +70,14 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
                         <h4><?php
                         if(!Input::exists('get')){
                             echo 'Dashboard';
-                        }elseif(Input::getExists('createAdmin')){
-                            echo 'Create Admin';
+                        }elseif(Input::getExists('deleteAdmin')){
+                            echo 'Delete Admin';
+                        }elseif(Input::getExists('deleteDoctor')){
+	                        echo 'Delete Doctor';
+                        }elseif(Input::getExists('deletePatient')){
+	                        echo 'Delete Patient';
+                        }elseif(Input::getExists('deleteSpecialist')){
+	                        echo 'Delete Specialist';
                         }
                             ?></h4>
                     </div>
@@ -64,8 +85,20 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
 
                 <div class="breadcrumb-line breadcrumb-line-component">
                     <ul class="breadcrumb">
-                        <li><a href="index.php"><i class="icon-home2 position-left"></i> Home</a></li>
-                        <li class="active">Starters</li>
+	                    <li><a href="index.php"><i class="icon-home2 position-left"></i> Home</a></li>
+	                    <li><a href="index.php">Delete</a></li>
+	                    <li class="active">
+		                    <?php
+		                    if (Input::getExists('deleteAdmin')) {
+			                    echo 'Delete Admin';
+		                    } elseif (Input::getExists('deletePatient')) {
+			                    echo 'Delete Patient';
+		                    } elseif (Input::getExists('deleteDoctor')) {
+			                    echo 'Delete Doctor';
+		                    } elseif (Input::getExists('deleteSpecialist')) {
+			                    echo 'Delete Specialist';
+		                    }
+		                    ?></li>
 
                     </ul>
 
@@ -76,6 +109,20 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
 
             <!-- Content area -->
             <div class="content">
+	            <?php
+	            if (Input::getExists('deleteAdmin')) {
+		            Site::reqAbs('Forms/admin/deleteAdmin.php');
+	            } elseif (Input::getExists('deletePatient')) {
+		            Site::reqAbs('Forms/patient/deletePatient.php');
+
+	            } elseif (Input::getExists('deleteDoctor')) {
+		            Site::reqAbs('Forms/doctor/deleteDoctor.php');
+
+	            } elseif (Input::getExists('deleteSpecialist')) {
+		            Site::reqAbs('Forms/doctor/deleteSpecialist.php');
+
+	            }
+	            ?>
 
                 <!-- Footer -->
                 <?php

@@ -28,6 +28,25 @@ class User
 		return DB::_db()->get('users', '*', ['username' => $username]);
 	}
 
+	public function deleteUser(string $username, string $type)
+	{
+		if ($type == 'admin') {
+			DB::_db()->delete('users', ["id" => $username]);
+		} else {
+			DB::_db()->delete("{$type}s", ["{$type}Id" => $username]);
+		}
+	}
+
+	public function getPendingUsers(string $type)
+	{
+		return DB::_db()->select('pending_registration', '*', ['type' => $type]);
+	}
+
+	public function deletePendingUser(string $email)
+	{
+		DB::_db()->delete('pending_registration', ["email" => $email]);
+	}
+
 	/**
 	 * Get User Id
 	 *
@@ -411,4 +430,6 @@ AND TABLE_NAME = '{$table}'")->fetch();
 			"{$table}Id" => $id
 		]);
 	}
+
+
 }

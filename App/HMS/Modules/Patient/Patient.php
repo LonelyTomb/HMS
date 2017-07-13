@@ -128,12 +128,6 @@ class Patient extends User
 		parent::setEmail($email);
 		$this->setDateOfBirth($dob);
 
-		DB::_db()->update('users', [
-				'username' => $patientId
-			],[
-				'username' => $patientId
-			]
-		);
 		DB::_db()->update('patients', [
 			'surname' => parent::getSurname(),
 			'otherNames' => parent::getOtherNames(),
@@ -152,6 +146,7 @@ class Patient extends User
 	{
 		return DB::_db()->select('patients', '*');
 	}
+
 
 	/**
 	 * Gets Patient PatientId

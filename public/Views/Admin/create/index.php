@@ -20,7 +20,7 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
 <html lang="en">
 
 <head>
-	<?php Site::setPageTitle('Admin'); ?>
+	<?php Site::setPageTitle('Create Modules -- Admin'); ?>
     <title><?php Site::getPageTitle(); ?></title>
 	<?php Site::reqAbs('Views/Admin/head.php'); ?>
 

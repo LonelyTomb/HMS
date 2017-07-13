@@ -154,5 +154,3 @@ if (Input::exists()) {
 <script>
 
 </script>
-
-

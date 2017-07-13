@@ -21,7 +21,7 @@ $adminDetails = $admin->getUserFromDb(Sessions::get('user/username'));
 <html lang="en">
 
 <head>
-	<?php Site::setPageTitle('Admin - Edit Module'); ?>
+	<?php Site::setPageTitle('Admin - Edit Modules'); ?>
     <title><?php Site::getPageTitle(); ?></title>
 
 	<?php Site::reqAbs('Views/Admin/head.php'); ?>

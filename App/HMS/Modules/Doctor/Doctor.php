@@ -132,7 +132,6 @@ class Doctor extends User
 		return DB::_db()->select('doctors', '*');
 	}
 
-	
 
 	/**
 	 * @param string $username

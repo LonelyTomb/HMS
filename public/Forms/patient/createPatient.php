@@ -28,7 +28,7 @@ if (Input::exists()) {
 		$phoneNumber = Functions::escape(Input::catch ('phoneNumber'));
 		$address = Functions::escape(Input::catch ('address'));
 		$gender = Functions::escape(Input::catch ('gender'));
-
+		$dob = $dob->format('Y-m-d');
 		$patient = new Patient();
 		$patient->createPatient($surname, $otherNames, $gender, $dob, $address, $phoneNumber, $email);
 		Functions::jGrowl(['message' => 'Success', 'theme' => 'bg-success alert-styled-right alert-arrow-right']);

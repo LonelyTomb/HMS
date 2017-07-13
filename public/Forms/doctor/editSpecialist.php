@@ -58,7 +58,9 @@ if (Input::exists()) {
                 <th>Specialist Id</th>
                 <th>Surname</th>
                 <th>Other Names</th>
+	                <th>Specialization</th>
                 <th>Gender</th>
+
                 <th>Address</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
