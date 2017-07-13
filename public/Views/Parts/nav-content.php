@@ -22,15 +22,16 @@ $type = Sessions::get('user/type') === 'patient' ? ucfirst(Sessions::get('user/t
                             class="material-icons left">today</i>Appointment</a>
             </li>
             <li>
-                <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>
+                <a href="<?php echo Site::getRoot(); ?>Views/<?php echo $type ?>/details/"><i class="material-icons left">person</i>My Details</a>
             </li>
             <li>
                 <a href="<?php echo Site::getRoot(); ?>Views/<?php echo $type ?>/treatments/"><i
                             class="material-icons left">local_hospital</i>Treatment</a>
             </li>
+            <?php if (Sessions::get('user/type') == 'patient') echo "
             <li>
-                <a href="#"><i class="material-icons left">sms_failed</i>Feedback</a>
-            </li>
+                <a href='".Site::getRoot()."Views/{$type}/feedback/'><i class='material-icons left'>sms_failed</i>Feedback</a>
+            </li>"; ?>
         </ul>
 		<?php if (Sessions::exists('loggedIn')): ?>
             <a href="?logOut"
@@ -50,13 +51,14 @@ $type = Sessions::get('user/type') === 'patient' ? ucfirst(Sessions::get('user/t
                     class="material-icons left">today</i>Appointment</a>
     </li>
     <li>
-        <a href="#"><i class="material-icons left">person</i>Client/Enrollee Details</a>
+        <a href="<?php echo Site::getRoot(); ?>Views/<?php echo $type ?>/details/"><i class="material-icons left">person</i>My Details</a>
     </li>
     <li>
         <a href="<?php echo Site::getRoot(); ?>Views/<?php echo $type ?>/treatments/"><i class="material-icons left">local_hospital</i>Treatment</a>
     </li>
+    <?php if (Sessions::get('user/type') == 'patient') echo "
     <li>
-        <a href="#"><i class="material-icons left">sms_failed</i>Feedback</a>
-    </li>
-
+        <a href='".Site::getRoot()."Views/{$type}/feedback/'><i class='material-icons left'>sms_failed</i>Feedback</a>
+    </li>";
+    ?>
 </ul>

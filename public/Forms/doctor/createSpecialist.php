@@ -22,13 +22,14 @@ if (Input::exists()) {
 	if ($validator->validate($_POST, $rules)) {
 		$surname = Functions::escape(Input::catch ('surname'));
 		$otherNames = Functions::escape(Input::catch ('otherNames'));
+        $specialization = Functions::escape(Input::catch ('specialization'));
 		$email = Functions::escape(Input::catch ('email'));
 		$phoneNumber = Functions::escape(Input::catch ('phoneNumber'));
 		$gender = Functions::escape(Input::catch ('gender'));
 		$address = Functions::escape(Input::catch ('address'));
 		$maxPatients = Functions::escape(Input::catch ('maxPatients'));
 		$specialist = new Specialist();
-		$specialist->createSpecialist($surname, $otherNames, $gender, $address, $phoneNumber, $email, $maxPatients);
+		$specialist->createSpecialist($surname, $otherNames,$specialization, $gender, $address, $phoneNumber, $email, $maxPatients);
 		Functions::jGrowl(['message' => 'Success', 'theme' => 'bg-success alert-styled-right alert-arrow-right']);
 	} else {
 		Errors::allErrors($validator->getErrors(), 'jGrowl');
@@ -61,6 +62,15 @@ if (Input::exists()) {
                     <div class="row">
                         <input type="text" class="form-control" id="otherNames" placeholder="Please Enter Other Names"
                                name="otherNames" value="<?php echo Input::catch ('otherNames'); ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="specialization" class="control-label col-sm-2">Specialization</label>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <input type="text" class="form-control" id="specialization" placeholder="Please Enter Specialization"
+                               name="specialization" value="<?php echo Input::catch ('specialization'); ?>">
                     </div>
                 </div>
             </div>

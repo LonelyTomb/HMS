@@ -22,10 +22,12 @@ Auth::loginBySession();
 	?>
 </header>
 <main>
-    <p class="clearfix"></p>
+	<p class="clearfix"></p>
 	<?php
 	if (!Input::exists('get')) {
 		include 'Forms/login.php';
+	} elseif (Input::getExists('reset')) {
+		include "Forms/reset.php";
 	} elseif (Input::getExists('register') && Input::getExists('patient')) {
 		include 'Forms/patient/registerAsPatient.php';
 	} elseif (Input::getExists('register') && Input::getExists('specialist')) {

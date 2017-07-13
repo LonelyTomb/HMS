@@ -17,6 +17,7 @@ return array(
     'EasyPeasyICS' => $vendorDir . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
     'HMS\\Database\\Config' => $baseDir . '/App/HMS/Database/Config.php',
     'HMS\\Database\\Database' => $baseDir . '/App/HMS/Database/Database.php',
+    'HMS\\Mail' => $baseDir . '/App/HMS/Processor/Mail.php',
     'HMS\\Modules\\Admin\\Admin' => $baseDir . '/App/HMS/Modules/Admin/Admin.php',
     'HMS\\Modules\\Doctor\\Doctor' => $baseDir . '/App/HMS/Modules/Doctor/Doctor.php',
     'HMS\\Modules\\Doctor\\Specialist' => $baseDir . '/App/HMS/Modules/Doctor/Specialist.php',

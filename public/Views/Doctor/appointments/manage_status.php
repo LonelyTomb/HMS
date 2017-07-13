@@ -15,13 +15,13 @@ if (Input::exists()) {
 	$status = Functions::escape(Input::catch ('status'));
 	$daysAvailable = empty(Input::catch ('daysAvailable')) ? null : Jasonify::toJson(Input::catch ('daysAvailable'));
 	$maxPatients = Functions::escape(Input::catch ('maxPatients'));
-
+//Functions::debug($_POST);
 	if (Sessions::get('user/type') === 'doctor') {
 		$noOfUpdates = $doctor->saveOptions(Sessions::get('user/username'), $status, $daysAvailable);
 	} elseif (Sessions::get('user/type') === 'specialist') {
 		$noOfUpdates = $doctor->saveOptions(Sessions::get('user/username'), $status, $maxPatients);
 	}
-	if ($noOfUpdates > 0) {
+	if ($noOfUpdates->rowCount() > 0) {
 		Functions::toast('Success');
 	} else {
 		Functions::toast('No Changes Made');

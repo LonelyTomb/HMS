@@ -25,7 +25,7 @@ class Specialist extends User
 		parent::setType('specialist');
 	}
 
-	public function registerAsSpecialist(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients)
+	public function registerAsSpecialist(string $surname, string $otherNames, string $specialization, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients)
 	{
 
 		parent::setSurname($surname);
@@ -39,6 +39,7 @@ class Specialist extends User
 		DB::_db()->insert('pending_registration', [
 			'surname' => parent::getSurname(),
 			'otherNames' => parent::getOtherNames(),
+			'specialization'=>$specialization,
 			'phoneNumber' => parent::getPhoneNumber(),
 			'gender' => parent::getGender(),
 			'address' => parent::getAddress(),
@@ -59,7 +60,7 @@ class Specialist extends User
 	 * @param string $maxPatients
 	 * @return $this
 	 */
-	public function createSpecialist(string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients)
+	public function createSpecialist(string $surname, string $otherNames, string $specialization, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients)
 	{
 
 		parent::setUserId('specialists', 'SPE');
@@ -83,6 +84,7 @@ class Specialist extends User
 			'specialistId' => parent::getUserId(),
 			'surname' => parent::getSurname(),
 			'otherNames' => parent::getOtherNames(),
+			'specialization'=>$specialization,
 			'phoneNumber' => parent::getPhoneNumber(),
 			'gender' => parent::getGender(),
 			'address' => parent::getAddress(),
@@ -90,6 +92,31 @@ class Specialist extends User
 			'maxPatients' => $this->getMaxPatients(),
 		]);
 		return $this;
+	}
+
+	public function updateSpecialist($specialistId, string $surname, string $otherNames, string $specialization, string $gender, string $address, string $phoneNumber, string $email, string $maxPatients="")
+	{
+
+		parent::setSurname($surname);
+		parent::setOtherNames($otherNames);
+		parent::setGender($gender);
+		parent::setAddress($address);
+		parent::setPhoneNumber($phoneNumber);
+		parent::setEmail($email);
+		$this->setMaxPatients($maxPatients);
+
+		return DB::_db()->update('specialists', [
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'specialization'=>$specialization,
+			'phoneNumber' => parent::getPhoneNumber(),
+			'gender' => parent::getGender(),
+			'address' => parent::getAddress(),
+			'email' => parent::getEmail(),
+			'maxPatients' => $this->getMaxPatients(),
+		],[
+				'specialistId' => $specialistId
+		]);
 	}
 
 	/**
@@ -166,7 +193,7 @@ class Specialist extends User
 
 	public function saveOptions(string $username, string $status, $maxPatients)
 	{
-		return DB::_db()->update('specialists', ['status' => $status, 'maxPatients' => $maxPatients], ['specialistId' => $username]);
+		return DB::_db()->update('specialists', ['maxPatients' => $maxPatients,'status' => $status], ['specialistId' => $username]);
 	}
 
 }

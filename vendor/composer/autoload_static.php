@@ -83,6 +83,7 @@ class ComposerStaticInit6ec2abf012af9748cb0388b5016a9d77
         'EasyPeasyICS' => __DIR__ . '/..' . '/phpmailer/phpmailer/extras/EasyPeasyICS.php',
         'HMS\\Database\\Config' => __DIR__ . '/../..' . '/App/HMS/Database/Config.php',
         'HMS\\Database\\Database' => __DIR__ . '/../..' . '/App/HMS/Database/Database.php',
+        'HMS\\Mail' => __DIR__ . '/../..' . '/App/HMS/Processor/Mail.php',
         'HMS\\Modules\\Admin\\Admin' => __DIR__ . '/../..' . '/App/HMS/Modules/Admin/Admin.php',
         'HMS\\Modules\\Doctor\\Doctor' => __DIR__ . '/../..' . '/App/HMS/Modules/Doctor/Doctor.php',
         'HMS\\Modules\\Doctor\\Specialist' => __DIR__ . '/../..' . '/App/HMS/Modules/Doctor/Specialist.php',

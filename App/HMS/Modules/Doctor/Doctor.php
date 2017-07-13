@@ -21,7 +21,9 @@ class Doctor extends User
 	 */
 	public function __construct()
 	{
+
 		parent::setType('doctor');
+		
 
 	}
 
@@ -104,6 +106,21 @@ class Doctor extends User
 		]);
 		return $this;
 	}
+	public function updateDoctor($doctorId, string $surname, string $otherNames, string $gender, string $address, string $phoneNumber, string $email, string $status)
+	{
+
+		return DB::_db()->update('doctors', [
+			'surname' => $surname,
+			'otherNames' => $otherNames,
+			'gender' => $gender,
+			'address' => $address,
+			'phoneNumber' => $phoneNumber,
+			'email' => $email,
+			'status' => $status
+		],[
+			'doctorId'=>$doctorId
+		]);
+	}
 
 	/**
 	 * Get All Doctors
@@ -114,6 +131,8 @@ class Doctor extends User
 	{
 		return DB::_db()->select('doctors', '*');
 	}
+
+	
 
 	/**
 	 * @param string $username

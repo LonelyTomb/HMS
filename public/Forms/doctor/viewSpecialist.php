@@ -28,6 +28,7 @@ $count = 0;
                 <th>Specialist Id</th>
                 <th>Surname</th>
                 <th>Other Names</th>
+                <th>Specialization</th>
                 <th>Gender</th>
                 <th>Address</th>
                 <th>Phone Number</th>
@@ -43,6 +44,7 @@ $count = 0;
                     <td><?php echo $specialist['specialistId']; ?></td>
                     <td><?php echo $specialist['surname']; ?></td>
                     <td><?php echo $specialist['otherNames']; ?></td>
+                    <td><?php echo $specialist['specialization']; ?></td>
                     <td><?php echo $specialist['gender']; ?></td>
                     <td><?php echo $specialist['address']; ?></td>
                     <td><?php echo $specialist['phoneNumber']; ?></td>

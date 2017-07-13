@@ -4,5 +4,5 @@ test.php
 .vscode
 .idea
 .htaccess
-composer.lock
+composer.json
 

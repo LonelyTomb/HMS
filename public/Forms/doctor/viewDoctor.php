@@ -25,7 +25,7 @@ $count = 0;
             <thead>
             <tr>
                 <th>No</th>
-                <th>Patient Id</th>
+                <th>Doctor Id</th>
                 <th>Surname</th>
                 <th>Other Names</th>
                 <th>Gender</th>

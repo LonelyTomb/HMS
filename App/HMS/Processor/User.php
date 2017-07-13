@@ -29,6 +29,16 @@ class User
 	}
 
 	/**
+	 * Get User Id
+	 *
+	 * @return string
+	 */
+	public function getUserId(): string
+	{
+		return $this->userId;
+	}
+
+	/**
 	 * generate User id
 	 *
 	 * @param string $table
@@ -48,16 +58,6 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Get User Id
-	 *
-	 * @return string
-	 */
-	public function getUserId(): string
-	{
-		return $this->userId;
-	}
-
-	/**
 	 * Get User Username in Db
 	 *
 	 * @param string $id
@@ -67,6 +67,16 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	public function getUsernameDb(string $id, string $table): string
 	{
 		return DB::_db()->get("{$table}s", "{$table}id", ['id' => $id]);
+	}
+
+	/**
+	 * Get username
+	 *
+	 * @return string
+	 */
+	public function getUsername(): string
+	{
+		return $this->username;
 	}
 
 	/**
@@ -81,13 +91,13 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Get username
+	 * Gets User Type
 	 *
 	 * @return string
 	 */
-	public function getUsername(): string
+	public function getType(): string
 	{
-		return $this->username;
+		return $this->type;
 	}
 
 	/**
@@ -102,22 +112,22 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Gets User Type
-	 *
-	 * @return string
-	 */
-	public function getType(): string
-	{
-		return $this->type;
-	}
-
-	/**
 	 * @param string $username
 	 * @return string
 	 */
 	public function getUserTypeDb(string $username): string
 	{
 		return DB::_db()->get('users', 'type', ['username' => "$username"]);
+	}
+
+	/**
+	 * Gets User Password
+	 *
+	 * @return string
+	 */
+	public function getPassword(): string
+	{
+		return $this->password;
 	}
 
 	/**
@@ -132,13 +142,44 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Gets User Password
+	 * Reset User Password
+	 *
+	 * @param string $username
+	 * @param string $email
+	 * @param string $password
+	 * @return bool
+	 */
+	public function resetPassword(string $username, string $email, string $password): bool
+	{
+		$status = false;
+		$userType = DB::_db()->get('users', 'type', [
+			'username' => $username]);
+		if ($userType && $userType != 'admin') {
+			$emailDB = DB::_db()->get("{$userType}s", 'email', [
+				"{$userType}Id" => $username
+			]);
+			if ($emailDB && $email === $emailDB) {
+				$new_password = password_hash($password, PASSWORD_DEFAULT);
+				DB::_db()->update('users', [
+					'password' => $new_password
+				], [
+					'username' => $username
+				]);
+				$status = true;
+			}
+			return $status;
+		}
+		return $status;
+	}
+
+	/**
+	 * Gets User Surname
 	 *
 	 * @return string
 	 */
-	public function getPassword(): string
+	public function getSurname(): string
 	{
-		return $this->password;
+		return $this->surname;
 	}
 
 	/**
@@ -150,16 +191,6 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	public function setSurname(string $surname)
 	{
 		$this->surname = $surname;
-	}
-
-	/**
-	 * Gets User Surname
-	 *
-	 * @return string
-	 */
-	public function getSurname(): string
-	{
-		return $this->surname;
 	}
 
 	/**
@@ -175,6 +206,16 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
+	 * Gets User OtherNames
+	 *
+	 * @return string
+	 */
+	public function getOtherNames(): string
+	{
+		return $this->otherNames;
+	}
+
+	/**
 	 * Sets User OtherNames
 	 *
 	 * @param string $otherNames
@@ -183,16 +224,6 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	public function setOtherNames(string $otherNames)
 	{
 		$this->otherNames = $otherNames;
-	}
-
-	/**
-	 * Gets User OtherNames
-	 *
-	 * @return string
-	 */
-	public function getOtherNames(): string
-	{
-		return $this->otherNames;
 	}
 
 	/**
@@ -206,6 +237,14 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getGender(): string
+	{
+		return $this->gender;
+	}
+
+	/**
 	 * @param string $gender
 	 */
 
@@ -215,11 +254,13 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
+	 * Gets User Address
+	 *
 	 * @return string
 	 */
-	public function getGender(): string
+	public function getAddress(): string
 	{
-		return $this->gender;
+		return $this->address;
 	}
 
 	/**
@@ -234,13 +275,13 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Gets User Address
+	 * Gets User PhoneNumber
 	 *
 	 * @return string
 	 */
-	public function getAddress(): string
+	public function getPhoneNumber(): string
 	{
-		return $this->address;
+		return $this->phoneNumber;
 	}
 
 	/**
@@ -255,13 +296,13 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Gets User PhoneNumber
+	 * Gets User Email
 	 *
 	 * @return string
 	 */
-	public function getPhoneNumber(): string
+	public function getEmail(): string
 	{
-		return $this->phoneNumber;
+		return $this->email;
 	}
 
 	/**
@@ -276,13 +317,13 @@ AND TABLE_NAME = '{$table}'")->fetch();
 	}
 
 	/**
-	 * Gets User Email
+	 * Get Status
 	 *
 	 * @return string
 	 */
-	public function getEmail(): string
+	public function getStatus(): string
 	{
-		return $this->email;
+		return $this->status;
 	}
 
 	/**
@@ -299,16 +340,6 @@ AND TABLE_NAME = '{$table}'")->fetch();
 			$this->status = 'Unavailable';
 		}
 
-	}
-
-	/**
-	 * Get Status
-	 *
-	 * @return string
-	 */
-	public function getStatus(): string
-	{
-		return $this->status;
 	}
 
 	/**
@@ -374,5 +405,10 @@ AND TABLE_NAME = '{$table}'")->fetch();
 		}
 	}
 
-
+	public function getDetail(String $id, String $table)
+	{
+		return DB::_db()->get("{$table}s", '*', [
+			"{$table}Id" => $id
+		]);
+	}
 }

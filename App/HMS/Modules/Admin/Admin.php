@@ -35,6 +35,21 @@ class Admin extends User
 		);
 		return $this;
 	}
+	
+		public function updateAdmin(string $id,string $username)
+	{
+		parent::setUsername($username);
+	
+		DB::_db()->update('users', [
+				'username' => parent::getUsername()
+				
+			],[
+				'id'=>$id
+			]
+		);
+		return $this;
+	}
+
 
 	public function getAllAdmin()
 	{

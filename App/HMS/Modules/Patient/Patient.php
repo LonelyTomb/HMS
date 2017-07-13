@@ -118,6 +118,36 @@ class Patient extends User
 		return $this;
 	}
 
+	public function updatePatient($patientId,string $surname, string $otherNames, string $gender, $dob, string $address, string $phoneNumber, string $email)
+	{
+		parent::setSurname($surname);
+		parent::setOtherNames($otherNames);
+		parent::setGender($gender);
+		parent::setAddress($address);
+		parent::setPhoneNumber($phoneNumber);
+		parent::setEmail($email);
+		$this->setDateOfBirth($dob);
+
+		DB::_db()->update('users', [
+				'username' => $patientId
+			],[
+				'username' => $patientId
+			]
+		);
+		DB::_db()->update('patients', [
+			'surname' => parent::getSurname(),
+			'otherNames' => parent::getOtherNames(),
+			'gender' => parent::getGender(),
+			'date_of_birth' => $this->getDateOfBirth(),
+			'address' => parent::getAddress(),
+			'phoneNumber' => parent::getPhoneNumber(),
+			'email' => parent::getEmail()
+		],[
+				'patientId' => $patientId
+			]);
+		return $this;
+	}
+
 	public function getAllPatients()
 	{
 		return DB::_db()->select('patients', '*');
